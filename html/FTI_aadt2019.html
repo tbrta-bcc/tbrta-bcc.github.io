@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tampa ABM statistics visulization</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+<!-- SEARCH CONTROL; XL: different css-->
+	<link rel="stylesheet" href="../src/leaflet-search.css" />
+
+
+	
+<!-- Chart.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+	
+	
+	<script src="http://code.jqiery.com/jquery.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js""></script>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	<script src="../js/l.control.geosearch.js"></script>
+	<script src="../js/l.geosearch.provider.google.js"></script>
+    <link rel="stylesheet" href="../css/l.geosearch.css" />
+    <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+    <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>	
+	
+   <!-- Main Style -->
+    <link rel="stylesheet" href="../css/fticount.css" />
+
+
+
+</head>
+
+<body>
+
+	<!-- Geojson -->		
+	<script type="text/javascript" src="../geojson/fti_aadt2019.geojson"></script>
+	
+	<!-- Leaflet Search Control XL: different js-->		
+	<script src="../src/leaflet-search.js"></script>
+
+
+	<!-- Layout -->	
+
+	<!-- Title -->
+
+	<nav class="navbar navbar-inverse navbar-fixed-top"> 
+		<div class="container-fluid">
+			<ul class="nav navbar-nav navbar-left">
+				<li><a href="#"> <h4 style="color: white"> FDOT District 7 FTI Historical AADT (2000-2019) </h4> </a></li>
+			</ul>
+		</div>
+	</nav>
+
+
+	
+	<!-- Map-->	
+	<div id="map"> </div>
+	
+
+	<div id="cosite_number">
+		<div class = "cosite"><h3>Cosite Number:&nbsp;</h3> </div>
+		<div class = "cosite"><h3 style="color: orange;" id='chartsta'> </h3> </div>
+	</div>
+	
+	<!-- Data Table-->
+	<div id="data_table">
+	
+		<h5> FTI Historical AADT Table (2000-2019) </h5>
+		<h5 hidden id="tablesta"> </h5>
+		<table class="table">
+			
+			<thead>
+			<tr>
+				<th>Year</th>
+				<th>AADT</th>
+				<th>Annual Growth Rate</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td class="year">2000</td>
+				<td id='2000'>0</td>
+				<td>NA</td>
+			</tr>
+			<tr>
+				<td class="year">2001</td>
+				<td id='2001'>0</td>
+				<td id='2001g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2002</td>
+				<td id='2002'>0</td>
+				<td id='2002g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2003</td>
+				<td id='2003'>0</td>
+				<td id='2003g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2004</td>
+				<td id='2004'>0</td>
+				<td id='2004g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2005</td>
+				<td id='2005'>0</td>
+				<td id='2005g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2006</td>
+				<td id='2006'>0</td>
+				<td id='2006g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2007</td>
+				<td id='2007'>0</td>
+				<td id='2007g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2008</td>
+				<td id='2008'>0</td>
+				<td id='2008g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2009</td>
+				<td id='2009'>0</td>
+				<td id='2009g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2010</td>
+				<td id='2010'>0</td>
+				<td id='2010g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2011</td>
+				<td id='2011'>0</td>
+				<td id='2011g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2012</td>
+				<td id='2012'>0</td>
+				<td id='2012g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2013</td>
+				<td id='2013'>0</td>
+				<td id='2013g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2014</td>
+				<td id='2014'>0</td>
+				<td id='2014g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2015</td>
+				<td id='2015'>0</td>
+				<td id='2015g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2016</td>
+				<td id='2016'>0</td>
+				<td id='2016g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2017</td>
+				<td id='2017'>0</td>
+				<td id='2017g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2018</td>
+				<td id='2018'>0</td>
+				<td id='2018g'>0</td>
+			</tr>
+			<tr>
+				<td class="year">2019</td>
+				<td id='2019'>0</td>
+				<td id='2019g'>0</td>
+			</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	
+	<!-- Data Chart-->	
+	<div id="data_chart">
+	
+		<h5>FTI Historical AADT Chart (2000-2019)</h5>
+		<br>
+		<canvas id="myChart"></canvas>
+		
+	</div>
+
+	
+	
+
+	<script type="text/javascript">
+	
+ 
+		var map = L.map('map').setView([28.23, -82.465], 9);
+		
+				
+		// Google Maps Layer, may not be able to add geojson
+		//var googleLayer = new L.Google('ROADMAP');
+        //map.addLayer(googleLayer);
+		
+		
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+			maxZoom: 16,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'mapbox.streets'
+		}).addTo(map);
+
+
+
+		
+		
+//Chart		
+//var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+	var LineChartData = {
+		labels : ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019"],
+		datasets : [
+			{			 
+				fillColor : "rgba(220,220,220,0.2)",
+				strokeColor : "#FDB45C",
+				pointColor: "#FDB45C",
+				pointHighlightFill: "#FFC870",
+				pointHighlightStroke: "#FFC870",
+				data : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+			}																
+		]
+	}
+	
+	
+		var ctx = document.getElementById("myChart").getContext("2d");
+		var myLineChart = new Chart(ctx).Line(LineChartData,{responsive: true,
+					pointDotStrokeWidth : 1,
+					pointDotRadius : 4,
+					datasetStrokeWidth : 2,
+					bezierCurve : true,
+					bezierCurveTension : 0.3,
+					});	
+
+			
+//Chart		
+//var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+
+
+	 
+
+
+// Update information inside division
+       var info_10 = L.control();
+		info_10.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info');
+			this.update();
+			return this._div;
+		};
+		info_10.update = function (props) {
+			this._div.innerHTML = '<h4 align="center">Tampa Bay Region</h4>' 
+				 + 'Enter a Cosite # in the Search Box left'+'<br><br>' 
+				 + (props ? '<b>'+'Cosite Number: ' + props.Cosite : '<b>'+'Or click on a FTI station...');
+		};
+		info_10.addTo(map);
+		
+
+
+
+		function ReplaceContentInContainer(id,content) {
+		var container = document.getElementById(id);
+		container.innerHTML = content;
+		}
+
+
+		
+		
+        function highlightFeature10(e) {
+			var layer = e.target;
+			layer.setStyle({
+				weight: 5,
+				color: '#666',
+				dashArray: '',
+				fillOpacity: 0.7
+			});
+			info_10.update(layer.feature.properties);
+		}
+
+
+
+		
+		function resetHighlight10(e) {
+			station.resetStyle(e.target);
+			info_10.update();
+		}		
+  
+
+	
+		
+// get color function	
+		function getColor(d) {
+			return d > 1100     ?   '#7a0177' :
+			       d > 800      ?   '#ae017e' :
+			       d > 500      ?   '#dd3497' :
+			       d > 300      ?   '#f768a1' :
+			       d > 200      ?   '#fa9fb5' :
+			       d > 100      ?   '#fcc5c0' :
+			       d > 1        ?   '#feebe2' :
+			                        'Gray';
+		}
+		
+
+	
+		function whenClicked(e) {
+			var layer = e.target;
+	// Update chart value
+			myLineChart.datasets[0].points[0].value = layer.feature.properties.Y2000;	
+			myLineChart.datasets[0].points[1].value = layer.feature.properties.Y2001;
+			myLineChart.datasets[0].points[2].value = layer.feature.properties.Y2002;
+			myLineChart.datasets[0].points[3].value = layer.feature.properties.Y2003;
+			myLineChart.datasets[0].points[4].value = layer.feature.properties.Y2004;
+			myLineChart.datasets[0].points[5].value = layer.feature.properties.Y2005;
+			myLineChart.datasets[0].points[6].value = layer.feature.properties.Y2006;
+			myLineChart.datasets[0].points[7].value = layer.feature.properties.Y2007;
+			myLineChart.datasets[0].points[8].value = layer.feature.properties.Y2008;
+			myLineChart.datasets[0].points[9].value = layer.feature.properties.Y2009;
+			myLineChart.datasets[0].points[10].value = layer.feature.properties.Y2010;
+			myLineChart.datasets[0].points[11].value = layer.feature.properties.Y2011;
+			myLineChart.datasets[0].points[12].value = layer.feature.properties.Y2012;
+			myLineChart.datasets[0].points[13].value = layer.feature.properties.Y2013;
+			myLineChart.datasets[0].points[14].value = layer.feature.properties.Y2014;
+			myLineChart.datasets[0].points[15].value = layer.feature.properties.Y2015;
+			myLineChart.datasets[0].points[16].value = layer.feature.properties.Y2016;
+			myLineChart.datasets[0].points[17].value = layer.feature.properties.Y2017;
+			myLineChart.datasets[0].points[18].value = layer.feature.properties.Y2018;
+			myLineChart.datasets[0].points[19].value = layer.feature.properties.Y2019;
+			myLineChart.update();
+			
+			
+			ReplaceContentInContainer("chartsta",layer.feature.properties.Cosite)
+			ReplaceContentInContainer("tablesta",layer.feature.properties.Cosite)
+			
+			ReplaceContentInContainer("2000",layer.feature.properties.Y2000)
+			ReplaceContentInContainer("2001",layer.feature.properties.Y2001)
+			ReplaceContentInContainer("2002",layer.feature.properties.Y2002)
+			ReplaceContentInContainer("2003",layer.feature.properties.Y2003)
+			ReplaceContentInContainer("2004",layer.feature.properties.Y2004)
+			ReplaceContentInContainer("2005",layer.feature.properties.Y2005)
+			ReplaceContentInContainer("2006",layer.feature.properties.Y2006)
+			ReplaceContentInContainer("2007",layer.feature.properties.Y2007)
+			ReplaceContentInContainer("2008",layer.feature.properties.Y2008)
+			ReplaceContentInContainer("2009",layer.feature.properties.Y2009)
+			ReplaceContentInContainer("2010",layer.feature.properties.Y2010)
+			ReplaceContentInContainer("2011",layer.feature.properties.Y2011)
+			ReplaceContentInContainer("2012",layer.feature.properties.Y2012)
+			ReplaceContentInContainer("2013",layer.feature.properties.Y2013)
+			ReplaceContentInContainer("2014",layer.feature.properties.Y2014)
+			ReplaceContentInContainer("2015",layer.feature.properties.Y2015)
+			ReplaceContentInContainer("2016",layer.feature.properties.Y2016)
+			ReplaceContentInContainer("2017",layer.feature.properties.Y2017)
+			ReplaceContentInContainer("2018",layer.feature.properties.Y2018)
+			ReplaceContentInContainer("2019",layer.feature.properties.Y2019)
+			
+			ReplaceContentInContainer("2001g", (layer.feature.properties.Y2000 === 0 || layer.feature.properties.Y2000 === null || layer.feature.properties.Y2001 === 0 || layer.feature.properties.Y2001 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2001/layer.feature.properties.Y2000-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2002g", (layer.feature.properties.Y2001 === 0 || layer.feature.properties.Y2001 === null || layer.feature.properties.Y2002 === 0 || layer.feature.properties.Y2002 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2002/layer.feature.properties.Y2001-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2003g", (layer.feature.properties.Y2002 === 0 || layer.feature.properties.Y2002 === null || layer.feature.properties.Y2003 === 0 || layer.feature.properties.Y2003 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2003/layer.feature.properties.Y2002-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2004g", (layer.feature.properties.Y2003 === 0 || layer.feature.properties.Y2003 === null || layer.feature.properties.Y2004 === 0 || layer.feature.properties.Y2004 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2004/layer.feature.properties.Y2003-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2005g", (layer.feature.properties.Y2004 === 0 || layer.feature.properties.Y2004 === null || layer.feature.properties.Y2005 === 0 || layer.feature.properties.Y2005 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2005/layer.feature.properties.Y2004-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2006g", (layer.feature.properties.Y2005 === 0 || layer.feature.properties.Y2005 === null || layer.feature.properties.Y2006 === 0 || layer.feature.properties.Y2006 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2006/layer.feature.properties.Y2005-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2007g", (layer.feature.properties.Y2006 === 0 || layer.feature.properties.Y2006 === null || layer.feature.properties.Y2007 === 0 || layer.feature.properties.Y2007 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2007/layer.feature.properties.Y2006-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2008g", (layer.feature.properties.Y2007 === 0 || layer.feature.properties.Y2007 === null || layer.feature.properties.Y2008 === 0 || layer.feature.properties.Y2008 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2008/layer.feature.properties.Y2007-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2009g", (layer.feature.properties.Y2008 === 0 || layer.feature.properties.Y2008 === null || layer.feature.properties.Y2009 === 0 || layer.feature.properties.Y2009 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2009/layer.feature.properties.Y2008-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2010g", (layer.feature.properties.Y2009 === 0 || layer.feature.properties.Y2009 === null || layer.feature.properties.Y2010 === 0 || layer.feature.properties.Y2010 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2010/layer.feature.properties.Y2009-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2011g", (layer.feature.properties.Y2010 === 0 || layer.feature.properties.Y2010 === null || layer.feature.properties.Y2011 === 0 || layer.feature.properties.Y2011 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2011/layer.feature.properties.Y2010-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2012g", (layer.feature.properties.Y2011 === 0 || layer.feature.properties.Y2011 === null || layer.feature.properties.Y2012 === 0 || layer.feature.properties.Y2012 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2012/layer.feature.properties.Y2011-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2013g", (layer.feature.properties.Y2012 === 0 || layer.feature.properties.Y2012 === null || layer.feature.properties.Y2013 === 0 || layer.feature.properties.Y2013 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2013/layer.feature.properties.Y2012-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2014g", (layer.feature.properties.Y2013 === 0 || layer.feature.properties.Y2013 === null || layer.feature.properties.Y2014 === 0 || layer.feature.properties.Y2014 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2014/layer.feature.properties.Y2013-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2015g", (layer.feature.properties.Y2014 === 0 || layer.feature.properties.Y2014 === null || layer.feature.properties.Y2015 === 0 || layer.feature.properties.Y2015 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2015/layer.feature.properties.Y2014-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2016g", (layer.feature.properties.Y2015 === 0 || layer.feature.properties.Y2015 === null || layer.feature.properties.Y2016 === 0 || layer.feature.properties.Y2016 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2016/layer.feature.properties.Y2015-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2017g", (layer.feature.properties.Y2016 === 0 || layer.feature.properties.Y2016 === null || layer.feature.properties.Y2017 === 0 || layer.feature.properties.Y2017 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2017/layer.feature.properties.Y2016-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2018g", (layer.feature.properties.Y2017 === 0 || layer.feature.properties.Y2017 === null || layer.feature.properties.Y2018 === 0 || layer.feature.properties.Y2018 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2018/layer.feature.properties.Y2017-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2019g", (layer.feature.properties.Y2018 === 0 || layer.feature.properties.Y2018 === null || layer.feature.properties.Y2019 === 0 || layer.feature.properties.Y2019 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2019/layer.feature.properties.Y2018-1)*100).toFixed(2))+"%")
+		}		
+		
+		
+//on each feature function		
+		function onEachFeature(feature, layer) {
+		            layer.on({
+					     mouseover: highlightFeature10,
+						 mouseout: resetHighlight10,
+					     click: whenClicked});
+		            
+					var popupContent = "<p> FTI Station Cosite #: " + feature.properties.Cosite+ '<br>'
+							+'Description: '+feature.properties.COMM +'<br>'
+							+'2019 AADT: '+feature.properties.Y2019 +"</p>" ;
+
+					if (feature.properties && feature.properties.popupContent) {
+						popupContent += feature.properties.popupContent;
+					}
+
+					layer.bindPopup(popupContent);
+					
+				}
+
+		
+		var station = L.geoJson( geo, {
+
+			style: function (feature) {
+				return feature.properties && feature.properties.style;
+			},
+
+			onEachFeature: onEachFeature,
+
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, {
+					radius: 4,
+					fillColor: "#ff7800",
+					color: "#000",
+					weight: 1,
+					opacity: 1,
+					fillOpacity: 0.8
+				});
+			}
+		}).addTo(map);
+
+
+		
+
+	//	SEARCH CONTROL
+
+		
+		var searchControl = new L.Control.Search({
+		layer: station, 
+		propertyName: 'Cosite', 
+		autoCollapse:true,
+	    moveToLocation: function(latlng, title, map) {
+			   //map.fitBounds( latlng.layer.getBounds() );
+			    var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+  			    map.setView(latlng, zoom); // access the zoom});
+				}});
+
+		searchControl.on('search:locationfound', function(e) {
+
+			myLineChart.datasets[0].points[0].value = e.layer.feature.properties.Y2000;	
+			myLineChart.datasets[0].points[1].value = e.layer.feature.properties.Y2001;
+			myLineChart.datasets[0].points[2].value = e.layer.feature.properties.Y2002;
+			myLineChart.datasets[0].points[3].value = e.layer.feature.properties.Y2003;
+			myLineChart.datasets[0].points[4].value = e.layer.feature.properties.Y2004;
+			myLineChart.datasets[0].points[5].value = e.layer.feature.properties.Y2005;
+			myLineChart.datasets[0].points[6].value = e.layer.feature.properties.Y2006;
+			myLineChart.datasets[0].points[7].value = e.layer.feature.properties.Y2007;
+			myLineChart.datasets[0].points[8].value = e.layer.feature.properties.Y2008;
+			myLineChart.datasets[0].points[9].value = e.layer.feature.properties.Y2009;
+			myLineChart.datasets[0].points[10].value = e.layer.feature.properties.Y2010;
+			myLineChart.datasets[0].points[11].value = e.layer.feature.properties.Y2011;
+			myLineChart.datasets[0].points[12].value = e.layer.feature.properties.Y2012;
+			myLineChart.datasets[0].points[13].value = e.layer.feature.properties.Y2013;
+			myLineChart.datasets[0].points[14].value = e.layer.feature.properties.Y2014;	
+			myLineChart.datasets[0].points[15].value = e.layer.feature.properties.Y2015;	
+			myLineChart.datasets[0].points[16].value = e.layer.feature.properties.Y2016;
+			myLineChart.datasets[0].points[17].value = e.layer.feature.properties.Y2017;	
+			myLineChart.datasets[0].points[18].value = e.layer.feature.properties.Y2018;
+			myLineChart.datasets[0].points[19].value = e.layer.feature.properties.Y2019;
+			myLineChart.update();
+			
+			ReplaceContentInContainer("chartsta", e.layer.feature.properties.Cosite)
+			ReplaceContentInContainer("tablesta", e.layer.feature.properties.Cosite)
+			
+			ReplaceContentInContainer("2000", e.layer.feature.properties.Y2000)
+			ReplaceContentInContainer("2001", e.layer.feature.properties.Y2001)
+			ReplaceContentInContainer("2002", e.layer.feature.properties.Y2002)
+			ReplaceContentInContainer("2003", e.layer.feature.properties.Y2003)
+			ReplaceContentInContainer("2004", e.layer.feature.properties.Y2004)
+			ReplaceContentInContainer("2005", e.layer.feature.properties.Y2005)
+			ReplaceContentInContainer("2006", e.layer.feature.properties.Y2006)
+			ReplaceContentInContainer("2007", e.layer.feature.properties.Y2007)
+			ReplaceContentInContainer("2008", e.layer.feature.properties.Y2008)
+			ReplaceContentInContainer("2009", e.layer.feature.properties.Y2009)
+			ReplaceContentInContainer("2010", e.layer.feature.properties.Y2010)
+			ReplaceContentInContainer("2011", e.layer.feature.properties.Y2011)
+			ReplaceContentInContainer("2012", e.layer.feature.properties.Y2012)
+			ReplaceContentInContainer("2013", e.layer.feature.properties.Y2013)
+			ReplaceContentInContainer("2014", e.layer.feature.properties.Y2014)
+            ReplaceContentInContainer("2015", e.layer.feature.properties.Y2015)
+			ReplaceContentInContainer("2016", e.layer.feature.properties.Y2016)
+			ReplaceContentInContainer("2017", e.layer.feature.properties.Y2017)
+			ReplaceContentInContainer("2018", e.layer.feature.properties.Y2018)
+			ReplaceContentInContainer("2019", e.layer.feature.properties.Y2019)
+			
+			ReplaceContentInContainer("2001g", (e.layer.feature.properties.Y2000 === 0 || e.layer.feature.properties.Y2000 === null || e.layer.feature.properties.Y2001 === 0 || e.layer.feature.properties.Y2001 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2001/e.layer.feature.properties.Y2000-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2002g", (e.layer.feature.properties.Y2001 === 0 || e.layer.feature.properties.Y2001 === null || e.layer.feature.properties.Y2002 === 0 || e.layer.feature.properties.Y2002 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2002/e.layer.feature.properties.Y2001-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2003g", (e.layer.feature.properties.Y2002 === 0 || e.layer.feature.properties.Y2002 === null || e.layer.feature.properties.Y2003 === 0 || e.layer.feature.properties.Y2003 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2003/e.layer.feature.properties.Y2002-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2004g", (e.layer.feature.properties.Y2003 === 0 || e.layer.feature.properties.Y2003 === null || e.layer.feature.properties.Y2004 === 0 || e.layer.feature.properties.Y2004 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2004/e.layer.feature.properties.Y2003-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2005g", (e.layer.feature.properties.Y2004 === 0 || e.layer.feature.properties.Y2004 === null || e.layer.feature.properties.Y2005 === 0 || e.layer.feature.properties.Y2005 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2005/e.layer.feature.properties.Y2004-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2006g", (e.layer.feature.properties.Y2005 === 0 || e.layer.feature.properties.Y2005 === null || e.layer.feature.properties.Y2006 === 0 || e.layer.feature.properties.Y2006 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2006/e.layer.feature.properties.Y2005-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2007g", (e.layer.feature.properties.Y2006 === 0 || e.layer.feature.properties.Y2006 === null || e.layer.feature.properties.Y2007 === 0 || e.layer.feature.properties.Y2007 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2007/e.layer.feature.properties.Y2006-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2008g", (e.layer.feature.properties.Y2007 === 0 || e.layer.feature.properties.Y2007 === null || e.layer.feature.properties.Y2008 === 0 || e.layer.feature.properties.Y2008 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2008/e.layer.feature.properties.Y2007-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2009g", (e.layer.feature.properties.Y2008 === 0 || e.layer.feature.properties.Y2008 === null || e.layer.feature.properties.Y2009 === 0 || e.layer.feature.properties.Y2009 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2009/e.layer.feature.properties.Y2008-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2010g", (e.layer.feature.properties.Y2009 === 0 || e.layer.feature.properties.Y2009 === null || e.layer.feature.properties.Y2010 === 0 || e.layer.feature.properties.Y2010 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2010/e.layer.feature.properties.Y2009-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2011g", (e.layer.feature.properties.Y2010 === 0 || e.layer.feature.properties.Y2010 === null || e.layer.feature.properties.Y2011 === 0 || e.layer.feature.properties.Y2011 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2011/e.layer.feature.properties.Y2010-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2012g", (e.layer.feature.properties.Y2011 === 0 || e.layer.feature.properties.Y2011 === null || e.layer.feature.properties.Y2012 === 0 || e.layer.feature.properties.Y2012 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2012/e.layer.feature.properties.Y2011-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2013g", (e.layer.feature.properties.Y2012 === 0 || e.layer.feature.properties.Y2012 === null || e.layer.feature.properties.Y2013 === 0 || e.layer.feature.properties.Y2013 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2013/e.layer.feature.properties.Y2012-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2014g", (e.layer.feature.properties.Y2013 === 0 || e.layer.feature.properties.Y2013 === null || e.layer.feature.properties.Y2014 === 0 || e.layer.feature.properties.Y2014 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2014/e.layer.feature.properties.Y2013-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2015g", (e.layer.feature.properties.Y2014 === 0 || e.layer.feature.properties.Y2014 === null || e.layer.feature.properties.Y2015 === 0 || e.layer.feature.properties.Y2015 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2015/e.layer.feature.properties.Y2014-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2016g", (e.layer.feature.properties.Y2015 === 0 || e.layer.feature.properties.Y2015 === null || e.layer.feature.properties.Y2016 === 0 || e.layer.feature.properties.Y2016 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2016/e.layer.feature.properties.Y2015-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2017g", (e.layer.feature.properties.Y2016 === 0 || e.layer.feature.properties.Y2016 === null || e.layer.feature.properties.Y2017 === 0 || e.layer.feature.properties.Y2017 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2017/e.layer.feature.properties.Y2016-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2018g", (e.layer.feature.properties.Y2017 === 0 || e.layer.feature.properties.Y2017 === null || e.layer.feature.properties.Y2018 === 0 || e.layer.feature.properties.Y2018 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2018/e.layer.feature.properties.Y2017-1)*100).toFixed(2))+"%")
+			ReplaceContentInContainer("2019g", (e.layer.feature.properties.Y2018 === 0 || e.layer.feature.properties.Y2018 === null || e.layer.feature.properties.Y2019 === 0 || e.layer.feature.properties.Y2019 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2019/e.layer.feature.properties.Y2018-1)*100).toFixed(2))+"%")
+			
+			
+			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+			if(e.layer._popup)
+				e.layer.openPopup();
+			
+
+		}).on('search:collapsed', function(e) {
+
+			station.eachLayer(function(layer) {	//restore feature color
+				station.resetStyle(layer);
+			});	
+		});
+		
+		map.addControl( searchControl );  //inizialize search control
+		
+		
+		
+
+
+	</script>
+</body>
+</html>
