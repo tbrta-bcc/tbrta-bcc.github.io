@@ -15,7 +15,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 	<!-- Leaflet SEARCH CONTROL -->
-	<link rel="stylesheet" href="src/leaflet-search.css" />
+	<link rel="stylesheet" href="../../src/leaflet-search.css" />
 
 
 	<!-- Jquery JS -->
@@ -23,12 +23,12 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 
 	<!-- Leaflet JS -->
-	<link rel="stylesheet" href="leaflet/leaflet.css">
+	<link rel="stylesheet" href="../../leaflet/leaflet.css">
 	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 
 	
     <!-- Main Style -->
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
  
 
 	
@@ -45,7 +45,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top"> 
 	<div class="container-fluid">
 	      <ul class="nav navbar-nav navbar-left">
-            <li><a href="#"> <h4 style="color: white" id="title"> Top 10 Trip Destinations by External Stations - 2015 TBRPM</h4> </a></li>
+            <li><a href="#"> <h4 style="color: white" id="title">Top 10 Trip Destinations by External Stations - Original Passive OD </h4> </a></li>
           </ul>
 	</div>
 </nav>
@@ -77,20 +77,22 @@
 						
 	<!-- Data-->	
 	<div id="data_chart" >   
-			
-		<!-- Tab panes -->
-		<div class="tab-content">
-  			
-			<div role="tabpanel" id="aadt" class="tab-pane fade in active" >
+
 				
+	    <!-- Tab panes -->
+	    <div class="tab-content">
+  	 	
+			<!-- AADT Tab panes -->
+			<div role="tabpanel" id="aadt" class="tab-pane fade in active" >
+			
 				<h4>Top 10 EI Trip Destination</h4>
 				<div class="chart-title"> <h5>Origin TAZ #:&nbsp;</h5> </div>
 				<div class="chart-title"> <h5 id='chartsta'> </h5> </div>
 				
-				<canvas id="myChart" style="width:500px; height:200px;"></canvas>
-				
+				<canvas id="myChart" style="width: 500px;height:200px;"></canvas>	
+		
 				<br><br>
-				
+
 				<div class="table-title"> <h5>Origin TAZ #:&nbsp;</h5> </div>
 				<div class="table-title"> <h5 id='tablesta'> </h5> </div>
 				
@@ -138,15 +140,14 @@
 					</tbody>
 					
 				</table>
+			</div> 		
 				
-			</div>
-			
 		<!-- End of Tab panes -->
 	    </div>
 
-	</div>	
+	</div>
 	
-</div>	
+</div>
 
 
 
@@ -156,19 +157,19 @@
 
 
 <!-- Echart Leaflet JS -->
-<script src="dist/main.min.js"></script>
+<script src="../../dist/main.min.js"></script>
 
 <!-- Chart.js -->
-<script src="src/Chart.js"></script>
-<script src="src/Chart.bundle.js"></script>
+<script src="../../src/Chart.js"></script>
+<script src="../../src/Chart.bundle.js"></script>
 		
 <!-- D3 JS -->
-<script src="src/d3.js"></script>
+<script src="../../src/d3.js"></script>
 
 
 <!-- Top Destination Data -->
-<script type="text/javascript" src="js/centroid_data.js"></script>
-<script type="text/javascript" src="r_output/top10_tbrpm.js"></script>
+<script type="text/javascript" src="../../js/centroid_data.js"></script>
+<script type="text/javascript" src="../../r_output/top10_originalOD.js"></script>
 
 
 
@@ -192,11 +193,11 @@
 
 
 <!-- BarChart -->
-<script src="js/barchart_tbrpm.js"></script>
+<script src="../../js/barchart_originalOD.js"></script>
 
 
 <!-- Flow Map Chart -->
-<script type="text/javascript" src="js/flowmap_tbrpm.js"></script>
+<script type="text/javascript" src="../../js/flowmap_originalOD.js"></script>
 
 
 
