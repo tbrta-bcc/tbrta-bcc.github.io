@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TBRABM Statistics Visualization</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!--Load jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<!-- SEARCH CONTROL -->
+	<link rel="stylesheet" href="../../src/leaflet-search.css" />
+	<link rel="stylesheet" href="../../leaflet/leaflet.css">
+	<script src="../../leaflet/leaflet.js"></script>
+	
+	<script src="../../js/l.control.geosearch.js"></script>
+	<script src="../../js/l.geosearch.provider.google.js"></script>
+    <link rel="stylesheet" href="../../css/l.geosearch.css" />
+	
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../../css/fticount.css" />
+ 
+
+	
+</head>
+<body>
+
+
+		
+<!-- Layout -->			
+<!-- Title -->
+<nav class="navbar navbar-inverse navbar-fixed-top"> 
+	<div class="container-fluid">
+		  <ul class="nav navbar-nav navbar-left">
+			<li><a href="#"> <h4 style="color: white;"> Tampa Bay Regional Activity-Based Model (TBRABM) Statistics - 2015 Auto Ownership Map</h4> </a></li>
+		  </ul>
+	</div>
+</nav>
+		
+		
+<div id="parent">
+	<!-- Map-->	
+	<div id="map" ></div>
+						
+	<!-- Data-->	
+	<div id="data_chart" >   
+		
+    		<!-- Nav tabs -->
+
+			<ul class="nav nav-tabs" role="tablist"> 	
+				<li role="presentation" class="active" ><a role="tab" data-toggle="tab" href="#panel_title"> Auto Ownership </a></li>								
+			</ul>
+			
+			   <!-- Tab panes -->
+		    <div class="tab-content">
+  				
+				<!-- Data Tab panes -->
+				<div role="tabpanel" id="panel" class="tab-pane fade in active" >
+                
+				        <br>
+						<h4 style="font-size: 16px;">TBRABM Synthetic Auto Ownership Per Household by 2015 TAZ</h4>
+						<br>
+							<h5>TAZ #:&nbsp; <p6 id='taz'>   </p6> </h5> 
+                        <br>							
+	                        <h5><img src="../../images/household.JPG"   height="60" width="60"> Total Household:&nbsp; <p6 id='hh'>      </p6>     </h5> 		
+                        <br>							
+	                        <h5><img src="../../images/population.JPG"  height="60" width="60"> Total Population:&nbsp; <p6 id='pop'>     </p6>     </h5> 		
+                        <br>							
+							<h5><img src="../../images/car.JPG"         height="60" width="60"> Total Vehicles:&nbsp; <p6 id='veh'>     </p6>     </h5> 		
+                        <br>							
+							<h5><img src="../../images/autoown.JPG"     height="60" width="60"> Auto Ownership Per Household:&nbsp; <p6 id='autoown'> </p6>     </h5>          
+				
+						
+				</div> 		  			
+								
+			<!-- End of Tab panes -->
+
+
+	
+	</div>	
+	
+</div>		
+	
+
+<!-- Geojson file -->		
+	<script type="text/javascript" src="../../geojson/shp_new.geojson"></script>
+	
+<!-- Leaflet Search Control -->		
+	<script src="../../src/leaflet-search.js"></script>
+	
+	
+	<script type="text/javascript">
+
+ 
+		var map = L.map('map').setView([28.229436, -82.465144], 9);
+
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'mapbox.streets'
+		}).addTo(map);
+
+
+// search the address  yz 1/4/2016: not usable? 
+		// new L.Control.GeoSearch({                                       
+            // provider: new L.GeoSearch.Provider.Google()
+       //}).addTo(map);
+
+
+// Update information inside division
+       var info_10 = L.control();
+		info_10.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info');
+			this.update();
+			return this._div;
+		};
+		info_10.update = function (props) {
+			this._div.innerHTML = '<h4>TBRABM 2015</h4>' 
+			+ ( props ? '<b>' + 'TAZ #: ' + props.TAZ2015 +'<br>'
+			+ 'Households: '+ props.HH_Num + '<br>'			
+			+ 'Populations: ' + props.HH_Pop +'<br>' 
+			+ 'Vehicles: '+ props.HH_Veh + '<br>'
+			+ 'Auto Ownership: ' + props.autoown 
+			: 'Hover over a TAZ...');
+		};
+		info_10.addTo(map);
+		
+		
+		function ReplaceContentInContainer(id,content) {
+		var container = document.getElementById(id);
+		container.innerHTML = content;
+		}
+		
+		
+        function highlightFeature10(e) {
+			var layer = e.target;
+			layer.setStyle({
+				weight: 5,
+				color: '#666',
+				dashArray: '',
+				fillOpacity: 0.7
+			});
+			info_10.update(layer.feature.properties);
+		}
+
+
+		
+		function resetHighlight10(e) {
+			tampa_abm_poly.resetStyle(e.target);
+			info_10.update();
+		}		
+  
+  
+ //  Add pop up information
+ 
+        var popup10=L.popup()
+
+		
+        function zoomToFeature10(e) {
+		    var layer = e.target;
+			map.fitBounds(e.target.getBounds());
+			popup10
+			        .setLatLng(e.latlng)
+                    .setContent("2015 TAZ #:  " + layer.feature.properties.TAZ2015 + '<br>'+"2015 Auto Ownership:  " + layer.feature.properties.autoown)
+                    .openOn(map);
+			ReplaceContentInContainer("taz",layer.feature.properties.TAZ2015)
+			ReplaceContentInContainer("hh",layer.feature.properties.HH_Num)		
+			ReplaceContentInContainer("pop",layer.feature.properties.HH_Pop)
+			ReplaceContentInContainer("veh",layer.feature.properties.HH_Veh)
+			ReplaceContentInContainer("autoown",layer.feature.properties.autoown)					
+		}
+
+		
+
+
+var legend = L.control({position: 'bottomright'});
+		legend.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info legend'),
+				grades = [0, 1.0, 1.5, 2.0, 2.5],
+				labels = [],
+				from, to;
+			for (var i = 0; i < grades.length; i++) {
+				from = grades[i];
+				to = grades[i + 1];
+				labels.push(
+					'<i style="background:' + getColor(from) + '"></i> ' +
+					from + (to ? ' - ' + (to-0.01).toFixed(2) : '+'));
+			}
+			div.innerHTML = '<h4>Auto ownership</h4>'+labels.join('<br>');
+			return div;
+		};
+		legend.addTo(map);
+		
+		
+// get color function	
+		function getColor(d) {
+			return d >= 2.5   ?   '#cc0000' :
+				   d >= 2.0   ?   '#ff5500' :
+			       d >= 1.5   ?   '#ffbb33' :
+			       d >= 1.0   ?   '#ffea80' :
+ 			                       '#ffffcc';
+		}
+		
+	
+		  var tampa_abm_poly = L.geoJson(geo, {
+			style: function(feature) {
+				return {
+        fillColor: getColor(feature.properties.autoown),
+					weight: 1,
+					opacity: 0.8,
+					color: 'Gray',
+					dashArray: '3',
+					fillOpacity: 0.75
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on({
+					mouseover: highlightFeature10,
+					mouseout: resetHighlight10,
+					click: zoomToFeature10
+					
+				});
+			}
+		}).addTo(map);
+		
+		
+
+		
+	//	SEARCH CONTROL
+
+		
+		var searchControl = new L.Control.Search({
+		        layer: tampa_abm_poly, 
+				propertyName: 'TAZ2015', 
+				autoCollapse:true,
+	            moveToLocation: function(latlng, title, map) {
+			   //map.fitBounds( latlng.layer.getBounds() );
+			        var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+  			        map.setView(latlng, zoom); // access the zoom
+		}});
+
+		searchControl.on('search:locationfound', function(e) {
+			
+			ReplaceContentInContainer("taz",e.layer.feature.properties.TAZ2015)
+			ReplaceContentInContainer("hh",e.layer.feature.properties.HH_Num)		
+			ReplaceContentInContainer("pop",e.layer.feature.properties.HH_Pop)
+			ReplaceContentInContainer("veh",e.layer.feature.properties.HH_Veh)
+			ReplaceContentInContainer("autoown",e.layer.feature.properties.autoown)
+			
+			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+			if(e.layer._popup)
+				e.layer.openPopup();
+		
+		}).on('search:collapsed', function(e) {
+
+			tampa_abm_poly.eachLayer(function(layer) {	//restore feature color
+				tampa_abm_poly.resetStyle(layer);
+			});	
+		});
+		
+		map.addControl( searchControl );  //inizialize search control
+
+		
+
+		
+		
+		
+
+	</script>
+</body>
+</html>
