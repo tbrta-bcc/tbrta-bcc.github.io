@@ -16,9 +16,6 @@ function ReturnData_Val(data,i)
 		}
 
 
-
-
-
 	
 	//Global Variables for flow map
     var carPath = 'image://../../images/pic/car.png'

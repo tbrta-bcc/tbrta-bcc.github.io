@@ -15,13 +15,9 @@ function ReturnData_Val(data,i)
 			return val;
 		}
 
-
-
-
-
 	
 	//Global Variables for flow map
-    var carPath = 'image://pic/../../images/sov.png'
+    var carPath = 'image://../../images/pic/sov.png'
 	var overlay = new L.echartsLayer3(map, echarts);
 	var chartsContainer = overlay.getEchartsContainer();
 	var myFlowChart = overlay.initECharts(chartsContainer);
