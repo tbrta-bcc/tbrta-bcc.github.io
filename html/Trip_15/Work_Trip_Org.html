@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tampa ABM statistics visualization</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!--Load jQuery-->
+	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<!-- SEARCH CONTROL -->
+	<link rel="stylesheet" href="../../src/leaflet-search.css" />
+
+	<!-- Chart.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	
+
+	<link rel="stylesheet" href="../../leaflet/leaflet.css">
+	<script src="../../leaflet/leaflet.js"></script>
+
+    <script src="https://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+
+     <!-- Main Style -->
+    <link rel="stylesheet" href="../../css/trip.css" />
+	
+	
+</head>
+<body>
+
+<!-- Layout -->	
+<!-- Title -->
+<nav class="navbar navbar-inverse navbar-fixed-top"> 
+	<div class="container-fluid">
+	      <ul class="nav navbar-nav navbar-left">
+            <li><a href="#"> <h4 style="color:white" id="title"> Tampa Bay Regional Activity-Based Model (TBRABM) Statistics  - 2015 Work Trips Origin Map</h4> </a></li>
+          </ul>
+	</div>
+</nav>
+
+	
+<div id="parent">
+	<!-- Map-->	
+	<div id="map" ></div>
+						
+	<!-- Data-->	
+	<div id="data_chart" >   
+		
+    		<!-- Nav tabs -->
+
+			<ul class="nav nav-tabs" role="tablist"> 	
+				<li role="presentation" class="active" ><a role="tab" data-toggle="tab" href="#panel_title"> Trip Origin </a></li>								
+			</ul>
+			
+			   <!-- Tab panes -->
+		    <div class="tab-content">
+  				
+				<!-- Data Tab panes -->
+				<div role="tabpanel" id="panel" class="tab-pane fade in active" >
+                
+				    <br>
+					<h4 style="color: orange">2015 TAZ #:  <p6 id='taz'>     </p6>     </h4> 						
+                    <h4 style="color: orange">Work Trips Originated from This TAZ:   <p6 id='trip'>     </p6>     </h4> 		
+                    <br>
+        
+					<h5 style="font-size: 16px;"> Work Trips Originated from This TAZ by Mode </h5>
+				
+						<table class="table table-bordered" > 			
+						   <thead>
+							  <tr>
+                					<th>SOV Trips</th><th>HOV2 Trips</th><th>HOV3+ Trips</th><th>Transit Trips</th><th>School Bus Trips</th>
+									<th>Walk Trips</th><th>Bike Trips</th><th>Other Trips</th><th>Total Trips</th>
+							  </tr>
+						   </thead>
+						
+							<tbody>
+								<tr>
+                					<td id='sov'>0</td><td id='hov2'>0</td><td id='hov3plus'>0</td><td id='transit'>0</td><td id='schoolbus'>0</td>
+									<td id='walk'>0</td><td id='bike'>0</td><td id='other'>0</td><td id='total'>0</td>
+								</tr>
+							</tbody>																					
+						</table>
+						
+						<canvas id="myChart" style="width:500px; height:200px;"></canvas>
+						
+						
+				</div> 		  			
+								
+			<!-- End of Tab panes -->
+
+
+	
+	</div>	
+	
+</div>	
+
+	
+<!-- Geojson file -->	
+		<script type="text/javascript" src="../../geojson/trip/shp_work_new.geojson"></script>
+		
+<!-- Leaflet Search Control -->		
+		<script src="../../src/leaflet-search.js"></script>
+		
+		<script type="text/javascript"> 
+		var map = L.map('map').setView([28.229436, -82.465144], 9);
+				
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'mapbox.streets'
+		}).addTo(map);
+
+		
+// search the address  yz 1/4/2016: not usable? 
+		// new L.Control.GeoSearch({                                       
+            // provider: new L.GeoSearch.Provider.Google()
+       //}).addTo(map);
+	   
+	   
+	    var ctx = document.getElementById('myChart').getContext('2d');
+	    var chart = new Chart(ctx, {
+			// The type of chart we want to create
+			type: 'doughnut',
+
+			// The data for our dataset
+				data: {
+						labels: 
+						[
+							'SOV',
+							'HOV2',
+							'HOV3+',
+							'Transit',
+							'School Bus',
+							'Walk',
+							'Bike',
+							'Other'
+						],
+						datasets: 
+						[{
+							label: "Trip Dataset",
+							backgroundColor: ['rgb(255, 204, 153)','rgb(255, 153, 102','rgb(255, 153, 153)','rgb(179, 236, 255)','rgb(255, 230, 128)','rgb(204, 204, 255)','rgb(172, 230, 0)','rgb(194, 194, 214)'],
+							data: [1, 1, 1, 1, 1, 1, 1,1],
+							
+						}]
+					  },
+
+				options: {
+							responsive: true,
+							legend: {
+								position: 'right',
+							},
+							title: {
+								display: true,
+								text: 'Work Trips by Mode',
+								fontSize: 14,
+							},
+							animation: 
+							{
+								animateScale: true,
+								animateRotate: true
+							}						
+						 }
+}); 
+	   
+	   
+	      
+	   	   
+	   
+	   
+	   
+
+// Update information inside division
+       var info_10 = L.control();
+		info_10.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info');
+			this.update();
+			return this._div;
+		};
+		info_10.update = function (props) {
+			this._div.innerHTML = '<h4 align="center">TBRABM 2015</h4>' +(props ?
+				'<b>' + 'TAZ 2015:  ' + props.TAZ2015 +'<br>'+'Work Trips by Origin:  '+props.all_o
+				: 'Hover over a TAZ...');
+		};
+		info_10.addTo(map);
+				
+
+		
+		
+		
+		
+        function highlightFeature10(e) {
+			var layer = e.target;
+			layer.setStyle({
+				weight: 5,
+				color: '#666',
+				dashArray: '',
+				fillOpacity: 0.7
+			});
+			info_10.update(layer.feature.properties);
+		}
+		
+		function resetHighlight10(e) {
+			tampa_abm_poly.resetStyle(e.target);
+			info_10.update();
+		}		
+  
+		function ReplaceContentInContainer(id,content) {
+		var container = document.getElementById(id);
+		container.innerHTML = content;
+		}
+			 
+  
+ //  Add pop up information
+        var popup10=L.popup()
+		
+        function zoomToFeature10(e) {
+		    var layer = e.target;
+			map.fitBounds(e.target.getBounds());
+			popup10
+			        .setLatLng(e.latlng)
+                    .setContent(layer.feature.properties.all_o + "  work trips" + '<br>' + "start at TAZ  " + layer.feature.properties.TAZ2015)
+                    .openOn(map);   	
+
+	// Update chart value
+			chart.data.datasets[0].data[0] = layer.feature.properties.sov_o;		
+			chart.data.datasets[0].data[1] = layer.feature.properties.hov2_o;	
+			chart.data.datasets[0].data[2] = layer.feature.properties.hov3plus_o;	
+			chart.data.datasets[0].data[3] = layer.feature.properties.transit_o;	
+			chart.data.datasets[0].data[4] = layer.feature.properties.schoolbus_;	
+			chart.data.datasets[0].data[5] = layer.feature.properties.walk_o;	
+			chart.data.datasets[0].data[6] = layer.feature.properties.bike_o;	
+			chart.data.datasets[0].data[7] = layer.feature.properties.other_o;	
+			chart.update();
+						
+			ReplaceContentInContainer("taz",layer.feature.properties.TAZ2015)
+			ReplaceContentInContainer("trip",layer.feature.properties.all_o)
+			
+			ReplaceContentInContainer("sov",layer.feature.properties.sov_o)
+			ReplaceContentInContainer("hov2",layer.feature.properties.hov2_o)
+			ReplaceContentInContainer("hov3plus",layer.feature.properties.hov3plus_o)
+			ReplaceContentInContainer("transit",layer.feature.properties.transit_o)
+			ReplaceContentInContainer("schoolbus",layer.feature.properties.schoolbus_)
+			ReplaceContentInContainer("walk",layer.feature.properties.walk_o)
+			ReplaceContentInContainer("bike",layer.feature.properties.bike_o)
+			ReplaceContentInContainer("other",layer.feature.properties.other_o)
+			ReplaceContentInContainer("total",layer.feature.properties.all_o)
+								
+		}
+
+
+
+var legend = L.control({position: 'bottomright'});
+		legend.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info legend'),
+				grades = [0, 1, 100, 200, 500, 1000, 2000],
+				labels = [],
+				from, to;
+			for (var i = 0; i < grades.length; i++) {
+				from = grades[i];
+				to = grades[i + 1];
+				labels.push(
+					'<i style="background:' + getColor(from) + '"></i> ' +
+					from + (to ? ' - ' + (to-1) : ' +'));
+			}
+			div.innerHTML = '<h4>Work Trips</h4>'+labels.join('<br>');
+			return div;
+		};
+		legend.addTo(map);
+
+		
+// get color function	
+		function getColor(d) {
+			return d >= 2000     ?   '#7a0177' :
+			       d >= 1000     ?   '#dd3497' :
+			       d >= 500      ?   '#f768a1' :
+			       d >= 200      ?   '#fa9fb5' :
+			       d >= 100      ?   '#fcc5c0' :
+			       d >= 1        ?   '#feebe2' :  'Gray';
+		}
+		
+	
+		  var tampa_abm_poly = L.geoJson(geo_work, {
+			style: function(feature) {
+				return {
+        fillColor: getColor(feature.properties.all_o),
+					weight: 1,
+					opacity: 0.8,
+					color: 'Gray',
+					dashArray: '3',
+					fillOpacity: 0.7
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on({
+					mouseover: highlightFeature10,
+					mouseout: resetHighlight10,
+					click: zoomToFeature10
+					
+				});
+			}
+		}).addTo(map);
+					
+
+	//	SEARCH CONTROL
+	var searchControl = new L.Control.Search({
+		layer: tampa_abm_poly, 
+		propertyName: 'TAZ2015', 
+		autoCollapse:true,
+	    moveToLocation: function(latlng, title, map) {
+			   //map.fitBounds( latlng.layer.getBounds() );
+			    var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+  			    map.setView(latlng, zoom); // access the zoom});
+				}});
+	searchControl.on('search:locationfound', function(e) {	
+	
+			chart.data.datasets[0].data[0] = e.layer.feature.properties.sov_o;		
+			chart.data.datasets[0].data[1] = e.layer.feature.properties.hov2_o;	
+			chart.data.datasets[0].data[2] = e.layer.feature.properties.hov3plus_o;	
+			chart.data.datasets[0].data[3] = e.layer.feature.properties.transit_o;	
+			chart.data.datasets[0].data[4] = e.layer.feature.properties.schoolbus_;	
+			chart.data.datasets[0].data[5] = e.layer.feature.properties.walk_o;	
+			chart.data.datasets[0].data[6] = e.layer.feature.properties.bike_o;	
+			chart.data.datasets[0].data[7] = e.layer.feature.properties.other_o;	
+			chart.update();
+			
+			ReplaceContentInContainer("taz",e.layer.feature.properties.TAZ2015)
+			ReplaceContentInContainer("trip",e.layer.feature.properties.all_o)
+			
+			ReplaceContentInContainer("sov",e.layer.feature.properties.sov_o)
+			ReplaceContentInContainer("hov2",e.layer.feature.properties.hov2_o)
+			ReplaceContentInContainer("hov3plus",e.layer.feature.properties.hov3plus_o)
+			ReplaceContentInContainer("transit",e.layer.feature.properties.transit_o)
+			ReplaceContentInContainer("schoolbus",e.layer.feature.properties.schoolbus_)
+			ReplaceContentInContainer("walk",e.layer.feature.properties.walk_o)
+			ReplaceContentInContainer("bike",e.layer.feature.properties.bike_o)
+			ReplaceContentInContainer("other",e.layer.feature.properties.other_o)
+			ReplaceContentInContainer("total",e.layer.feature.properties.all_o)		
+	
+		e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+		if(e.layer._popup)
+			e.layer.openPopup();
+
+	}).on('search:collapsed', function(e) {
+		tampa_abm_poly.eachLayer(function(layer) {	//restore feature color
+			tampa_abm_poly.resetStyle(layer);
+		});	
+	});
+	
+	map.addControl( searchControl );  //initialize search control
+	
+	</script>
+</body>
+</html>

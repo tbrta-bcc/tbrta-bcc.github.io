@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TBRABM Statistics Visualization</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!--Load jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<!-- SEARCH CONTROL -->
+	<link rel="stylesheet" href="../../src/leaflet-search.css" />
+	<link rel="stylesheet" href="../../leaflet/leaflet.css">
+	<script src="../../leaflet/leaflet.js"></script>
+
+	<script src="../../js/l.control.geosearch.js"></script>
+	<script src="../../js/l.geosearch.provider.google.js"></script>
+    <link rel="stylesheet" href="../../css/l.geosearch.css" />
+	
+<!-- Main Style -->
+    <link rel="stylesheet" href="../../css/transit.css" />
+	
+<!-- Geojson file -->		
+	<script type="text/javascript" src="../../geojson/shp_new_transit.geojson"></script>
+	<script type="text/javascript" src="../../geojson/abm_transit_new.geojson"></script>
+
+<!-- Leaflet Search Control -->		
+	<script src="../../src/leaflet-search.js"></script>
+	
+</head>
+<body>
+
+
+<!-- Layout -->			
+<!-- Title -->
+<nav class="navbar navbar-inverse navbar-fixed-top"> 
+	<div class="container-fluid">
+		  <ul class="nav navbar-nav navbar-left">
+			<li><a href="#"> <h4 style="color:white"> Tampa Bay Regional Activity-Based Model (TBRABM) Statistics - 2015 Transit Ridership Map </h4> </a></li>
+		  </ul>
+	</div>
+</nav>
+
+
+<div id="parent">
+	<!-- Map-->	
+	<div id="map" ></div>
+
+	<!-- Data-->	
+	<div id="data_chart" >   
+		
+    		<!-- Nav tabs -->
+
+			<ul class="nav nav-tabs" role="tablist"> 	
+				<li role="presentation" class="active" ><a role="tab" data-toggle="tab" href="#panel_title"> Transit Ridership </a></li>								
+			</ul>
+			
+			   <!-- Tab panes -->
+		    <div class="tab-content">
+  				
+				<!-- Data Tab panes -->
+				<div role="tabpanel" id="panel" class="tab-pane fade in active" >
+					<br>
+					<h4 style="color: blue">Transit Ridership by Route</h4>
+					<br>
+					<h5>Route Name:   <p6 id='rte'> </p6> </h5> 
+					<h5><img src="../../images/transit/mode_gray.png"   height="50" width="50"> &nbsp; Mode:  <p6 id='mode'>              </p6>     </h5> 
+							
+	                        <h5><img src="../../images/transit/owner.png"   height="50" width="50"> &nbsp; Owner:  <p6 id='owner'>             </p6>     </h5> 							
+													
+	                        <h5><img src="../../images/transit/pk_freq.png"   height="50" width="46"> &nbsp; Peak Hour Headway (Min): <p6 id='pk_headway'>        </p6>     </h5> 		
+													
+	                        <h5><img src="../../images/transit/op_freq.png"   height="50" width="46"> &nbsp; Off-Peak Hour Headway (Min):   <p6 id='op_headway'>        </p6>     </h5> 								
+                        							
+	                        <h5><img src="../../images/transit/transit_ridership_pk.JPG"   height="50" width="50"> &nbsp; Peak Hour Ridership:    <p6 id='pk_ridership'>      </p6>     </h5> 		
+                        							
+	                        <h5><img src="../../images/transit/transit_ridership_op.JPG"  height="50" width="50"> &nbsp; Off-Peak Hour Ridership: <p6 id='op_ridership'>      </p6>     </h5> 		
+                        							
+							<h5><img src="../../images/transit/transit_ridership_daily.JPG"     height="50" width="50"> &nbsp; Daily Total Ridership: <p6 id='daily_ridership'>   </p6>     </h5>          
+										
+				</div> 		  			
+								
+			<!-- End of Tab panes -->
+
+
+	
+	</div>	
+	
+</div>		
+	
+
+	
+	<script type="text/javascript">
+
+ 
+		var map = L.map('map').setView([28.229436, -82.465144], 9);
+
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'mapbox.streets'
+		}).addTo(map);
+
+
+		
+		
+		
+        function highlightFeature(e) {
+			var layer = e.target;
+			layer.setStyle({
+				weight: 5,
+				color: '#0f0',
+				dashArray: '',
+				fillOpacity: 0.7
+			});
+			info.update(layer.feature.properties);
+		}
+
+		
+		function resetHighlight(e) {
+			abm_transit_line.resetStyle(e.target);
+			info.update();
+		}		
+  		
+		
+		function ReplaceContentInContainer(id,content) {
+			var container = document.getElementById(id);
+			container.innerHTML = content;
+		}	
+		
+		
+		function ReplaceContentInContainer_Owner(id,content) {
+			var container = document.getElementById(id);
+			if (content==10)
+			{
+			  container.innerHTML = "Hillsborough";
+			}
+			else if (content==20)
+			{
+			  container.innerHTML = "Pinalles";
+			}
+			else if (content==30)
+			{
+			  container.innerHTML = "Pasco";
+			}
+			else if (content==40)
+			{
+			  container.innerHTML = "Hernando";
+			}
+			else if (content==50)
+			{
+			 container.innerHTML = "Citrus";
+			}
+			else
+			{
+			 container.innerHTML = content;
+			}
+		}
+		
+		
+		function ReplaceContentInContainer_Mode(id,content) {
+			var container = document.getElementById(id);
+			if (content==10)
+			{
+			  container.innerHTML = "10 - HART local buses ";
+			}
+			else if (content==11)
+			{
+			  container.innerHTML = "11 - HART express bus";
+			}
+			else if (content==12)
+			{
+			  container.innerHTML = "12 - HART premium bus / in-street BRT ";
+			}
+			else if (content==13)
+			{
+			  container.innerHTML = "13 - HART fixed guideway BRT ";
+			}
+			else if (content==14)
+			{
+			 container.innerHTML  = "14 - HART streecar & AGT ";
+			}
+			else if (content==15)
+			{
+			 container.innerHTML  = "15 - HART light rail ";
+			}
+			else if (content==16)
+			{
+			 container.innerHTML  = "16 - HART commuter rail  ";
+			}
+			else if (content==17)
+			{
+			 container.innerHTML  = "17 - HART project mode express bus ";
+			}
+			else if (content==18)
+			{
+			 container.innerHTML  = "18 - HART project mode premium BRT  ";
+			}
+			else if (content==19)
+			{
+			 container.innerHTML  = "19 - HART project fixed-guideway mode  ";
+			}
+			else if (content==20)
+			{
+			 container.innerHTML  = "20 - PSTA local bus ";
+			}
+			else if (content==21)
+			{
+			 container.innerHTML  = "21 - PSTA express bus  ";
+			}
+			else if (content==22)
+			{
+			 container.innerHTML  = "22 - PSTA premium bus / in-street BRT  ";
+			}
+			else if (content==23)
+			{
+			 container.innerHTML  = "23 - PSTA fixed guideway BRT  ";
+			}
+			else if (content==25)
+			{
+			 container.innerHTML  = "25 - PSTA light rail  ";
+			}
+			else if (content==26)
+			{
+			 container.innerHTML  = "26 - PSTA commuter rail  ";
+			}
+			else if (content==27)
+			{
+			 container.innerHTML  = "27 - PSTA project mode express bus ";
+			}
+			else if (content==28)
+			{
+			 container.innerHTML  = "28 - PSTA project mode premium BRT ";
+			}
+			else if (content==29)
+			{
+			 container.innerHTML  = "29 - PSTA project fixed-guideway mode ";
+			}
+			else if (content==30)
+			{
+			 container.innerHTML  = "30 - PCTC local bus ";
+			}
+			else if (content==31)
+			{
+			 container.innerHTML  = "31 - PCTC express bus ";
+			}
+			else if (content==40)
+			{
+			 container.innerHTML  = "40 - TBUS local bus ";
+			}
+			else if (content==41)
+			{
+			 container.innerHTML  = "41 - TBUS express bus  ";
+			}
+			else if (content==51)
+			{
+			 container.innerHTML  = "51 - REGL express bus ";
+			}
+			else if (content==55)
+			{
+			 container.innerHTML  = "55 - REGL light rail ";
+			}
+			else if (content==56)
+			{
+			 container.innerHTML  = "56 - REGL commuter rail  ";
+			}
+			else if (content==57)
+			{
+			 container.innerHTML  = "57 - REGL project mode express bus ";
+			}
+			else if (content==58)
+			{
+			 container.innerHTML  = "58 - REGL project mode premium BRT  ";
+			}
+			else if (content==59)
+			{
+			 container.innerHTML  = "59 - REGL project mode rail ";
+			}			
+			else
+			{
+			 container.innerHTML  = content;
+			}
+		}
+		
+		
+// Update information inside division
+       var info = L.control();
+		info.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info');
+			this.update();
+			return this._div;
+		};
+		info.update = function (props) {
+			this._div.innerHTML = '<h4 align="center">TBRABM 2015</h4>' +(props ?
+				'Transit Line:  ' + props.NAME + '<br>' + "Daily Ridership: " +props.PAX_D: 'Hover over a Transit Line...');
+		};
+		info.addTo(map);
+	
+	
+	
+	
+	
+// Zoom to Feature
+
+var popup=L.popup()	
+        function zoomToFeature(e) {
+		    var layer = e.target;
+			layer.setStyle({
+				weight: 5,
+				color: 'Yellow',
+				dashArray: '',
+				fillOpacity: 0.7
+			});
+			map.fitBounds(e.target.getBounds());
+			popup
+			        .setLatLng(e.latlng)
+                    .setContent('<h4>'+"Route Name: "+ layer.feature.properties.NAME+'</h4>' 
+					+ '<b>' + "Daily Ridership: " + layer.feature.properties.PAX_D + '<br>' 
+					+ "Peak Hour Ridership: " + layer.feature.properties.PAX_P + '<br>' 
+					+ "Off Peak Hour Ridership: " +layer.feature.properties.PAX_O)
+                    .openOn(map);  
+			ReplaceContentInContainer("rte",layer.feature.properties.NAME)
+			ReplaceContentInContainer_Mode("mode",layer.feature.properties.MODE)		
+			ReplaceContentInContainer_Owner("owner",layer.feature.properties.OWNER)
+			ReplaceContentInContainer("pk_headway",layer.feature.properties.FREQ_1)
+			ReplaceContentInContainer("op_headway",layer.feature.properties.FREQ_2)
+			ReplaceContentInContainer("pk_ridership",layer.feature.properties.PAX_P)		
+			ReplaceContentInContainer("op_ridership",layer.feature.properties.PAX_O)	
+			ReplaceContentInContainer("daily_ridership",layer.feature.properties.PAX_D)					
+		}
+		
+		
+// get color function	
+		function getColor(d) {
+			return d > 30  ?   '#800026' :
+			       d > 29  ?   '#e31a1c' :
+			       d > 20  ?   '#fc4e2a' :
+			       d > 19  ?   '#fd8d3c' :
+			       d > 13  ?   '#fed976' :
+			       d > 10  ?   '#ffffcc' :
+				   d > 9   ?   'White' :
+			                    'Gray';
+		}
+		
+	
+		  var tampa_abm_poly = L.geoJson(geo, {
+			style: function(feature) {
+				return {
+                    fillColor: 'White',
+					fillOpacity: 0.8,
+					weight: 1,
+					opacity: 0.8,
+					color: 'Gray',
+					dashArray: '3'
+				}
+			},
+			onEachFeature: function (feature, layer) {
+				layer.on({
+					
+				});
+			}
+		}).addTo(map);
+		
+		
+
+		var abm_transit_line = L.geoJson(abm_transit,         
+		{
+			style:		
+			function(feature) {
+			    if (feature.properties.OWNER==10){
+					return {
+						weight: 3,
+						opacity: 0.8,
+						fillOpacity: 0,
+						color:'Red'
+					}
+					}
+				else if(feature.properties.OWNER==20){
+					return {
+						weight: 3,
+						opacity: 1,
+						fillOpacity: 0,
+						color:'Blue'
+					}
+					}
+				else if(feature.properties.OWNER==30){
+					return {
+						weight: 3,
+						opacity: 1,
+						fillOpacity: 0,
+					    color:'Orange'
+					}	
+                    }					
+				else if(feature.properties.OWNER==40){
+					return {
+						weight: 3,
+						opacity: 1,
+						fillOpacity: 0,
+					    color:'Green'
+					}
+					}
+				else if(feature.properties.OWNER==50){
+					return {
+						weight: 3,
+						opacity: 1,
+						fillOpacity: 0,						
+						color:'Purple'
+					}	
+					}
+				else {
+					return {
+						weight: 3,
+						opacity: 1,
+						fillOpacity: 0,
+					    color:'Gray'
+					}				
+					}				
+				
+			},
+			
+			
+        	onEachFeature: function (feature, layer) {
+				layer.on({
+					mouseover: highlightFeature,
+					mouseout: resetHighlight,
+				    click: zoomToFeature
+					
+				});
+			}
+		}).addTo(map);		
+		
+
+
+
+	//	SEARCH CONTROL
+
+		
+		var searchControl = new L.Control.Search({
+		layer: abm_transit_line,
+		propertyName: 'NAME', 
+		marker:false,
+	    moveToLocation: function(latlng, title, map) {
+			   //map.fitBounds( latlng.layer.getBounds() );
+			    var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+  			    map.setView(latlng, zoom); // access the zoom});
+				}});
+
+		searchControl.on('search:locationfound', function(e) {
+		
+			ReplaceContentInContainer("rte",e.layer.feature.properties.NAME)
+			ReplaceContentInContainer_Mode("mode",e.layer.feature.properties.MODE)
+            ReplaceContentInContainer_Owner("owner",e.layer.feature.properties.OWNER)			
+			ReplaceContentInContainer("pk_headway",e.layer.feature.properties.FREQ_1)
+			ReplaceContentInContainer("op_headway",e.layer.feature.properties.FREQ_2)
+			ReplaceContentInContainer("pk_ridership",e.layer.feature.properties.PAX_P)		
+			ReplaceContentInContainer("op_ridership",e.layer.feature.properties.PAX_O)	
+			ReplaceContentInContainer("daily_ridership",e.layer.feature.properties.PAX_D)	
+			
+			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+			if(e.layer._popup)
+				e.layer.openPopup();
+
+		}).on('search:collapsed', function(e) {
+
+			abm_transit_line.eachLayer(function(layer) {	//restore feature color
+				abm_transit_line.resetStyle(layer);
+			});	
+		});
+		
+		map.addControl( searchControl );  //initialize search control
+
+		
+		
+	
+		
+	</script>
+</body>
+</html>
