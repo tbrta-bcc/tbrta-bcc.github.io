@@ -158,7 +158,7 @@ function Post_Flow_Map(TAZ_Number) {
 				left: 'left',
 				data: ['TAZ'+TAZ_Number+' Top10'],
 				textStyle: {
-					color: '#fff'
+					color: '#000'
 				},
 				selectedMode: 'single'
 			},

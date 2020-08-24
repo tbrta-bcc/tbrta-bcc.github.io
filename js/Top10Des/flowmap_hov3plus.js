@@ -73,7 +73,7 @@ function Post_Flow_Map(TAZ_Number) {
                         show: true,
                         period: 6,
                         trailLength: 0.7,
-                        color: '#fff',
+                        color: '#ed6666',
                         symbolSize: 3
                     },
                     lineStyle: {
@@ -158,7 +158,7 @@ function Post_Flow_Map(TAZ_Number) {
 				left: 'left',
 				data: ['TAZ'+TAZ_Number+' Top10'],
 				textStyle: {
-					color: '#fff'
+					color: '#000'
 				},
 				selectedMode: 'single'
 			},
