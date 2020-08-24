@@ -146,7 +146,7 @@ function Post_Flow_Map(TAZ_Number) {
 				text: '',
 				left: 'center',
 				textStyle: {
-					color: '#000'
+					color: '#fff'
 				}
 			},
 			tooltip: {
@@ -158,7 +158,7 @@ function Post_Flow_Map(TAZ_Number) {
 				left: 'left',
 				data: ['TAZ'+TAZ_Number+' Top10'],
 				textStyle: {
-					color: '#fff'
+					color: '#000'
 				},
 				selectedMode: 'single'
 			},
