@@ -56,7 +56,7 @@
                     <input type="text" class="form-control input-lg" placeholder="Please enter a TAZ #"  id="mySearch"/>
                     <span class="input-group-btn"  >
                         <button class="btn btn-info btn-lg" type="button" >
-                            <i class="glyphicon glyphicon-search" style="color:white;" onclick="returnTAZ ()" >  </i> 
+                            <i class="glyphicon glyphicon-search" style="color:black;" onclick="returnTAZ ()" >  </i> 
                         </button>
                     </span>
                 </div>
@@ -177,9 +177,9 @@
 
 <!-- Leaflet Map -->
 <script>
-    var map = L.map('map').setView([28.1577, -82.6195], 12);
+    var map = L.map('map').setView([28.1577, -82.6195], 10);
 	
-    L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 	subdomains: 'abcd',
 	maxZoom: 15
