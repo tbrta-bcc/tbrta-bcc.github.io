@@ -70,12 +70,12 @@ function Post_Flow_Map(TAZ_Number) {
                         show: true,
                         period: 6,
                         trailLength: 0.7,
-                        color: '#7a4002',
+                        color: '#a35502',
                         symbolSize: 3
                     },
                     lineStyle: {
                         normal: {
-                            color:  "#b05e07",
+                            color:  "#c76904",
                             width: 0,
                             curveness: 0.2
                         }
@@ -95,7 +95,7 @@ function Post_Flow_Map(TAZ_Number) {
                     },
                     lineStyle: {
                         normal: {
-                            color:  "#b05e07",
+                            color:  "#c76904",
                             width: 1,
                             opacity: 0.8,
                             curveness: 0.2
@@ -143,7 +143,7 @@ function Post_Flow_Map(TAZ_Number) {
 				text: '',
 				left: 'center',
 				textStyle: {
-					color: '#fff'
+					color: '#c76904'
 				}
 			},
 			tooltip: {
@@ -155,7 +155,7 @@ function Post_Flow_Map(TAZ_Number) {
 				left: 'left',
 				data: ['TAZ'+TAZ_Number+' Top10'],
 				textStyle: {
-					color: '#fff'
+					color: '#141414'
 				},
 				selectedMode: 'single'
 			},
