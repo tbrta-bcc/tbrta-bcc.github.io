@@ -70,12 +70,12 @@ function Post_Flow_Map(TAZ_Number) {
                         show: true,
                         period: 6,
                         trailLength: 0.7,
-                        color: '#fff',
+                        color: '#7a4002',
                         symbolSize: 3
                     },
                     lineStyle: {
                         normal: {
-                            color:  "Orange",
+                            color:  "#b05e07",
                             width: 0,
                             curveness: 0.2
                         }
@@ -91,11 +91,11 @@ function Post_Flow_Map(TAZ_Number) {
                         period: 6,
                         trailLength: 0,
                         symbol: carPath,
-                        symbolSize: 12
+                        symbolSize: 14
                     },
                     lineStyle: {
                         normal: {
-                            color:  "Orange",
+                            color:  "#b05e07",
                             width: 1,
                             opacity: 0.8,
                             curveness: 0.2
