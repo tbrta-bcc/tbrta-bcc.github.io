@@ -119,12 +119,12 @@ function Post_Flow_Map(TAZ_Number) {
                         }
                     },
                     symbolSize: function (val) {
-                        return val[2] / 50;
+                        return val[2] / 25;
                     },
                     itemStyle: {
                         normal: {
                             //color: color[i]
-							color: "#c76904"
+			    color: "#c76904"
                         }
                     },
                     data: item[1].map(function (dataItem) {
