@@ -33,7 +33,7 @@ function returnTAZ () {
 	TAZ_Number = document.getElementById("mySearch").value;
 	Post_Flow_Map(TAZ_Number);
 	var myfromCoord = geoCoordMap['TAZ'+TAZ_Number];
-   	map.setView([myfromCoord[1], myfromCoord[0]],9)
+   	map.setView([myfromCoord[1], myfromCoord[0]],10)
 }
 		
 function Post_Flow_Map(TAZ_Number) {
@@ -122,7 +122,7 @@ function Post_Flow_Map(TAZ_Number) {
                         }
                     },
                     symbolSize: function (val) {
-                        return val[2]/10 ;
+                        return val[2]/5 ;
                     },
                     itemStyle: {
                         normal: {
@@ -146,7 +146,7 @@ function Post_Flow_Map(TAZ_Number) {
 				text: '',
 				left: 'center',
 				textStyle: {
-					color: '#000'
+					color: '#fff'
 				}
 			},
 			tooltip: {
@@ -158,7 +158,7 @@ function Post_Flow_Map(TAZ_Number) {
 				left: 'left',
 				data: ['TAZ'+TAZ_Number+' Top10'],
 				textStyle: {
-					color: '#fff'
+					color: '#000'
 				},
 				selectedMode: 'single'
 			},
