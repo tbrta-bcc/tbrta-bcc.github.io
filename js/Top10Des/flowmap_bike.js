@@ -78,7 +78,7 @@ function Post_Flow_Map(TAZ_Number) {
                     },
                     lineStyle: {
                         normal: {
-                            color:  '##179906',
+                            color:  '#0f6903',
                             width: 0,
                             curveness: 0.2
                         }
@@ -98,7 +98,7 @@ function Post_Flow_Map(TAZ_Number) {
                     },
                     lineStyle: {
                         normal: {
-                            color:  '#179906',
+                            color:  '#0f6903',
                             width: 1,
                             opacity: 0.8,
                             curveness: 0.2
@@ -127,7 +127,7 @@ function Post_Flow_Map(TAZ_Number) {
                     itemStyle: {
                         normal: {
                             //color: color[i]
-							color: '#179906'
+							color: '#0f6903'
                         }
                     },
                     data: item[1].map(function (dataItem) {
