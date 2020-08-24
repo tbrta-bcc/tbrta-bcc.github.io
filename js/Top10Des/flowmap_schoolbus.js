@@ -78,7 +78,7 @@ function Post_Flow_Map(TAZ_Number) {
                     },
                     lineStyle: {
                         normal: {
-                            color:  "#ffcc00",
+                            color:  "#d1a804",
                             width: 0,
                             curveness: 0.2
                         }
@@ -98,7 +98,7 @@ function Post_Flow_Map(TAZ_Number) {
                     },
                     lineStyle: {
                         normal: {
-                            color:  "#ffcc00",
+                            color:  "#d1a804",
                             width: 1,
                             opacity: 0.8,
                             curveness: 0.2
@@ -127,7 +127,7 @@ function Post_Flow_Map(TAZ_Number) {
                     itemStyle: {
                         normal: {
                             //color: color[i]
-							color: "#ffcc00"
+							color: "#d1a804"
                         }
                     },
                     data: item[1].map(function (dataItem) {
@@ -158,7 +158,7 @@ function Post_Flow_Map(TAZ_Number) {
 				left: 'left',
 				data: ['TAZ'+TAZ_Number+' Top10'],
 				textStyle: {
-					color: '#fff'
+					color: '#000'
 				},
 				selectedMode: 'single'
 			},
