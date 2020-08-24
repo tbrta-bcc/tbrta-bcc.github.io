@@ -124,7 +124,7 @@ function Post_Flow_Map(TAZ_Number) {
                     itemStyle: {
                         normal: {
                             //color: color[i]
-							color: "Orange"
+							color: "#c76904"
                         }
                     },
                     data: item[1].map(function (dataItem) {
