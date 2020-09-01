@@ -204,7 +204,7 @@ var legend = L.control({position: 'bottomright'});
 		legend.addTo(map);
 		
 		
-// get color function	
+		// get color function	
 		function getColor(d) {
 			return d >= 2.5   ?   '#cc0000' :
 				   d >= 2.0   ?   '#ff5500' :
@@ -213,11 +213,11 @@ var legend = L.control({position: 'bottomright'});
  			                       '#ffffcc';
 		}
 		
-	
-		  var tampa_abm_poly = L.geoJson(geo, {
+		//create the TAZ zones
+		var tampa_abm_poly = L.geoJson(geo, {
 			style: function(feature) {
 				return {
-        fillColor: getColor(feature.properties.autoown),
+        			fillColor: getColor(feature.properties.autoown),
 					weight: 1,
 					opacity: 0.8,
 					color: 'Gray',
@@ -230,17 +230,12 @@ var legend = L.control({position: 'bottomright'});
 					mouseover: highlightFeature10,
 					mouseout: resetHighlight10,
 					click: zoomToFeature10
-					
 				});
 			}
 		}).addTo(map);
 		
-		
 
-		
-	//	SEARCH CONTROL
-
-		
+	//	SEARCH CONTROL		
 		var searchControl = new L.Control.Search({
 		        layer: tampa_abm_poly, 
 				propertyName: 'TAZ2015', 

@@ -166,14 +166,19 @@
 <!-- D3 JS -->
 <script src="../../src/d3.js"></script>
 
+<!-- Load TAZ geojson-->
+<script type="text/javascript" src="../../geojson/TAZ2017.geojson"></script>
 
 <!-- Top Destination Data -->
 <script type="text/javascript" src="../../js/centroid_data.js"></script>
 <script type="text/javascript" src="../../r_output/Top10_15/top10_schoolbus.js"></script>
 
-
-
-
+<!-- Set Theme Color for the page-->
+<script type="text/javascript">
+	//keep first 3 numbers for RGBA value
+	var commonColor = 'rgba(255, 204, 0,'; 
+	var barchartLabel = 'Daily Total School Bus Trips'
+</script>
 
 <!-- Leaflet Map -->
 <script>
@@ -183,26 +188,29 @@
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 	subdomains: 'abcd',
 	maxZoom: 15
-    }).addTo(map);
+	}).addTo(map);
+	
+	//create the TAZ zones
+	var tampa_abm_poly = L.geoJson(geo, {
+		style: function(feature) {
+			console.log(commonColor)
+			return {
+				opacity: 0.5,
+				weight: 1,
+				dashArray: '3',
+				fillOpacity: 0.1,
+				color: commonColor+'1)'
+			}
+		}
+	}).addTo(map);
 	
 </script>
 
-
-
-
-
 <!-- BarChart -->
-<script src="../../js/Top10Des/barchart_schoolbus.js"></script>
-
+<script src="../../js/Top10Des/barchart_all.js"></script>
 
 <!-- Flow Map Chart -->
 <script type="text/javascript" src="../../js/Top10Des/flowmap_schoolbus.js"></script>
-
-
-
-
-
-
 
 </body>
 </html>
