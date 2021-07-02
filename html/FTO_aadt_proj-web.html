@@ -35,18 +35,19 @@
     <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>	
 	
 <!-- Main Style -->
-    <link rel="stylesheet" href="../css/ftocount.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
 
 </head>
 <body>
 	<!-- Geojson -->		
-	<script type="text/javascript" src="../geojson/fto_aadt2020.geojson"></script>
+	<script type="text/javascript" src="../geojson/fto_aadt2020_proj.geojson"></script>
 
 	<!-- Title -->
 	<nav class="navbar navbar-inverse navbar-fixed-top"> 
 		<div class="container-fluid">
 			<ul class="nav navbar-nav navbar-left">
-				<li><a href="#"> <h4 style="color: white"> FDOT District 7 FTO Historical AADT (2000-2020) </h4> </a></li>
+				<li><a href="https://tdaappsprod.dot.state.fl.us/fto/"> <h4 style="color: white"> Florida Traffic Online </h4> </a></li>
+				<li><a href="#"> <h4 style="color: white"> FDOT D7 Historical AADT (2000-2020) </h4> </a></li>
 			</ul>
 		</div>
 	</nav>
@@ -55,8 +56,8 @@
 	<div id="map"></div>
 	
 	<div id="cosite">
-		<div class = "cosite"><h3>Cosite Number:&nbsp;</h3> </div>
-		<div class = "cosite"><h3 style="color: orange;" id='chartsta'> </h3> </div>
+		<div class="cosite"><h3>Cosite Number:&nbsp;</h3> </div>
+		<div class="cosite"><h3 style="color: orange;" id='chartsta'> </h3> </div>
 	</div>
 	
 	<!-- Data Table-->
@@ -68,114 +69,157 @@
 			<tr>
 				<th>Year</th>
 				<th>AADT</th>
+				<th colspan="2">AADT Flag</th>
 				<th>Annual Growth</th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr>
 				<td class="year">2000</td>
-				<td id='2000'>0</td>
-				<td>NA</td>
+				<td class="aadt" id="2000">0</td>
+				<td class="aadt_flag" id="2000f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2000" onclick="update_data();"/></td>
+				<td class="growth" id='2000g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2001</td>
-				<td id='2001'>0</td>
-				<td id='2001g'>0</td>
+				<td class="aadt" id="2001">0</td>
+				<td class="aadt_flag" id="2001f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2001"/></td>
+				<td class="growth" id='2001g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2002</td>
-				<td id='2002'>0</td>
-				<td id='2002g'>0</td>
+				<td class="aadt" id='2002'>0</td>
+				<td class="aadt_flag" id="2002f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2002"/></td>
+				<td class="growth" id='2002g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2003</td>
-				<td id='2003'>0</td>
-				<td id='2003g'>0</td>
+				<td class="aadt" id='2003'>0</td>
+				<td class="aadt_flag" id="2003f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2003"/></td>
+				<td class="growth" id='2003g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2004</td>
-				<td id='2004'>0</td>
-				<td id='2004g'>0</td>
+				<td class="aadt" id='2004'>0</td>
+				<td class="aadt_flag" id="2004f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2004"/></td>
+				<td class="growth" id='2004g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2005</td>
-				<td id='2005'>0</td>
-				<td id='2005g'>0</td>
+				<td class="aadt" id='2005'>0</td>
+				<td class="aadt_flag" id="2005f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2005"/></td>
+				<td class="growth" id='2005g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2006</td>
-				<td id='2006'>0</td>
-				<td id='2006g'>0</td>
+				<td class="aadt" id='2006'>0</td>
+				<td class="aadt_flag" id="2006f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2006"/></td>
+				<td class="growth" id='2006g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2007</td>
-				<td id='2007'>0</td>
-				<td id='2007g'>0</td>
+				<td class="aadt" id='2007'>0</td>
+				<td class="aadt_flag" id="2007f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2007"/></td>
+				<td class="growth" id='2007g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2008</td>
-				<td id='2008'>0</td>
-				<td id='2008g'>0</td>
+				<td class="aadt" id='2008'>0</td>
+				<td class="aadt_flag" id="2008f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2000" onclick="update_data();"/></td>
+				<td class="growth" id='2008g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2009</td>
-				<td id='2009'>0</td>
-				<td id='2009g'>0</td>
+				<td class="aadt" id='2009'>0</td>
+				<td class="aadt_flag" id="2009f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2010" onclick="update_data();"/></td>
+				<td class="growth" id='2009g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2010</td>
-				<td id='2010'>0</td>
-				<td id='2010g'>0</td>
+				<td class="aadt" id='2010'>0</td>
+				<td class="aadt_flag" id="2010f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2011" onclick="update_data();"/></td>
+				<td class="growth" id='2010g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2011</td>
-				<td id='2011'>0</td>
-				<td id='2011g'>0</td>
+				<td class="aadt" id='2011'>0</td>
+				<td class="aadt_flag" id="2011f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2012" onclick="update_data();"/></td>
+				<td class="growth" id='2011g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2012</td>
-				<td id='2012'>0</td>
-				<td id='2012g'>0</td>
+				<td class="aadt" id='2012'>0</td>
+				<td class="aadt_flag" id="2012f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2013" onclick="update_data();"/></td>
+				<td class="growth" id='2012g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2013</td>
-				<td id='2013'>0</td>
-				<td id='2013g'>0</td>
+				<td class="aadt" id='2013'>0</td>
+				<td class="aadt_flag" id="2013f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2014" onclick="update_data();"/></td>
+				<td class="growth" id='2013g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2014</td>
-				<td id='2014'>0</td>
-				<td id='2014g'>0</td>
+				<td class="aadt" id='2014'>0</td>
+				<td class="aadt_flag" id="2014f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2015" onclick="update_data();"/></td>
+				<td class="growth" id='2014g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2015</td>
-				<td id='2015'>0</td>
-				<td id='2015g'>0</td>
+				<td class="aadt" id='2015'>0</td>
+				<td class="aadt_flag" id="2015f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2016" onclick="update_data();"/></td>
+				<td class="growth" id='2015g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2016</td>
-				<td id='2016'>0</td>
-				<td id='2016g'>0</td>
+				<td class="aadt" id='2016'>0</td>
+				<td class="aadt_flag" id="2016f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2017" onclick="update_data();"/></td>
+				<td class="growth" id='2016g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2017</td>
-				<td id='2017'>0</td>
-				<td id='2017g'>0</td>
+				<td class="aadt" id='2017'>0</td>
+				<td class="aadt_flag" id="2017f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2018" onclick="update_data();"/></td>
+				<td class="growth" id='2017g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2018</td>
-				<td id='2018'>0</td>
-				<td id='2018g'>0</td>
+				<td class="aadt" id='2018'>0</td>
+				<td class="aadt_flag" id="2018f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2019" onclick="update_data();"/></td>
+				<td class="growth" id='2018g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2019</td>
-				<td id='2019'>0</td>
-				<td id='2019g'>0</td>
+				<td class="aadt" id='2019'>0</td>
+				<td class="aadt_flag" id="2019f">0</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2019" onclick="update_data();"/></td>
+				<td class="growth" id='2019g'>0</td>
 			</tr>
 			<tr>
 				<td class="year">2020</td>
-				<td id='2020'>0</td>
-				<td id='2020g'>0</td>
+				<td class="aadt" id='2020'>0</td>
+				<td class="aadt_flag" id="2020f">NA</td>
+				<td class="flag_checker"><input type="checkbox" id="check_2020" onclick="update_data();"/></td>
+				<td class="growth" id='2020g'>0</td>
 			</tr>
 			</tbody>
 		</table>
@@ -237,6 +281,11 @@
 			type: 'line',
 			data: LineChartData,
 			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				},
 				plugins: {
 					legend: {
 						display: false,
@@ -281,6 +330,11 @@
 			type: 'line',
 			data: LineChartData2,
 			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				},
 				plugins:{
 					legend: {
 						labels: {
@@ -307,12 +361,6 @@
 			};
 			info_10.addTo(map);
 			
-	
-		function ReplaceContentInContainer(id,content) {
-			var container = document.getElementById(id);
-			container.innerHTML = content;
-			}
-	
 		function highlightFeature10(e) {
 			var layer = e.target;
 			layer.setStyle({
@@ -341,7 +389,6 @@
 									'Gray';
 		}
 		
-		
 		function forecast(x, ky, kx){
 		    var i=0, nr=0, dr=0, ax=0, ay=0, a=0, b=0;
 			
@@ -363,11 +410,12 @@
 		    return (a+b*x);
 		}
 
+
 		function whenClicked(e) {
 			
 			var layer = e.target;
-	        //update the chart
-			
+	        
+			historicalYears = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020];
 			historicalCount = [layer.feature.properties.Y2000, 
 			layer.feature.properties.Y2001, 
 			layer.feature.properties.Y2002, 
@@ -390,122 +438,116 @@
 			layer.feature.properties.Y2019, 
 			layer.feature.properties.Y2020];
 			
+			AADT_flag = [layer.feature.properties.Y2000_FLG, 
+			layer.feature.properties.Y2001_FLG, 
+			layer.feature.properties.Y2002_FLG, 
+			layer.feature.properties.Y2003_FLG, 
+			layer.feature.properties.Y2004_FLG, 
+			layer.feature.properties.Y2005_FLG, 
+			layer.feature.properties.Y2006_FLG, 
+			layer.feature.properties.Y2007_FLG, 
+			layer.feature.properties.Y2008_FLG, 
+			layer.feature.properties.Y2009_FLG, 
+			layer.feature.properties.Y2010_FLG, 
+			layer.feature.properties.Y2011_FLG, 
+			layer.feature.properties.Y2012_FLG, 
+			layer.feature.properties.Y2013_FLG, 
+			layer.feature.properties.Y2014_FLG, 
+			layer.feature.properties.Y2015_FLG, 
+			layer.feature.properties.Y2016_FLG, 
+			layer.feature.properties.Y2017_FLG, 
+			layer.feature.properties.Y2018_FLG, 
+			layer.feature.properties.Y2019_FLG, 
+			layer.feature.properties.Y2020_FLG];
+			
+
+			//update the chart
 			myLineChart.data.datasets[0].data = historicalCount;
 			myLineChart.update();
 			
 			//update the Cosite number
-			ReplaceContentInContainer("chartsta",layer.feature.properties.COSITE)
-			ReplaceContentInContainer("tablesta",layer.feature.properties.COSITE)
-			
-			//update the data table - AADT
-			ReplaceContentInContainer("2000", layer.feature.properties.Y2000)
-			ReplaceContentInContainer("2001", layer.feature.properties.Y2001)
-			ReplaceContentInContainer("2002", layer.feature.properties.Y2002)
-			ReplaceContentInContainer("2003", layer.feature.properties.Y2003)
-			ReplaceContentInContainer("2004", layer.feature.properties.Y2004)
-			ReplaceContentInContainer("2005", layer.feature.properties.Y2005)
-			ReplaceContentInContainer("2006", layer.feature.properties.Y2006)
-			ReplaceContentInContainer("2007", layer.feature.properties.Y2007)
-			ReplaceContentInContainer("2008", layer.feature.properties.Y2008)
-			ReplaceContentInContainer("2009", layer.feature.properties.Y2009)
-			ReplaceContentInContainer("2010", layer.feature.properties.Y2010)
-			ReplaceContentInContainer("2011", layer.feature.properties.Y2011)
-			ReplaceContentInContainer("2012", layer.feature.properties.Y2012)
-			ReplaceContentInContainer("2013", layer.feature.properties.Y2013)
-			ReplaceContentInContainer("2014", layer.feature.properties.Y2014)
-			ReplaceContentInContainer("2015", layer.feature.properties.Y2015)
-			ReplaceContentInContainer("2016", layer.feature.properties.Y2016)
-			ReplaceContentInContainer("2017", layer.feature.properties.Y2017)
-			ReplaceContentInContainer("2018", layer.feature.properties.Y2018)
-			ReplaceContentInContainer("2019", layer.feature.properties.Y2019)
-			ReplaceContentInContainer("2020", layer.feature.properties.Y2020)
-			
-			//update the data table - growth rates
-			ReplaceContentInContainer("2001g", (layer.feature.properties.Y2000 === 0 || layer.feature.properties.Y2000 === null || layer.feature.properties.Y2001 === 0 || layer.feature.properties.Y2001 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2001/layer.feature.properties.Y2000-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2002g", (layer.feature.properties.Y2001 === 0 || layer.feature.properties.Y2001 === null || layer.feature.properties.Y2002 === 0 || layer.feature.properties.Y2002 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2002/layer.feature.properties.Y2001-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2003g", (layer.feature.properties.Y2002 === 0 || layer.feature.properties.Y2002 === null || layer.feature.properties.Y2003 === 0 || layer.feature.properties.Y2003 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2003/layer.feature.properties.Y2002-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2004g", (layer.feature.properties.Y2003 === 0 || layer.feature.properties.Y2003 === null || layer.feature.properties.Y2004 === 0 || layer.feature.properties.Y2004 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2004/layer.feature.properties.Y2003-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2005g", (layer.feature.properties.Y2004 === 0 || layer.feature.properties.Y2004 === null || layer.feature.properties.Y2005 === 0 || layer.feature.properties.Y2005 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2005/layer.feature.properties.Y2004-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2006g", (layer.feature.properties.Y2005 === 0 || layer.feature.properties.Y2005 === null || layer.feature.properties.Y2006 === 0 || layer.feature.properties.Y2006 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2006/layer.feature.properties.Y2005-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2007g", (layer.feature.properties.Y2006 === 0 || layer.feature.properties.Y2006 === null || layer.feature.properties.Y2007 === 0 || layer.feature.properties.Y2007 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2007/layer.feature.properties.Y2006-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2008g", (layer.feature.properties.Y2007 === 0 || layer.feature.properties.Y2007 === null || layer.feature.properties.Y2008 === 0 || layer.feature.properties.Y2008 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2008/layer.feature.properties.Y2007-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2009g", (layer.feature.properties.Y2008 === 0 || layer.feature.properties.Y2008 === null || layer.feature.properties.Y2009 === 0 || layer.feature.properties.Y2009 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2009/layer.feature.properties.Y2008-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2010g", (layer.feature.properties.Y2009 === 0 || layer.feature.properties.Y2009 === null || layer.feature.properties.Y2010 === 0 || layer.feature.properties.Y2010 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2010/layer.feature.properties.Y2009-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2011g", (layer.feature.properties.Y2010 === 0 || layer.feature.properties.Y2010 === null || layer.feature.properties.Y2011 === 0 || layer.feature.properties.Y2011 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2011/layer.feature.properties.Y2010-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2012g", (layer.feature.properties.Y2011 === 0 || layer.feature.properties.Y2011 === null || layer.feature.properties.Y2012 === 0 || layer.feature.properties.Y2012 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2012/layer.feature.properties.Y2011-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2013g", (layer.feature.properties.Y2012 === 0 || layer.feature.properties.Y2012 === null || layer.feature.properties.Y2013 === 0 || layer.feature.properties.Y2013 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2013/layer.feature.properties.Y2012-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2014g", (layer.feature.properties.Y2013 === 0 || layer.feature.properties.Y2013 === null || layer.feature.properties.Y2014 === 0 || layer.feature.properties.Y2014 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2014/layer.feature.properties.Y2013-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2015g", (layer.feature.properties.Y2014 === 0 || layer.feature.properties.Y2014 === null || layer.feature.properties.Y2015 === 0 || layer.feature.properties.Y2015 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2015/layer.feature.properties.Y2014-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2016g", (layer.feature.properties.Y2015 === 0 || layer.feature.properties.Y2015 === null || layer.feature.properties.Y2016 === 0 || layer.feature.properties.Y2016 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2016/layer.feature.properties.Y2015-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2017g", (layer.feature.properties.Y2016 === 0 || layer.feature.properties.Y2016 === null || layer.feature.properties.Y2017 === 0 || layer.feature.properties.Y2017 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2017/layer.feature.properties.Y2016-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2018g", (layer.feature.properties.Y2017 === 0 || layer.feature.properties.Y2017 === null || layer.feature.properties.Y2018 === 0 || layer.feature.properties.Y2018 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2018/layer.feature.properties.Y2017-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2019g", (layer.feature.properties.Y2018 === 0 || layer.feature.properties.Y2018 === null || layer.feature.properties.Y2019 === 0 || layer.feature.properties.Y2019 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2019/layer.feature.properties.Y2018-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2020g", (layer.feature.properties.Y2019 === 0 || layer.feature.properties.Y2019 === null || layer.feature.properties.Y2020 === 0 || layer.feature.properties.Y2020 === null) ? "NA" : parseFloat(((layer.feature.properties.Y2020/layer.feature.properties.Y2019-1)*100).toFixed(2))+"%")
-		
+			document.getElementById("chartsta").innerHTML = layer.feature.properties.COSITE;
+			document.getElementById("tablesta").innerHTML = layer.feature.properties.COSITE;
 
+			//update the data table - AADT
+			const years = 21;
+			var id_year = new Array(years);
+			var id_year_growth = new Array(years);
+			var id_aadt_flag = new Array(years);
+			var annual_growth = new Array(years); 
+			//var checkboxID = new Array(years);
 			
+			for (var i = 0; i < years; i++){
+				id_year[i] = String(2000 + i);
+				id_year_growth[i] = 2000 + i + 'g';
+				id_aadt_flag[i] = 2000 + i + 'f';
+				if(i > 0){
+					annual_growth[i] = (historicalCount[i-1] === 0 || historicalCount[i-1] === null || historicalCount[i] === 0 || historicalCount[i] === null) ? "NA" 
+					: parseFloat(((historicalCount[i]/historicalCount[i-1]-1)*100).toFixed(2))+"%";
+				} else {
+					annual_growth[i] = "NA"; // No growth rate for the year 2000.
+				}
+				
+				//checkboxID[i] = 'check_' + 2000 + i;
+			}
+			
+			for (var i = 0; i < years; i++){
+				document.getElementById(id_year[i]).innerHTML = historicalCount[i];
+				document.getElementById(id_year_growth[i]).innerHTML = annual_growth[i];
+				document.getElementById(id_aadt_flag[i]).innerHTML = AADT_flag[i];
+			}
 
 			const len = 30;
 		    var estimates = new Array(len).fill(0);
 		    var estimates2 = new Array(len).fill(0);
 			
+			// 2020 aadt is considered as an outlier if it is less than the begin year aadt.
+			var aadt = historicalCount.slice(-5);
+			var year = historicalYears.slice(-5);
 			if(layer.feature.properties.Y2020 < layer.feature.properties.Y2016){
-				var aadt = [layer.feature.properties.Y2015, layer.feature.properties.Y2016, layer.feature.properties.Y2017, layer.feature.properties.Y2018, layer.feature.properties.Y2019];
-				
-				var year = [2015, 2016, 2017, 2018, 2019]; 
-			} else {
-				var aadt = [layer.feature.properties.Y2016, layer.feature.properties.Y2017, layer.feature.properties.Y2018, layer.feature.properties.Y2019, layer.feature.properties.Y2020];
-				
-				var year = [2016, 2017, 2018, 2019, 2020]; 
+				aadt = historicalCount.slice(-6, -1);
+				year = historicalYears.slice(-6, -1); 
 			}
 			
+			var i = 0;
+			while (i < aadt.length) {
+				if (aadt[i] === 0) {
+					aadt.splice(i, 1);
+					year.splice(i, 1);
+				} else {
+					++i;
+				}
+			}
+			
+			for(var i = 0; i < len; i++){
+				estimates[i] = Math.round(Math.max(0, forecast(2021+i, aadt, year)));
+			}
+			
+			
+			var aadt2 = historicalCount.slice(-10);
+			var year2 = historicalYears.slice(-10);
 			if(layer.feature.properties.Y2020 < layer.feature.properties.Y2011){
-				var aadt2 = [layer.feature.properties.Y2010,
-				layer.feature.properties.Y2011,
-				layer.feature.properties.Y2012, 
-				layer.feature.properties.Y2013, 
-				layer.feature.properties.Y2014, 
-				layer.feature.properties.Y2015,			
-				layer.feature.properties.Y2016, 
-				layer.feature.properties.Y2017, 
-				layer.feature.properties.Y2018, 
-				layer.feature.properties.Y2019];
-				
-				var year2 = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
-			} else {
-				var aadt2 = [
-				layer.feature.properties.Y2011,
-				layer.feature.properties.Y2012, 
-				layer.feature.properties.Y2013, 
-				layer.feature.properties.Y2014, 
-				layer.feature.properties.Y2015,			
-				layer.feature.properties.Y2016, 
-				layer.feature.properties.Y2017, 
-				layer.feature.properties.Y2018, 
-				layer.feature.properties.Y2019,
-				layer.feature.properties.Y2020];
-				
-				var year2 = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020];
+				aadt2 = historicalCount.slice(-11, -1);
+				year2 = historicalYears.slice(-11, -1); 
 			}
 			
-			if(!aadt.includes(0)) {
-				for(var i = 0; i < len; i++){
-					estimates[i] = Math.round(Math.max(0, forecast(2021+i, aadt, year)));
+			var i = 0;
+			while(i < aadt2.length){
+				if (aadt2[i] === 0) {
+					aadt2.splice(i, 1);
+					year2.splice(i, 1);
+				} else {
+					++i;
 				}
 			}
-			
-			if(!aadt2.includes(0)) {
-				for(var i = 0; i < len; i++){
-					estimates2[i] = Math.round(Math.max(0, forecast(2021+i, aadt2, year2)));
-				}
+			for(var i = 0; i < len; i++){
+				estimates2[i] = Math.round(Math.max(0, forecast(2021+i, aadt2, year2)));
 			}
 			
 			myLineChart2.data.datasets[0].data = estimates;
 			myLineChart2.data.datasets[1].data = estimates2;
 			myLineChart2.update();
-		
 		}
-		
 		
 		//on each feature function		
 		function onEachFeature(feature, layer) {
@@ -558,7 +600,10 @@
 					}});
 	
 		searchControl.on('search:locationfound', function(e) {
-		 
+		
+		//document.getElementById("checkbox").checked = true;
+			
+			historicalYears = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020];
 			historicalCount = [e.layer.feature.properties.Y2000, 
 			e.layer.feature.properties.Y2001, 
 			e.layer.feature.properties.Y2002, 
@@ -581,95 +626,110 @@
 			e.layer.feature.properties.Y2019, 
 			e.layer.feature.properties.Y2020];
 			
+			AADT_flag = [e.layer.feature.properties.Y2000_FLG, 
+			e.layer.feature.properties.Y2001_FLG, 
+			e.layer.feature.properties.Y2002_FLG, 
+			e.layer.feature.properties.Y2003_FLG, 
+			e.layer.feature.properties.Y2004_FLG, 
+			e.layer.feature.properties.Y2005_FLG, 
+			e.layer.feature.properties.Y2006_FLG, 
+			e.layer.feature.properties.Y2007_FLG, 
+			e.layer.feature.properties.Y2008_FLG, 
+			e.layer.feature.properties.Y2009_FLG, 
+			e.layer.feature.properties.Y2010_FLG, 
+			e.layer.feature.properties.Y2011_FLG, 
+			e.layer.feature.properties.Y2012_FLG, 
+			e.layer.feature.properties.Y2013_FLG, 
+			e.layer.feature.properties.Y2014_FLG, 
+			e.layer.feature.properties.Y2015_FLG, 
+			e.layer.feature.properties.Y2016_FLG, 
+			e.layer.feature.properties.Y2017_FLG, 
+			e.layer.feature.properties.Y2018_FLG, 
+			e.layer.feature.properties.Y2019_FLG, 
+			e.layer.feature.properties.Y2020_FLG];
+			
 			myLineChart.data.datasets[0].data = historicalCount;
 			myLineChart.update();
 			
-			ReplaceContentInContainer("chartsta", e.layer.feature.properties.COSITE)
-			ReplaceContentInContainer("tablesta", e.layer.feature.properties.COSITE)
-			
-			//replace the data table
-			ReplaceContentInContainer("2000", e.layer.feature.properties.Y2000)
-			ReplaceContentInContainer("2001", e.layer.feature.properties.Y2001)
-			ReplaceContentInContainer("2002", e.layer.feature.properties.Y2002)
-			ReplaceContentInContainer("2003", e.layer.feature.properties.Y2003)
-			ReplaceContentInContainer("2004", e.layer.feature.properties.Y2004)
-			ReplaceContentInContainer("2005", e.layer.feature.properties.Y2005)
-			ReplaceContentInContainer("2006", e.layer.feature.properties.Y2006)
-			ReplaceContentInContainer("2007", e.layer.feature.properties.Y2007)
-			ReplaceContentInContainer("2008", e.layer.feature.properties.Y2008)
-			ReplaceContentInContainer("2009", e.layer.feature.properties.Y2009)
-			ReplaceContentInContainer("2010", e.layer.feature.properties.Y2010)
-			ReplaceContentInContainer("2011", e.layer.feature.properties.Y2011)
-			ReplaceContentInContainer("2012", e.layer.feature.properties.Y2012)
-			ReplaceContentInContainer("2013", e.layer.feature.properties.Y2013)
-			ReplaceContentInContainer("2014", e.layer.feature.properties.Y2014)
-            ReplaceContentInContainer("2015", e.layer.feature.properties.Y2015)
-			ReplaceContentInContainer("2016", e.layer.feature.properties.Y2016)
-			ReplaceContentInContainer("2017", e.layer.feature.properties.Y2017)
-			ReplaceContentInContainer("2018", e.layer.feature.properties.Y2018)
-			ReplaceContentInContainer("2019", e.layer.feature.properties.Y2019)
-			ReplaceContentInContainer("2020", e.layer.feature.properties.Y2020)
-			
-			ReplaceContentInContainer("2001g", (e.layer.feature.properties.Y2000 === 0 || e.layer.feature.properties.Y2000 === null || e.layer.feature.properties.Y2001 === 0 || e.layer.feature.properties.Y2001 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2001/e.layer.feature.properties.Y2000-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2002g", (e.layer.feature.properties.Y2001 === 0 || e.layer.feature.properties.Y2001 === null || e.layer.feature.properties.Y2002 === 0 || e.layer.feature.properties.Y2002 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2002/e.layer.feature.properties.Y2001-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2003g", (e.layer.feature.properties.Y2002 === 0 || e.layer.feature.properties.Y2002 === null || e.layer.feature.properties.Y2003 === 0 || e.layer.feature.properties.Y2003 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2003/e.layer.feature.properties.Y2002-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2004g", (e.layer.feature.properties.Y2003 === 0 || e.layer.feature.properties.Y2003 === null || e.layer.feature.properties.Y2004 === 0 || e.layer.feature.properties.Y2004 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2004/e.layer.feature.properties.Y2003-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2005g", (e.layer.feature.properties.Y2004 === 0 || e.layer.feature.properties.Y2004 === null || e.layer.feature.properties.Y2005 === 0 || e.layer.feature.properties.Y2005 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2005/e.layer.feature.properties.Y2004-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2006g", (e.layer.feature.properties.Y2005 === 0 || e.layer.feature.properties.Y2005 === null || e.layer.feature.properties.Y2006 === 0 || e.layer.feature.properties.Y2006 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2006/e.layer.feature.properties.Y2005-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2007g", (e.layer.feature.properties.Y2006 === 0 || e.layer.feature.properties.Y2006 === null || e.layer.feature.properties.Y2007 === 0 || e.layer.feature.properties.Y2007 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2007/e.layer.feature.properties.Y2006-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2008g", (e.layer.feature.properties.Y2007 === 0 || e.layer.feature.properties.Y2007 === null || e.layer.feature.properties.Y2008 === 0 || e.layer.feature.properties.Y2008 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2008/e.layer.feature.properties.Y2007-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2009g", (e.layer.feature.properties.Y2008 === 0 || e.layer.feature.properties.Y2008 === null || e.layer.feature.properties.Y2009 === 0 || e.layer.feature.properties.Y2009 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2009/e.layer.feature.properties.Y2008-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2010g", (e.layer.feature.properties.Y2009 === 0 || e.layer.feature.properties.Y2009 === null || e.layer.feature.properties.Y2010 === 0 || e.layer.feature.properties.Y2010 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2010/e.layer.feature.properties.Y2009-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2011g", (e.layer.feature.properties.Y2010 === 0 || e.layer.feature.properties.Y2010 === null || e.layer.feature.properties.Y2011 === 0 || e.layer.feature.properties.Y2011 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2011/e.layer.feature.properties.Y2010-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2012g", (e.layer.feature.properties.Y2011 === 0 || e.layer.feature.properties.Y2011 === null || e.layer.feature.properties.Y2012 === 0 || e.layer.feature.properties.Y2012 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2012/e.layer.feature.properties.Y2011-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2013g", (e.layer.feature.properties.Y2012 === 0 || e.layer.feature.properties.Y2012 === null || e.layer.feature.properties.Y2013 === 0 || e.layer.feature.properties.Y2013 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2013/e.layer.feature.properties.Y2012-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2014g", (e.layer.feature.properties.Y2013 === 0 || e.layer.feature.properties.Y2013 === null || e.layer.feature.properties.Y2014 === 0 || e.layer.feature.properties.Y2014 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2014/e.layer.feature.properties.Y2013-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2015g", (e.layer.feature.properties.Y2014 === 0 || e.layer.feature.properties.Y2014 === null || e.layer.feature.properties.Y2015 === 0 || e.layer.feature.properties.Y2015 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2015/e.layer.feature.properties.Y2014-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2016g", (e.layer.feature.properties.Y2015 === 0 || e.layer.feature.properties.Y2015 === null || e.layer.feature.properties.Y2016 === 0 || e.layer.feature.properties.Y2016 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2016/e.layer.feature.properties.Y2015-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2017g", (e.layer.feature.properties.Y2016 === 0 || e.layer.feature.properties.Y2016 === null || e.layer.feature.properties.Y2017 === 0 || e.layer.feature.properties.Y2017 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2017/e.layer.feature.properties.Y2016-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2018g", (e.layer.feature.properties.Y2017 === 0 || e.layer.feature.properties.Y2017 === null || e.layer.feature.properties.Y2018 === 0 || e.layer.feature.properties.Y2018 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2018/e.layer.feature.properties.Y2017-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2019g", (e.layer.feature.properties.Y2018 === 0 || e.layer.feature.properties.Y2018 === null || e.layer.feature.properties.Y2019 === 0 || e.layer.feature.properties.Y2019 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2019/e.layer.feature.properties.Y2018-1)*100).toFixed(2))+"%")
-			ReplaceContentInContainer("2020g", (e.layer.feature.properties.Y2019 === 0 || e.layer.feature.properties.Y2019 === null || e.layer.feature.properties.Y2020 === 0 || e.layer.feature.properties.Y2020 === null) ? "NA" : parseFloat(((e.layer.feature.properties.Y2020/e.layer.feature.properties.Y2019-1)*100).toFixed(2))+"%")
+			//update the Cosite number
+			document.getElementById("chartsta").innerHTML = e.layer.feature.properties.COSITE;
+			document.getElementById("tablesta").innerHTML = e.layer.feature.properties.COSITE;
 
-	
-			var aadt = [e.layer.feature.properties.Y2015, 
-						e.layer.feature.properties.Y2016, 
-						e.layer.feature.properties.Y2017, 
-						e.layer.feature.properties.Y2018, 
-						e.layer.feature.properties.Y2019];
+			//update the data table - AADT
+			const years = 21;
+			var id_year = new Array(years);
+			var id_year_growth = new Array(years);
+			var id_aadt_flag = new Array(years);
+			var annual_growth = new Array(years); 
 			
-			var aadt2 = [e.layer.feature.properties.Y2010,
-						e.layer.feature.properties.Y2011,
-						e.layer.feature.properties.Y2012, 
-						e.layer.feature.properties.Y2013, 
-						e.layer.feature.properties.Y2014, 
-						e.layer.feature.properties.Y2015,			
-						e.layer.feature.properties.Y2016, 
-						e.layer.feature.properties.Y2017, 
-						e.layer.feature.properties.Y2018, 
-						e.layer.feature.properties.Y2019];
-			
-			const len = 30;
-		    var estimates = new Array(len).fill(0);
-		    var estimates2 = new Array(len).fill(0);
-			const year = [2015, 2016, 2017, 2018, 2019]; 
-			const year2 = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
-			
-			if(!aadt.includes(0)) {
-				for(var i = 0; i < len; i++){
-					estimates[i] = Math.round(Math.max(0, forecast(2021+i, aadt, year)));
+			for (var i = 0; i < years; i++){
+				id_year[i] = String(2000 + i);
+				id_year_growth[i] = 2000 + i + 'g';
+				id_aadt_flag[i] = 2000 + i + 'f';
+				if(i > 0){
+					annual_growth[i] = (historicalCount[i-1] === 0 || historicalCount[i-1] === null || historicalCount[i] === 0 || historicalCount[i] === null) ? "NA" 
+					: parseFloat(((historicalCount[i]/historicalCount[i-1]-1)*100).toFixed(2))+"%";
+				} else {
+					annual_growth[i] = "NA"; // No growth rate for the year 2000.
 				}
 			}
 			
-			if(!aadt2.includes(0)) {
-				for(var i = 0; i < len; i++){
-					estimates2[i] = Math.round(Math.max(0, forecast(2021+i, aadt2, year2)));
+			for (var i = 0; i < years; i++){
+				document.getElementById(id_year[i]).innerHTML = historicalCount[i];
+				document.getElementById(id_year_growth[i]).innerHTML = annual_growth[i];
+				document.getElementById(id_aadt_flag[i]).innerHTML = AADT_flag[i];
+			}
+
+			const len = 30;
+		    var estimates = new Array(len).fill(0);
+		    var estimates2 = new Array(len).fill(0);
+			// 2020 aadt is considered as an outlier if it is less than the begin year aadt.
+			var aadt = historicalCount.slice(-5);
+			var year = historicalYears.slice(-5);
+			if(e.layer.feature.properties.Y2020 < e.layer.feature.properties.Y2016){
+				aadt = historicalCount.slice(-6, -1);
+				year = historicalYears.slice(-6, -1); 
+			}
+			
+			var i = 0;
+			while (i < aadt.length) {
+				if (aadt[i] === 0) {
+					aadt.splice(i, 1);
+					year.splice(i, 1);
+				} else {
+					++i;
 				}
+			}
+			
+			for(var i = 0; i < len; i++){
+				estimates[i] = Math.round(Math.max(0, forecast(2021+i, aadt, year)));
+			}
+			
+			
+			var aadt2 = historicalCount.slice(-10);
+			var year2 = historicalYears.slice(-10);
+			if(e.layer.feature.properties.Y2020 < e.layer.feature.properties.Y2011){
+				aadt2 = historicalCount.slice(-11, -1);
+				year2 = historicalYears.slice(-11, -1); 
+			}
+			
+			var i = 0;
+			while(i < aadt2.length){
+				if (aadt2[i] === 0) {
+					aadt2.splice(i, 1);
+					year2.splice(i, 1);
+				} else {
+					++i;
+				}
+			}
+			for(var i = 0; i < len; i++){
+				estimates2[i] = Math.round(Math.max(0, forecast(2021+i, aadt2, year2)));
 			}
 			
 			myLineChart2.data.datasets[0].data = estimates;
 			myLineChart2.data.datasets[1].data = estimates2;
 			myLineChart2.update();
+			
 
 			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
 			if(e.layer._popup)
