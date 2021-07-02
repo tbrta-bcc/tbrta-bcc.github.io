@@ -36,6 +36,11 @@
 	text-align: left;
    }
 
+
+.navbar .nav > li > a {
+    padding: 10px 10px;
+}
+
 .cosite{
 	float: left;
 }
@@ -54,8 +59,9 @@ h5 {
 	/*text-align: center;  */
 }
 
-thead th{
+th{
 	text-align: center;
+	vertical-align: middle;
 	color: orange;
 }
 
@@ -65,7 +71,17 @@ td.year{
 	font-size: 12px;
 }
 
-tbody td{
+td.aadt{
+	text-align: right;
+	font-size: 12px;
+}
+
+td.aadt_flag{
+	text-align: right;
+	font-size: 12px;
+}
+
+td.growth{
 	text-align: right;
 	font-size: 12px;
 }
@@ -74,32 +90,31 @@ tbody td{
 	height: 55px;
 }
 
-
 #map {
 	position: absolute;
 	width: 33%;
-	top: 70px;
+	top: 60px;
 	bottom: 0;
-}
-
-#cosite{
-	position: absolute;
-	left: 35%;
-	width: 65%;
-	top: 70px;
-	height: 70px;
-	padding-left: 20px;
 }
 
 #data_table {
 	position: absolute;
-	left: 35%;
-	width: 15%;
-	top: 130px;
+	left: 33%;
+	width: 18%;
+	top: 70px;
 	bottom: 0;
-	padding: 0 20px;
+	padding: 0 16px;
 }
-	
+
+#cosite{
+	position: absolute;
+	left: 52%;
+	width: 47%;
+	top: 60px;
+	height: 60px;
+	padding-left: 20px;
+}
+
 #data_chart {
 	position: absolute;
 	left: 52%;
