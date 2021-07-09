@@ -61,29 +61,36 @@ h5 {
 
 th{
 	text-align: center;
-	vertical-align: middle;
 	color: orange;
+}
+
+th.growth{
+	background-color: rgba(220,220,220,0.3); 
+}
+
+td, th.growth, th.aadt{
+	font-size: 12px;
 }
 
 td.year{
 	text-align: center;
 	font-weight: bold;
-	font-size: 12px;
+	font-size: 13px;
 }
 
-td.aadt{
-	text-align: right;
-	font-size: 12px;
+td.analysisYear {
+	text-align: center;
+	font-weight: bold;
+	font-size: 14px;
 }
 
-td.aadt_flag{
+td.aadt, td.growth, td.aadt_flag, td.five_year, td.ten_year, td.sel_year{
 	text-align: right;
-	font-size: 12px;
 }
 
-td.growth{
-	text-align: right;
-	font-size: 12px;
+td.est_growth{
+	text-align: center;
+	background-color: rgba(220,220,220,0.3);
 }
 
 #navigator {
@@ -101,9 +108,9 @@ td.growth{
 	position: absolute;
 	left: 33%;
 	width: 18%;
-	top: 70px;
+	top: 60px;
 	bottom: 0;
-	padding: 0 16px;
+	padding: 10px 16px;
 }
 
 #cosite{
@@ -119,14 +126,7 @@ td.growth{
 	position: absolute;
 	left: 52%;
 	width: 47%;
-	top: 130px;
-	padding: 0 20px;
-}
-
-#data_projection_chart {
-	position: absolute;
-	left: 52%;
-	width: 47%;
-	top: 520px;
+	top: 120px;
+	bottom: 0;
 	padding: 0 20px;
 }
