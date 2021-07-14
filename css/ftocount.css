@@ -45,23 +45,17 @@
 	float: left;
 }
 
-h3 { 
-	font-weight: bold;
-}
-
-h4 { 
+h3, h4, h5 { 
 	font-weight: bold;
 }
 
 h5 {
-	font-weight: bold;
 	font-size: 15px;
-	/*text-align: center;  */
 }
 
 th{
 	text-align: center;
-	color: orange;
+	color: rgb(255,69,0);
 }
 
 th.growth{
@@ -72,10 +66,13 @@ td, th.growth, th.aadt{
 	font-size: 12px;
 }
 
+th.growth, th.aadt{
+	font-style: italic;
+}
+
 td.year{
 	text-align: center;
 	font-weight: bold;
-	font-size: 13px;
 }
 
 td.analysisYear {
@@ -84,12 +81,17 @@ td.analysisYear {
 	font-size: 14px;
 }
 
-td.aadt, td.growth, td.aadt_flag, td.five_year, td.ten_year, td.sel_year{
+td.aadt, td.growth, td.five_year, td.ten_year, td.sel_year{
 	text-align: right;
+}
+
+td.aadt_flag{
+	text-align: center;
 }
 
 td.est_growth{
 	text-align: center;
+	font-weight: bold;
 	background-color: rgba(220,220,220,0.3);
 }
 
@@ -106,8 +108,8 @@ td.est_growth{
 
 #data_table {
 	position: absolute;
-	left: 33%;
-	width: 18%;
+	left: 34%;
+	width: 17%;
 	top: 60px;
 	bottom: 0;
 	padding: 10px 16px;
@@ -117,8 +119,8 @@ td.est_growth{
 	position: absolute;
 	left: 52%;
 	width: 47%;
-	top: 60px;
-	height: 60px;
+	top: 55px;
+	height: 50px;
 	padding-left: 20px;
 }
 
@@ -126,7 +128,7 @@ td.est_growth{
 	position: absolute;
 	left: 52%;
 	width: 47%;
-	top: 120px;
+	top: 110px;
 	bottom: 0;
 	padding: 0 20px;
 }
