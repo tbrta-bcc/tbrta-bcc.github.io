@@ -53,21 +53,26 @@ h5 {
 	font-size: 15px;
 }
 
-th{
+th.aadt_table{
 	text-align: center;
-	color: rgb(255,69,0);
+	color: orange;
+}
+
+th.proj_table{
+	text-align: center;
 }
 
 th.growth{
 	background-color: rgba(220,220,220,0.3); 
 }
 
-td, th.growth, th.aadt{
-	font-size: 12px;
+th.aadt, th.growth{
+	font-style: italic;
+	text-align: center;
 }
 
-th.growth, th.aadt{
-	font-style: italic;
+td, th.growth, th.aadt{
+	font-size: 12px;
 }
 
 td.year{
@@ -81,6 +86,16 @@ td.analysisYear {
 	font-size: 14px;
 }
 
+th.est_sel, td.sel_year{
+	color: #1D6F42;
+}
+th.est_five, td.five_year{
+	color: orange;
+}
+th.est_ten, td.ten_year{
+	color: #EF6950;
+}
+
 td.aadt, td.growth, td.five_year, td.ten_year, td.sel_year{
 	text-align: right;
 }
@@ -92,7 +107,12 @@ td.aadt_flag{
 td.est_growth{
 	text-align: center;
 	font-weight: bold;
+	font-size: 13px;
 	background-color: rgba(220,220,220,0.3);
+}
+
+#projection_table{
+	font-weight: bold;
 }
 
 #navigator {
