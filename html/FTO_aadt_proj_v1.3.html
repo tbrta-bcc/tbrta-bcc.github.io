@@ -34,22 +34,22 @@
 <!-- Main Style -->
     <link rel="stylesheet" href="../css/ftocount.css"/>
 
-</head>
-<body>
-	<!-- Geojson -->		
+<!-- Geojson -->
 	<script type="text/javascript" src="../geojson/fto_aadt2020_proj.geojson"></script>
 
+</head>
+<body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">		
+		<div class="container-fluid">
+			<a href="https://tdaappsprod.dot.state.fl.us/fto/" target="_blank">
+				<img src="../images/fdot_logo_white.png" id="fdot_logo" style="height: 48px; margin-top:6px; float:left"/>
+			</a>
 			<ul class="nav navbar-nav navbar-left">
 				<li>
-				<a href="https://tdaappsprod.dot.state.fl.us/fto/"><h4 style="color: white">Florida Traffic Online</h4></a>
-				</li>
-				<li>
-				<a href="#"> <h4 style="color: white;">FDOT D7 Historical AADT (2000-2020)</h4></a>
+				<a href="#"> <h4 style="color: white;">D7 AADT Visualizer</h4></a>
 				</li>
 			</ul>
-			<a href="https://bcceng.com/"><img src="../images/bcc_logo.png" id="logo" style="height: 48px; margin-top:6px; float:right"/></a>
+			<a href="https://bcceng.com/" target="_blank"><img src="../images/bcc_logo.png" id="bcc_logo" style="height: 48px; margin-top:6px; float:right"/></a>
 		</div>
 	</nav>
 	
@@ -58,7 +58,7 @@
 	
 	<div id="cosite">
 		<div class="cosite"><h3>Cosite Number:&nbsp;</h3> </div>
-		<div class="cosite"><h3 style="color: rgb(255,69,0);" id='chartsta'> </h3></div>
+		<div class="cosite"><h3 style="color: orange;" id='chartsta'> </h3></div>
 	</div>
 	
 	<!-- Data Table-->
@@ -69,10 +69,10 @@
 			<thead>
 			<tr>
 				<th></th>
-				<th style="width: 15%;">Year</th>
-				<th style="text-align: right; width: 25%;">AADT</th>
-				<th style="width: 25%;">Flag</th>
-				<th style="text-align: right; width: 25%;">Growth</th>
+				<th class="aadt_table" style="width: 15%;">Year</th>
+				<th class="aadt_table" style="text-align: right; width: 25%;">AADT</th>
+				<th class="aadt_table" style="width: 25%;">Flag</th>
+				<th class="aadt_table" style="text-align: right; width: 25%;">Growth</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -238,50 +238,44 @@
 		<table class="table" id="projection_table">
 			<thead>
 				<tr>
-					<th colspan="2" rowspan="2" style="vertical-align: middle; width: 28%">Analysis Years<br><i style="font-size: 13px">(Available from the Year 2000)</i></th>
-					<th colspan="2" class="est_title">Projection Based on <br> the Last 5-Year AADTs</th>
-					<th colspan="2" class="est_title">Projection Based on <br> the Last 10-Year AADTs</th>
-					<th colspan="2" class="est_title">Projection Based on <br> Selected AADTs</th>
+					<th colspan="2" rowspan="2" class="proj_table" style="vertical-align: middle; width: 28%">Analysis Years<br><i style="font-size: 13px">(Available from the Year 2000)</i></th>
+					<th colspan="2" class="est_sel proj_table">Projection Based on <br> Selected AADTs</th>
+					<th colspan="2" class="est_five proj_table">Projection Based on <br> the Last 5-Year AADTs</th>
+					<th colspan="2" class="est_ten proj_table">Projection Based on <br> the Last 10-Year AADTs</th>
 				</tr>
 				<tr>
-					<th class="aadt" style="width: 10%">AADT</th>
-					<th class="growth" style="width: 14%">Annual Growth</th>
-					<th class="aadt" style="width: 10%">AADT</th>
-					<th class="growth" style="width: 14%">Annual Growth</th>
-					<th class="aadt" style="width: 10%">AADT</th>
-					<th class="growth" style="width: 14%">Annual Growth</th>
+					<th class="aadt est_sel" style="width: 10%">AADT</th>
+					<th class="growth est_sel" style="width: 14%">Annual Growth</th>
+					<th class="aadt est_five" style="width: 10%">AADT</th>
+					<th class="growth est_five" style="width: 14%">Annual Growth</th>
+					<th class="aadt est_ten" style="width: 10%">AADT</th>
+					<th class="growth est_ten" style="width: 14%">Annual Growth</th>
 				</tr>
 			</thead>
 			<tbody>
 			<tr>
 				<td class="analysisYear" id="OpeningYear">Opening Year</td>
 				<td> <input type="number" id="input_OpeningYear" step="1" min="2000" max="999999" onchange='saveValue(this);'> </td>
-				<td class="five_year" id="opening_aadt_5yr" style="vertical-align: middle;"></td>
-				<td class="est_growth" id="growth_5yr" rowspan="3" style="vertical-align: middle;"></td>
-				<td class="ten_year" id="opening_aadt_10yr" style="vertical-align: middle;"></td>
-				<td class="est_growth" id="growth_10yr" rowspan="3" style="vertical-align: middle;"></td>
 				<td class="sel_year" id="opening_aadt_selectedyr" style="vertical-align: middle;"></td>
-				<td class="est_growth" id="growth_selectedyr" rowspan="3" style="vertical-align: middle;"></td>
+				<td class="est_growth sel_year" id="growth_selectedyr" rowspan="3" style="vertical-align: middle;"></td>
+				<td class="five_year" id="opening_aadt_5yr" style="vertical-align: middle;"></td>
+				<td class="est_growth five_year" id="growth_5yr" rowspan="3" style="vertical-align: middle;"></td>
+				<td class="ten_year" id="opening_aadt_10yr" style="vertical-align: middle;"></td>
+				<td class="est_growth ten_year" id="growth_10yr" rowspan="3" style="vertical-align: middle;"></td>
 			</tr>
 			<tr>
 				<td class="analysisYear" id="InterimYear">Interim Year</td>
 				<td> <input type="number" id="input_InterimYear" step="1" min="2000" max="999999" onchange='saveValue(this);'></td>
-				<td class="five_year" id="interim_aadt_5yr" style="vertical-align: middle;"></td>
-				
-				<td class="ten_year" id="interim_aadt_10yr" style="vertical-align: middle;"></td>
-				
 				<td class="sel_year" id="interim_aadt_selectedyr" style="vertical-align: middle;"></td>
-				
+				<td class="five_year" id="interim_aadt_5yr" style="vertical-align: middle;"></td>
+				<td class="ten_year" id="interim_aadt_10yr" style="vertical-align: middle;"></td>
 			</tr>
 			<tr>
 				<td class="analysisYear" id="DesignYear">Design Year</td>
 				<td><input type="number" id="input_DesignYear" step="1" min="2000" max="999999" onchange='saveValue(this);'></td>
-				<td class="five_year" id="design_aadt_5yr" style="vertical-align: middle;"></td>
-				
-				<td class="ten_year" id="design_aadt_10yr" style="vertical-align: middle;"></td>
-				
 				<td class="sel_year" id="design_aadt_selectedyr" style="vertical-align: middle;"></td>
-				
+				<td class="five_year" id="design_aadt_5yr" style="vertical-align: middle;"></td>			
+				<td class="ten_year" id="design_aadt_10yr" style="vertical-align: middle;"></td>
 			</tr>
 			</tbody>
 		</table>	
@@ -355,10 +349,10 @@
 			datasets: [
 				{
 					label: 'Based on Selected AADTs',
-					borderColor: "rgb(255,69,0)",
+					borderColor: "#1D6F42",
 					borderWidth: 1,
 					borderDash: [5,5],
-					pointBackgroundColor: "rgb(255,69,0)",
+					pointBackgroundColor: "#1D6F42",
 					pointRadius: 3,
 					pointBorderWidth: 1,
 					tension: 0.3,
@@ -366,10 +360,10 @@
 				},	
 				{	
 					label: 'Based on 5-Year AADTs',
-					borderColor: "#FFBF00",
+					borderColor: "orange",
 					borderWidth: 1,
 					borderDash: [5,5],
-					pointBackgroundColor: "#FFBF00",
+					pointBackgroundColor: "orange",
 					pointRadius: 3,
 					pointBorderWidth: 1,
 					tension: 0.3,
@@ -377,10 +371,10 @@
 				},
 				{
 					label: 'Based on 10-Year AADTs',
-					borderColor: "#FF7F50",
+					borderColor: "#EF6950",
 					borderWidth: 1,
 					borderDash: [5,5],
-					pointBackgroundColor: "#FF7F50",
+					pointBackgroundColor: "#EF6950", //"#FF7F50"
 					pointRadius: 3,
 					pointBorderWidth: 1,
 					//backgroundColor: "rgba(220,220,220,0.2)",
