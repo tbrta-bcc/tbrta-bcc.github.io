@@ -83,7 +83,7 @@ td.year{
 td.analysisYear {
 	text-align: center;
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 13px;
 }
 
 th.est_sel, td.sel_year{
@@ -95,8 +95,11 @@ th.est_five, td.five_year{
 th.est_ten, td.ten_year{
 	color: #EF6950;
 }
+th.est_tbrpm, td.tbrpm{
+	color: #008CC4;
+}
 
-td.aadt, td.growth, td.five_year, td.ten_year, td.sel_year{
+td.aadt, td.growth, td.five_year, td.ten_year, td.sel_year, td.tbrpm{
 	text-align: right;
 }
 
