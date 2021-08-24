@@ -1,0 +1,1153 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tampa ABM statistics visulization</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--Load jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- SEARCH CONTROL -->
+	<link rel="stylesheet" href="src/leaflet-search.css"/>
+
+
+<!-- Chart.js -->	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.min.js"></script>
+	
+	<link rel="stylesheet" href="leaflet/leaflet.css"/>
+	<script src="leaflet/leaflet.js"></script> 
+	<script src="js/l.control.geosearch.js"></script>
+	<script src="js/l.geosearch.provider.google.js"></script>
+    <link rel="stylesheet" href="css/l.geosearch.css"/>
+	
+<!-- Main Style -->
+    <link rel="stylesheet" href="css/ftocount.css"/>
+
+<!-- Geojson -->
+	<script type="text/javascript" src="fto_aadt2020_proj2-1.geojson"></script>
+
+</head>
+<body>
+
+
+<header class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+    <nav class="container-xxl flex-wrap flex-md-nowrap" aria-label="Main navigation">
+    	<a href="https://tdaappsprod.dot.state.fl.us/fto/" target="_blank">
+			<img src="images/fdot_logo_white.png" id="fdot_logo" style="height: 48px; float:left"/>
+		</a>
+	<div class="collapse navbar-collapse" id="bdNavbar">
+      <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav pt-2 py-md-0">
+        <li class="nav-item col-6 col-md-auto">
+          <a class="nav-link p-3 active" aria-current="true"><b>D7 AADT Visualizer</b></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+        <li class="nav-item col-6 col-md-auto">
+			<a href="https://bcceng.com/" target="_blank"><img src="images/bcc_logo.png" id="bcc_logo" style="height: 48px;"/></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+
+
+	<!-- Map-->	
+	<div class="map" id="map"></div>
+	
+	<div class="box_cosite">
+		<div class="cosite" id="cosite"><i>Cosite Number:</i>&nbsp;</div>
+		<div class="cosite" id="chartsta" style="color: #EF6950;"></div>
+	</div>
+	
+	<!-- FTO HISTORICAL AADT Table-->
+	<div id="data_table">
+		<!--h5><i>FTO AADT Table (2000-2020)</i></h5-->
+		<h5 hidden id="tablesta"> </h5>
+		<table class="table" id="aadt_table">
+			<thead>
+			<tr>
+				<th class="aadt_table"></th>
+				<th class="aadt_table" style="width: 15%;">Year</th>
+				<th class="aadt_table" style="text-align: right; width: 25%;">AADT</th>
+				<th class="aadt_table" style="width: 25%;">Flag</th>
+				<th class="aadt_table" style="text-align: right; width: 25%;">Growth</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2001"/></td>
+				<td class="year">2001</td>
+				<td class="aadt" id="2001c">0</td>
+				<td class="aadt_flag" id="2001f">0</td>
+				<td class="growth" id='2001g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2002"/></td>
+				<td class="year">2002</td>
+				<td class="aadt" id='2002c'>0</td>
+				<td class="aadt_flag" id="2002f">0</td>
+				<td class="growth" id='2002g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2003"/></td>
+				<td class="year">2003</td>
+				<td class="aadt" id='2003c'>0</td>
+				<td class="aadt_flag" id="2003f">0</td>
+				<td class="growth" id='2003g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2004"/></td>
+				<td class="year">2004</td>
+				<td class="aadt" id='2004c'>0</td>
+				<td class="aadt_flag" id="2004f">0</td>
+				<td class="growth" id='2004g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2005"/></td>
+				<td class="year">2005</td>
+				<td class="aadt" id='2005c'>0</td>
+				<td class="aadt_flag" id="2005f">0</td>
+				<td class="growth" id='2005g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2006"/></td>
+				<td class="year">2006</td>
+				<td class="aadt" id='2006c'>0</td>
+				<td class="aadt_flag" id="2006f">0</td>
+				<td class="growth" id='2006g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2007"/></td>
+				<td class="year">2007</td>
+				<td class="aadt" id='2007c'>0</td>
+				<td class="aadt_flag" id="2007f">0</td>
+				<td class="growth" id='2007g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2008"/></td>
+				<td class="year">2008</td>
+				<td class="aadt" id='2008c'>0</td>
+				<td class="aadt_flag" id="2008f">0</td>
+				<td class="growth" id='2008g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2009"/></td>
+				<td class="year">2009</td>
+				<td class="aadt" id='2009c'>0</td>
+				<td class="aadt_flag" id="2009f">0</td>
+				<td class="growth" id='2009g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2010"/></td>
+				<td class="year">2010</td>
+				<td class="aadt" id='2010c'>0</td>
+				<td class="aadt_flag" id="2010f">0</td>
+				<td class="growth" id='2010g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2011"/></td>
+				<td class="year">2011</td>
+				<td class="aadt" id='2011c'>0</td>
+				<td class="aadt_flag" id="2011f">0</td>
+				<td class="growth" id='2011g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2012"/></td>
+				<td class="year">2012</td>
+				<td class="aadt" id='2012c'>0</td>
+				<td class="aadt_flag" id="2012f">0</td>
+				<td class="growth" id='2012g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2013"/></td>
+				<td class="year">2013</td>
+				<td class="aadt" id='2013c'>0</td>
+				<td class="aadt_flag" id="2013f">0</td>
+				<td class="growth" id='2013g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2014"/></td>				
+				<td class="year">2014</td>
+				<td class="aadt" id='2014c'>0</td>
+				<td class="aadt_flag" id="2014f">0</td>
+				<td class="growth" id='2014g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2015"/></td>
+				<td class="year">2015</td>
+				<td class="aadt" id='2015c'>0</td>
+				<td class="aadt_flag" id="2015f">0</td>
+				<td class="growth" id='2015g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2016"/></td>
+				<td class="year">2016</td>
+				<td class="aadt" id='2016c'>0</td>
+				<td class="aadt_flag" id="2016f">0</td>
+				<td class="growth" id='2016g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2017"/></td>
+				<td class="year">2017</td>
+				<td class="aadt" id='2017c'>0</td>
+				<td class="aadt_flag" id="2017f">0</td>
+				<td class="growth" id='2017g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2018"/></td>
+				<td class="year">2018</td>
+				<td class="aadt" id='2018c'>0</td>
+				<td class="aadt_flag" id="2018f">0</td>
+				<td class="growth" id='2018g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2019"/></td>
+				<td class="year">2019</td>
+				<td class="aadt" id='2019c'>0</td>
+				<td class="aadt_flag" id="2019f">0</td>
+				<td class="growth" id='2019g'>0</td>
+			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2020"/></td>
+				<td class="year">2020</td>
+				<td class="aadt" id='2020c'>0</td>
+				<td class="aadt_flag" id="2020f">0</td>
+				<td class="growth" id='2020g'>0</td>
+			</tr>
+			</tbody>
+		</table>
+		<table class="table" id="kdt">
+			<thead>
+			</thead>
+			<tr>
+				<th class="kfac" style="width:33%">2020 K Factor</th>
+				<th class="dfac" style="width:34%">2020 D Factor</th>
+				<th class="tfac" style="width:33%">2020 T Factor</th>
+			</tr>
+			<tbody>
+			<tr>
+				<td class="kfac" id="k_fac">0</td>
+				<td class="dfac" id="d_fac">0</td>
+				<td class="tfac" id="t_fac">0</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Tabs for Data Charts and Tables-->
+	<div class="container">
+    
+	<ul class="nav nav-pills" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-historical-tab" data-bs-toggle="pill" data-bs-target="#historical-data-projection" type="button" role="tab" aria-controls="pills-home" aria-selected="true" style="font-weight: bold">AADT Projection Based on Historical Data</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-nchrp-tab" data-bs-toggle="pill" data-bs-target="#nchrp-projection" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" style="font-weight: bold">NCHRP Procedure</button>
+      </li>
+    </ul>
+	
+	<div class="tab-content" id="pills-tabContent">
+		<div class="tab-pane fade show active" id="historical-data-projection" role="tabpanel" aria-labelledby="pills-home-tab">
+			<div id="fto_aadt_chart">
+				<h5><i>FTO AADT Chart (2000-2020)</i></h5>
+				<canvas id="myChart" height="72"></canvas>
+			</div>
+			<div id="aadt_projection_trend_line">
+				<h5 style="padding-top: 8px;"><i>AADT Projection Trend Line (2000-2050)</i></h5>
+				<canvas id="projChart" height="96" style="margin-bottom: 10px;"></canvas>
+			</div>
+			<table class="table" id="aadt_projection_table">
+				<thead>
+					<tr>
+						<th colspan="2" class="proj_table" style="width: 24%; vertical-align: middle;">
+						<button type="button" class="btn btn-outline-primary" onclick="download_csv('aadt_projection_table');"><b>Export</b></button>
+						</th>
+						<th colspan="2" class="est_sel proj_table">Based on Selected AADTs</th>
+						<th colspan="2" class="est_five proj_table">Based on the Last <br> 5-Year AADTs</th>
+						<th colspan="2" class="est_ten proj_table">Based on the Last <br> 10-Year AADTs</th>
+						<th colspan="2" class="est_tbrpm proj_table">Based on TBRPM Volume</th>
+					</tr>
+					<tr style="vertical-align: middle;">
+						<th colspan="2" class="proj_table">Analysis Years<br><i style="font-size: 12px">(Available from the Year 2000)</i></th>
+						<th class="aadt est_sel" style="width: 9%;">AADT</th>
+						<th class="growth est_sel" style="width: 10%;">Annual Growth</th>
+						<th class="aadt est_five" style="width: 9%;">AADT</th>
+						<th class="growth est_five" style="width: 10%;">Annual Growth</th>
+						<th class="aadt est_ten" style="width: 9%;">AADT</th>
+						<th class="growth est_ten" style="width: 10%;">Annual Growth</th>
+						<th class="aadt est_tbrpm" style="width: 9%;">AADT</th>
+						<th class="growth est_tbrpm" style="width: 10%;">Annual Growth</th>				
+					</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td class="analysisYear" id="OpeningYear">Opening Year</td>
+					<td> <input type="number" id="input_OpeningYear" step="1" min="2000" max="99999" onchange="saveValue(this);"></td>
+					<td class="sel_year" id="opening_aadt_selectedyr" style="vertical-align: middle;"></td>
+					<td class="est_growth sel_year" id="growth_selectedyr" rowspan="3" style="vertical-align: middle;"></td>
+					<td class="five_year" id="opening_aadt_5yr" style="vertical-align: middle;"></td>
+					<td class="est_growth five_year" id="growth_5yr" rowspan="3" style="vertical-align: middle;"></td>
+					<td class="ten_year" id="opening_aadt_10yr" style="vertical-align: middle;"></td>
+					<td class="est_growth ten_year" id="growth_10yr" rowspan="3" style="vertical-align: middle;"></td>
+					<td class="tbrpm" id="opening_aadt_tbrpm" style="vertical-align: middle;"></td>
+					<td class="est_growth tbrpm" id="growth_tbrpm" rowspan="3" style="vertical-align: middle;"></td>
+				</tr>
+				<tr>
+					<td class="analysisYear" id="InterimYear">Interim Year</td>
+					<td> <input type="number" id="input_InterimYear" step="1" min="2000" max="99999" onchange="saveValue(this);"></td>
+					<td class="sel_year" id="interim_aadt_selectedyr" style="vertical-align: middle;"></td>
+					<td class="five_year" id="interim_aadt_5yr" style="vertical-align: middle;"></td>
+					<td class="ten_year" id="interim_aadt_10yr" style="vertical-align: middle;"></td>
+					<td class="tbrpm" id="interim_aadt_tbrpm" style="vertical-align: middle;"></td>
+				</tr>
+				<tr>
+					<td class="analysisYear" id="DesignYear">Design Year</td>
+					<td><input type="number" id="input_DesignYear" step="1" min="2000" max="99999" onchange="saveValue(this);"></td>
+					<td class="sel_year" id="design_aadt_selectedyr" style="vertical-align: middle;"></td>
+					<td class="five_year" id="design_aadt_5yr" style="vertical-align: middle;"></td>
+					<td class="ten_year" id="design_aadt_10yr" style="vertical-align: middle;"></td>
+					<td class="tbrpm" id="design_aadt_tbrpm" style="vertical-align: middle;"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="tab-pane fade" id="nchrp-projection" role="tabpanel" aria-labelledby="pills-profile-tab">
+			<table class="table" id="nchrp_procedure">
+				<thead>
+					<tr>
+						<th rowspan="2" class="head-nchrp" style="vertical-align: middle;">
+						<button type="button" class="btn btn-outline-primary" onclick="download_csv('aadt_projection_table');"><b>Export</b></button>
+						</th>
+						<th class="head-nchrp m4" rowspan="2" style="width: 20%; vertical-align: middle;">NCHRP 255 Ratio & Difference Smoothing <i>(Based on <u>Base Year</u>)</i></th>
+						<th class="head-nchrp" colspan="3" >NCHRP 765 <i>(Based on <u>Existing Year</u>)</i></th>
+					</tr>
+					<tr>
+						<th class="head-nchrp m5a" style="width: 20%; vertical-align: middle;">Difference Smoothing</th>
+						<th class="head-nchrp m5b" style="width: 20%; vertical-align: middle;">Ratio Smoothing</th>
+						<th class="head-nchrp m6" style="width: 20%;">Ratio & Difference Smoothing</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>2015 AADT Count</td>
+					<td class="nchrp-common-data" id="15count" style="vertical-align: middle;"></td>
+					<td colspan="3">-</td>
+				</tr>
+				<tr>
+					<td>2015 Model AADT</td>
+					<td colspan="4" class="nchrp-common-data" id="15vol" style="vertical-align: middle;"></td>
+				</tr>
+				<tr>
+					<td>2045 Model AADT</td>
+					<td colspan="4" class="nchrp-common-data" id="45vol" style="vertical-align: middle;"></td>
+				</tr>
+				<tr>
+					<td>Existing Year Model Interpolated AADT</td>
+					<td class="m4" style="text-align: center; vertical-align: middle;">-</td>
+					<td colspan="3" class="nchrp-common-data" id="19vol" style="vertical-align: middle;"></td>
+				</tr>
+				<tr>
+					<td>Existing Year AADT<br><input type="number" id="input_ExistingYear" step="1" min="2000" max="2021" value="2019" onchange="saveValue(this);"></td>
+					<td colspan="4" class="nchrp-common-data" id="exist_yr_count" style="vertical-align: middle;"></td>
+				</tr>
+				<tr>
+					<td>2045 <u><i>Ratio-Smoothed</i></u> AADT</td>
+					<td class="m4" id="m4-ratio" style="vertical-align: middle;"></td>
+					<td class="m5a" id="m5a-ratio" style="vertical-align: middle;">-</td>
+					<td class="m5b" id="m5b-ratio" style="vertical-align: middle;"></td>
+					<td class="m6" id="m6-ratio" style="vertical-align: middle;"></td>
+				</tr>
+				<tr>
+					<td>2045 <u><i>Difference-Smoothed</i></u> AADT</td>
+					<td class="m4" id="m4-diff" style="vertical-align: middle;"></td>
+					<td class="m5a" id="m5a-diff" style="vertical-align: middle;"></td>
+					<td class="m5b" id="m5b-diff" style="vertical-align: middle;">-</td>
+					<td class="m6" id="m6-diff" style="vertical-align: middle;"></td>
+				</tr>
+				<tr>
+					<td>2045 Smoothed <u><i>Average</i></u> AADT</td>
+					<td class="m4" id="m4-avg" style="vertical-align: middle;"></td>
+					<td class="m5a" id="m5a-avg" style="vertical-align: middle;">-</td>
+					<td class="m5b" id="m5b-avg" style="vertical-align: middle;">-</td>
+					<td class="m6" id="m6-avg" style="vertical-align: middle;"></td>
+				</tr>
+				<tr>
+					<td>Annual Growth</td>
+					<td class="m4" id="m4-growth"></td>
+					<td class="m5a" id="m5a-growth"></td>
+					<td class="m5b" id="m5b-growth"></td>
+					<td class="m6" id="m6-growth"></td>
+				</tr>
+				<tr>
+					<td id="opening_yr">Opening Year</td>
+					<td class="m4" id="m4-opening"></td>
+					<td class="m5a" id="m5a-opening"></td>
+					<td class="m5b" id="m5b-opening"></td>
+					<td class="m6" id="m6-opening"></td>
+				</tr>
+				<tr>
+					<td id="interim_yr">Interim Year</td>
+					<td class="m4" id="m4-interim"></td>
+					<td class="m5a" id="m5a-interim"></td>
+					<td class="m5b" id="m5b-interim"></td>
+					<td class="m6" id="m6-interim"></td>
+				</tr>
+				<tr>
+					<td id="design_yr">Design Year</td>
+					<td class="m4" id="m4-design"></td>
+					<td class="m5a" id="m5a-design"></td>
+					<td class="m5b" id="m5b-design"></td>
+					<td class="m6" id="m6-design"></td>
+				</tr>				
+				</tbody>
+			</table>	
+		</div>
+    </div>
+	</div>
+	
+	
+	<!-- Leaflet Search Control -->
+	<script src="src/leaflet-search.js"></script>
+	
+	<!-- Chart.js -->	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.min.js"></script>
+
+	
+	<script type="text/javascript">
+	
+		var map = L.map('map').setView([28.23, -82.465], 9);
+		
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+
+		var year1 = [];
+		var year2 = [];
+		for (var i = 0; i < 51; i++){
+			if(i < 21) {
+				year1[i] = 2000 + i + '';
+			} 
+			year2[i] = 2000 + i + '';
+		}
+		
+		//data Chart
+		var LineChartData = {
+			labels: year1,
+			datasets: [
+				{
+					label: 'AADT',
+					fill: true,
+					borderColor: "#FDB45C",
+					borderWidth: 1.6,
+					pointBackgroundColor: "#FDB45C",
+					pointRadius: 4,
+					pointBorderWidth: 1,
+					tension: 0.3,
+					data: Array(21).fill(0)
+				}																
+			]
+		};
+		
+		var ctx = document.getElementById("myChart").getContext("2d");
+		var myLineChart = new Chart(ctx, {
+			type: 'line',
+			data: LineChartData,
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				},
+				plugins: {
+					legend: {
+						display: false,
+					}
+				}
+			}
+		});
+	
+		//projection Chart
+		var LineChartData2 = {
+			labels: year2,
+			datasets: [
+				{
+					label: 'Based on Selected AADTs',
+					borderColor: "#1D6F42",
+					borderWidth: 1,
+					borderDash: [5,5],
+					pointBackgroundColor: "#1D6F42",
+					pointRadius: 3,
+					pointBorderWidth: 1,
+					tension: 0.3,
+					data: null
+				},	
+				{	
+					label: 'Based on 5-Year AADTs',
+					borderColor: "orange",
+					borderWidth: 1,
+					borderDash: [5,5],
+					pointBackgroundColor: "orange",
+					pointRadius: 3,
+					pointBorderWidth: 1,
+					tension: 0.3,
+					data: Array(51).fill(0)
+				},
+				{
+					label: 'Based on 10-Year AADTs',
+					borderColor: "#EF6950",
+					borderWidth: 1,
+					borderDash: [5,5],
+					pointBackgroundColor: "#EF6950", //"#FF7F50"
+					pointRadius: 3,
+					pointBorderWidth: 1,
+					//backgroundColor: "rgba(220,220,220,0.2)",
+					tension: 0.3,
+					data: Array(51).fill(0)
+				},
+				{
+					label: 'Based on TBRPM Volume',
+					borderColor: "#008CC4",
+					borderWidth: 1,
+					borderDash: [5,5],
+					pointBackgroundColor: "#008CC4",
+					pointRadius: 3,
+					pointBorderWidth: 1,
+					tension: 0.3,
+					data: Array(51).fill(0)
+				}
+			]
+		};
+		
+		var ctx2 = document.getElementById("projChart").getContext("2d");
+		var myLineChart2 = new Chart(ctx2, {
+			type: 'line',
+			data: LineChartData2,
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				},
+				plugins:{
+					legend: {
+						labels: {
+							usePointStyle: true,
+						},
+					}
+				}
+			}
+		});
+	
+	
+		// Update information inside division
+		var info_10 = L.control();
+			
+			info_10.onAdd = function (map) {
+				this._div = L.DomUtil.create('div', 'info');
+				this.update();
+				return this._div;
+			};
+			info_10.update = function (props) {
+				this._div.innerHTML = '<h4 align="center">Tampa Bay Region</h4>' 
+					+ "Enter a <i><b> Cosite # </b></i> in the Search Box" + '<br><br>' 
+					+ (props ? '<b>'+'Cosite #: ' + props.COSITE : '</b>'+'Or click on a FTO station...');
+			};
+			info_10.addTo(map);
+			
+		function highlightFeature10(e) {
+			var layer = e.target;
+			layer.setStyle({
+				weight: 5,
+				color: '#666',
+				dashArray: '',
+				fillOpacity: 0.7
+			});
+			info_10.update(layer.feature.properties);
+		}
+	
+		function resetHighlight10(e) {
+			station.resetStyle(e.target);
+			info_10.update();
+		}
+
+		// get color function	
+		function getColor(d) {
+			return d > 1100     ?   '#7a0177' :
+				d > 800      ?   '#ae017e' :
+				d > 500      ?   '#dd3497' :
+				d > 300      ?   '#f768a1' :
+				d > 200      ?   '#fa9fb5' :
+				d > 100      ?   '#fcc5c0' :
+				d > 1        ?   '#feebe2' :
+									'Gray';
+		}
+		
+		//forecast function
+		function forecast(x, ky, kx){
+			var i=0, nr=0, dr=0, ax=0, ay=0, a=0, b=0;
+			
+			function average(array) {
+				var total = 0;
+				for (var i = 0; i< array.length; i++){
+					total += array[i];
+				}
+				return total/array.length;
+			}
+			ax = average(kx);
+			ay = average(ky);
+			for (i = 0; i < kx.length; i++){
+				nr = nr + ((kx[i]-ax) * (ky[i]-ay));
+				dr = dr + ((kx[i]-ax) * (kx[i]-ax))
+			}
+			if(kx.length < 2 || ky.length < 2 || !(ky.length === kx.length)){
+				return null;
+			}
+			b = nr/dr;
+			a = ay-b*ax;
+			return (a+b*x);
+		}
+				
+		function trendLine(Counts, Years){
+			var len = 100; //year 2000 - 2099
+		    var est = new Array(len);
+			for(var i = 0; i < len; i++){
+				est[i] = Math.round(Math.max(0, forecast(2000+i, Counts, Years))); // forecast
+			}
+			return est;
+		}
+		
+		function analysisYearAADT(year, Counts, Years){
+			if(year < 2000){
+				return null;
+			} else {
+				return RoundAADT(Math.max(0,forecast(year, Counts, Years))).toLocaleString();
+			}
+		}
+		
+		function RoundAADT(d){
+			return d > 9999 ? 500 * Math.round(d/500) :
+				d > 999 ? 100 * Math.round(d/100) :
+				d > 99 ? 50 * Math.round(d/50):
+				10 * Math.round(d/10);
+		}
+		
+		function saveValue(e){
+            var id = e.id;  // get the sender's id to save it . 
+            var val = e.value; // get the value. 
+            localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override . 
+        }
+		
+		function whenClicked(e) {
+			var clickProperty = e.target.feature.properties;
+			dataRefresh(clickProperty); //update data in the entire panel
+		}
+		
+		
+		function dataRefresh(property){ //update data in the entire panel
+			var countYearPair = {}; // create a dictionary to store year, and aadt with flag and growth.
+			countYearPair["2000"] = {aadt: property.Y2000, flag: property.Y2000_FLG, growth: "NA"};
+			countYearPair["2001"] = {aadt: property.Y2001, flag: property.Y2001_FLG, growth: 0};
+			countYearPair["2002"] = {aadt: property.Y2002, flag: property.Y2002_FLG, growth: 0};
+			countYearPair["2003"] = {aadt: property.Y2003, flag: property.Y2003_FLG, growth: 0};
+			countYearPair["2004"] = {aadt: property.Y2004, flag: property.Y2004_FLG, growth: 0};
+			countYearPair["2005"] = {aadt: property.Y2005, flag: property.Y2005_FLG, growth: 0};
+			countYearPair["2006"] = {aadt: property.Y2006, flag: property.Y2006_FLG, growth: 0};
+			countYearPair["2007"] = {aadt: property.Y2007, flag: property.Y2007_FLG, growth: 0};
+			countYearPair["2008"] = {aadt: property.Y2008, flag: property.Y2008_FLG, growth: 0};
+			countYearPair["2009"] = {aadt: property.Y2009, flag: property.Y2009_FLG, growth: 0};
+			countYearPair["2010"] = {aadt: property.Y2010, flag: property.Y2010_FLG, growth: 0};
+			countYearPair["2011"] = {aadt: property.Y2011, flag: property.Y2011_FLG, growth: 0};
+			countYearPair["2012"] = {aadt: property.Y2012, flag: property.Y2012_FLG, growth: 0};
+			countYearPair["2013"] = {aadt: property.Y2013, flag: property.Y2013_FLG, growth: 0};
+			countYearPair["2014"] = {aadt: property.Y2014, flag: property.Y2014_FLG, growth: 0};
+			countYearPair["2015"] = {aadt: property.Y2015, flag: property.Y2015_FLG, growth: 0};
+			countYearPair["2016"] = {aadt: property.Y2016, flag: property.Y2016_FLG, growth: 0};
+			countYearPair["2017"] = {aadt: property.Y2017, flag: property.Y2017_FLG, growth: 0};			
+			countYearPair["2018"] = {aadt: property.Y2018, flag: property.Y2018_FLG, growth: 0};
+			countYearPair["2019"] = {aadt: property.Y2019, flag: property.Y2019_FLG, growth: 0};
+			countYearPair["2020"] = {aadt: property.Y2020, flag: property.Y2020_FLG, growth: 0};
+		
+			historicalYear = Object.keys(countYearPair).map(function(item){
+				return parseInt(item, 10);
+			});
+
+			var historicalCount = [];
+			for(var key in countYearPair){
+				historicalCount.push(countYearPair[key].aadt);
+			}
+			
+			var AADT_flag = [];
+			for(var key in countYearPair){
+				AADT_flag.push(countYearPair[key].flag);
+			}			
+			
+			//update the chart
+			myLineChart.data.datasets[0].data = historicalCount;
+			myLineChart.update();
+			
+			//update the Cosite number
+			document.getElementById("chartsta").innerHTML = property.COSITE;
+			document.getElementById("tablesta").innerHTML = property.COSITE;
+			
+			document.getElementById("k_fac").innerHTML = parseFloat(property.Y2020_K).toFixed(2);
+			document.getElementById("d_fac").innerHTML = parseFloat(property.Y2020_D).toFixed(2);
+			document.getElementById("t_fac").innerHTML = parseFloat(property.Y2020_T).toFixed(2);
+
+			//update Historical AADT table
+			const years = 21; //year 2000 - 2020
+			var id_aadt = new Array(years);
+			var id_growth = new Array(years);
+			var id_flag = new Array(years);
+			var annual_growth = new Array(years);
+			var id_checkbox = new Array(years);
+			
+			for (var i = 1; i < years; i++){
+				id_aadt[i] =  2000 + i + 'c';
+				id_growth[i] = 2000 + i + 'g';
+				id_flag[i] = 2000 + i + 'f';
+				id_checkbox[i] = 'check_' + (2000 + i);
+				annual_growth[i] = (historicalCount[i-1] === 0 || historicalCount[i-1] === null || historicalCount[i] === 0 || historicalCount[i] === null) ? "NA" 
+					: parseFloat(((historicalCount[i]/historicalCount[i-1]-1)*100).toFixed(2))+"%";
+				if(i === 1){
+					annual_growth[i] = "NA"; // No growth rate for the year 2001.
+				}
+			}
+			
+			for (var i = 1; i < years; i++){ //no 2000 data
+				document.getElementById(id_aadt[i]).innerHTML = historicalCount[i].toLocaleString();
+				document.getElementById(id_growth[i]).innerHTML = annual_growth[i];
+				document.getElementById(id_flag[i]).innerHTML = AADT_flag[i];
+				//document.getElementById(id_checkbox[i]).checked = false;
+			}
+			
+			var aadt_5 = historicalCount.slice(-5); //the last 5-year aadt (2016-2020)
+			var year_5 = historicalYear.slice(-5); //the last 5 years (2016-2020)
+			var i = 0;
+			while (i < aadt_5.length) {
+				if (aadt_5[i] === 0) { // remove years with 0 aadt
+					aadt_5.splice(i, 1);
+					year_5.splice(i, 1);
+				} else {
+					++i;
+				}
+			}
+			
+			var aadt_10 = historicalCount.slice(-10); //the last 10-year aadt (2011-2020)
+			var year_10 = historicalYear.slice(-10); //the last 10 years (2011-2020)
+			var i = 0;
+			while (i < aadt_10.length) { 
+				if (aadt_10[i] === 0) { // remove years with 0 aadt
+					aadt_10.splice(i, 1);
+					year_10.splice(i, 1);
+				} else {
+					++i;
+				}
+			}
+			
+			myLineChart2.data.datasets[1].data = trendLine(aadt_5, year_5).slice(0,51);
+			myLineChart2.data.datasets[2].data = trendLine(aadt_10, year_10).slice(0,51);
+			myLineChart2.data.datasets[3].data = trendLine([property.VOL15, property.VOL45], [2015, 2045]).slice(0,51);
+			myLineChart2.data.datasets[0].data = null;
+			myLineChart2.update();
+			
+			document.getElementById("growth_5yr").innerHTML = parseFloat(((trendLine(aadt_5, year_5)[21]/trendLine(aadt_5, year_5)[20]-1)*100).toFixed(2))+"%";			
+			document.getElementById("growth_10yr").innerHTML = parseFloat(((trendLine(aadt_10, year_10)[21]/trendLine(aadt_10, year_10)[20]-1)*100).toFixed(2))+"%";
+			document.getElementById("growth_tbrpm").innerHTML = parseFloat(((property.VOL45/property.VOL15-1)/30*100).toFixed(2))+"%";
+			
+			var input_opening = document.getElementById("input_OpeningYear");
+			input_opening.addEventListener("change", function(e){ //update opening year and change corresponding aadt
+				saveValue(e);
+				yr_1 = e.target.value;
+				document.getElementById("opening_aadt_5yr").innerHTML = analysisYearAADT(yr_1, aadt_5, year_5);
+				document.getElementById("opening_aadt_10yr").innerHTML = analysisYearAADT(yr_1, aadt_10, year_10);
+				document.getElementById("opening_aadt_tbrpm").innerHTML = analysisYearAADT(yr_1, [property.VOL15, property.VOL45], [2015, 2045]);
+				
+				yr_2 = parseInt(e.target.value) + 10;
+				yr_3 = parseInt(e.target.value) + 20;
+				document.getElementById("input_InterimYear").value = yr_2;
+				document.getElementById("input_DesignYear").value = yr_3;
+				
+				document.getElementById("interim_aadt_5yr").innerHTML = analysisYearAADT(yr_2, aadt_5, year_5);
+				document.getElementById("interim_aadt_10yr").innerHTML = analysisYearAADT(yr_2, aadt_10, year_10);
+				document.getElementById("interim_aadt_tbrpm").innerHTML = analysisYearAADT(yr_2, [property.VOL15, property.VOL45], [2015, 2045]);
+				
+				document.getElementById("design_aadt_5yr").innerHTML = analysisYearAADT(yr_3, aadt_5, year_5);
+				document.getElementById("design_aadt_10yr").innerHTML = analysisYearAADT(yr_3, aadt_10, year_10);
+				document.getElementById("design_aadt_tbrpm").innerHTML = analysisYearAADT(yr_3, [property.VOL15, property.VOL45], [2015, 2045]);
+				
+			});
+			document.getElementById("opening_aadt_5yr").innerHTML = analysisYearAADT(input_opening.value, aadt_5, year_5);
+			document.getElementById("opening_aadt_10yr").innerHTML = analysisYearAADT(input_opening.value, aadt_10, year_10);
+			document.getElementById("opening_aadt_tbrpm").innerHTML = analysisYearAADT(input_opening.value, [property.VOL15, property.VOL45], [2015, 2045]);
+			
+			var input_interim = document.getElementById("input_InterimYear");
+			input_interim.addEventListener("change", function(e){ //update interim year and change corresponding aadt				
+				saveValue(e);
+				yr = e.target.value;
+				document.getElementById("interim_aadt_5yr").innerHTML = analysisYearAADT(yr, aadt_5, year_5);
+				document.getElementById("interim_aadt_10yr").innerHTML = analysisYearAADT(yr, aadt_10, year_10);
+				document.getElementById("interim_aadt_tbrpm").innerHTML = analysisYearAADT(yr, [property.VOL15, property.VOL45], [2015, 2045]);			
+			});
+			document.getElementById("interim_aadt_5yr").innerHTML = analysisYearAADT(input_interim.value, aadt_5, year_5);
+			document.getElementById("interim_aadt_10yr").innerHTML = analysisYearAADT(input_interim.value, aadt_10, year_10);
+			document.getElementById("interim_aadt_tbrpm").innerHTML = analysisYearAADT(input_interim.value, [property.VOL15, property.VOL45], [2015, 2045]);
+			
+			var input_design = document.getElementById("input_DesignYear");
+			input_design.addEventListener("change", function(e){ //update design year and change corresponding aadt
+				saveValue(e);
+				yr = e.target.value;
+				document.getElementById("design_aadt_5yr").innerHTML = analysisYearAADT(yr, aadt_5, year_5);
+				document.getElementById("design_aadt_10yr").innerHTML = analysisYearAADT(yr, aadt_10, year_10);
+				document.getElementById("design_aadt_tbrpm").innerHTML = analysisYearAADT(yr, [property.VOL15, property.VOL45], [2015, 2045]);
+			});
+			document.getElementById("design_aadt_5yr").innerHTML = analysisYearAADT(input_design.value, aadt_5, year_5);
+			document.getElementById("design_aadt_10yr").innerHTML = analysisYearAADT(input_design.value, aadt_10, year_10);
+			document.getElementById("design_aadt_tbrpm").innerHTML = analysisYearAADT(input_design.value, [property.VOL15, property.VOL45], [2015, 2045]);
+			
+			//update trend line when checknboxes are checked.
+			var selections = [];
+			var checkboxElems = document.querySelectorAll("input[type='checkbox']");
+			checkboxElems.forEach(el => el.checked = false);
+			
+			document.getElementById("growth_selectedyr").innerHTML = "";
+			document.getElementById("opening_aadt_selectedyr").innerHTML = "";
+			document.getElementById("interim_aadt_selectedyr").innerHTML = "";
+			document.getElementById("design_aadt_selectedyr").innerHTML = "";
+			
+			for (var i = 0; i < checkboxElems.length; i++) {
+				checkboxElems[i].addEventListener("change", displayCheck);
+			}
+			
+			function displayCheck(e){
+				if (e.target.checked) {
+					selections[e.target.id] = {
+						year: e.target.id.substring(6)
+					};
+				}
+				else {
+					delete selections[e.target.id];
+				}
+				
+				var updatedCounts = [];
+				var updatedYears = [];
+				for (var key in selections) {
+					updatedCounts.push(countYearPair[selections[key].year].aadt);
+					updatedYears.push(parseInt(selections[key].year, 10));
+				}
+				
+				var selected_year_est = trendLine(updatedCounts, updatedYears);
+				myLineChart2.data.datasets[0].data = selected_year_est.slice(0,51);
+				myLineChart2.update();
+				
+				document.getElementById("growth_selectedyr").innerHTML = (selected_year_est[20] === 0) 
+				? parseFloat(((selected_year_est[1]/selected_year_est[0]-1)*100).toFixed(2))+"%"
+				: parseFloat(((selected_year_est[21]/selected_year_est[20]-1)*100).toFixed(2))+"%";
+				
+				var input_opn = document.getElementById("input_OpeningYear");
+				var input_intrm = document.getElementById("input_InterimYear");
+				var input_desg = document.getElementById("input_DesignYear");
+
+				document.getElementById("opening_aadt_selectedyr").innerHTML = analysisYearAADT(input_opn.value, updatedCounts, updatedYears);
+				document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(input_intrm.value, updatedCounts, updatedYears);
+				document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(input_desg.value, updatedCounts, updatedYears);
+				
+				if (updatedCounts.length>0) { //need to debug
+					input_opn.addEventListener("change", function(e){
+						yr = e.target.value;
+						document.getElementById("opening_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+						document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(parseInt(yr)+10, updatedCounts, updatedYears);
+						document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(parseInt(yr)+20, updatedCounts, updatedYears);
+					});
+					
+					input_intrm.addEventListener("change", function(e){
+						yr = e.target.value;
+						document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+					});	
+	
+					input_desg.addEventListener("change", function(e){
+						yr = e.target.value;
+						document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+					});
+				}
+			}
+			
+			
+			//update NCHRP Procedure Table
+			document.getElementById("15count").innerHTML = (property.Y2015).toLocaleString();
+			document.getElementById("15vol").innerHTML = (property.VOL15).toLocaleString();
+			document.getElementById("45vol").innerHTML = (property.VOL45).toLocaleString();
+			
+			var existing_year = input_ExistingYear.value;
+			existing_year_count = countYearPair[existing_year].aadt;
+			document.getElementById("exist_yr_count").innerHTML = existing_year_count.toLocaleString();
+			exist_yr_vol = Math.round(Math.max(0,forecast(existing_year, [property.VOL15, property.VOL45], [2015, 2045])));
+			document.getElementById("19vol").innerHTML = exist_yr_vol.toLocaleString();
+			
+			var opening_year = localStorage.getItem("input_OpeningYear");
+			var interim_year = parseInt(opening_year) + 10;
+			var design_year = parseInt(opening_year) + 20;
+			
+			//method 4 - NCHRP Report 255 Ratio & Difference Smoothing Method Based on 2015 Data
+			m4_2045ratio = property.Y2015*(property.VOL45/property.VOL15);
+			m4_2045diff = property.Y2015+(property.VOL45-property.VOL15);
+			m4_2045avg = m4_2045ratio/2 + m4_2045diff/2;
+			m4_growth = (m4_2045avg/property.Y2015-1)/(2045-2015);					
+			m4_opening = existing_year_count *(1 + m4_growth * (opening_year - existing_year));
+			m4_interim = existing_year_count *(1 + m4_growth * (interim_year - existing_year));
+			m4_design = existing_year_count *(1 + m4_growth * (design_year - existing_year));
+			
+			document.getElementById("m4-ratio").innerHTML = Math.round(m4_2045ratio).toLocaleString(); 
+			document.getElementById("m4-diff").innerHTML = Math.round(m4_2045diff).toLocaleString();
+			document.getElementById("m4-avg").innerHTML = Math.round(m4_2045avg).toLocaleString();
+			document.getElementById("m4-growth").innerHTML = parseFloat((m4_growth*100).toFixed(2))+"%";
+			document.getElementById("m4-opening").innerHTML = Math.round(m4_opening).toLocaleString();
+			document.getElementById("m4-interim").innerHTML = Math.round(m4_interim).toLocaleString();
+			document.getElementById("m4-design").innerHTML = Math.round(m4_design).toLocaleString();
+			
+			//NCHRP Report 765 Based on 2019 Data
+			m5_6_2045ratio = existing_year_count*(property.VOL45/exist_yr_vol);
+			m5_6_2045diff = existing_year_count +(property.VOL45 - exist_yr_vol);
+			m5_6_2045avg = m5_6_2045ratio/2 + m5_6_2045diff/2;
+			
+			//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on 2019 Data (if model is underestimating in the Base Year)
+			m5a_growth = (m5_6_2045diff/existing_year_count-1)/(2045-2019);
+			m5a_opening = existing_year_count*(1 + m5a_growth * (opening_year - existing_year));
+			m5a_interim = existing_year_count*(1 + m5a_growth * (interim_year - existing_year));
+			m5a_design = existing_year_count*(1 + m5a_growth * (design_year - existing_year));
+			
+			//document.getElementById("m5a-ratio").innerHTML = m5a_2045ratio.toLocaleString(); 
+			document.getElementById("m5a-diff").innerHTML = Math.round(m5_6_2045diff).toLocaleString();
+			//document.getElementById("m5a-avg").innerHTML = m5a_2045avg.toLocaleString();
+			document.getElementById("m5a-growth").innerHTML = parseFloat(m5a_growth*100).toFixed(2)+"%";
+			document.getElementById("m5a-opening").innerHTML = Math.round(m5a_opening).toLocaleString();
+			document.getElementById("m5a-interim").innerHTML = Math.round(m5a_interim).toLocaleString();
+			document.getElementById("m5a-design").innerHTML = Math.round(m5a_design).toLocaleString();
+			
+			//method 5b - NCHRP Report 765 Ratio-Smoothing Method Based on 2019 Data (if model is overestimating in the Base Year)
+			m5b_growth = (m5_6_2045ratio/existing_year_count-1)/(2045-2019);
+			m5b_opening = existing_year_count*(1 + m5b_growth * (opening_year - existing_year));
+			m5b_interim = existing_year_count*(1 + m5b_growth * (interim_year - existing_year));
+			m5b_design = existing_year_count*(1 + m5b_growth * (design_year - existing_year));			
+			
+			document.getElementById("m5b-ratio").innerHTML = Math.round(m5_6_2045ratio).toLocaleString(); 
+			//document.getElementById("m5b-diff").innerHTML = m5_6_2045diff.toLocaleString();
+			//document.getElementById("m5b-avg").innerHTML = m5b_2045avg.toLocaleString();
+			document.getElementById("m5b-growth").innerHTML = parseFloat(m5b_growth*100).toFixed(2)+"%";
+			document.getElementById("m5b-opening").innerHTML = Math.round(m5b_opening).toLocaleString();
+			document.getElementById("m5b-interim").innerHTML = Math.round(m5b_interim).toLocaleString();
+			document.getElementById("m5b-design").innerHTML = Math.round(m5b_design).toLocaleString();
+			
+			//method 6 - NCHRP Report 765 Ratio & Difference Smoothing Method Based on 2019 Data
+			m6_growth = (m5_6_2045avg/existing_year_count - 1)/(2045-2019);
+			m6_opening = existing_year_count*(1 + m6_growth * (opening_year - existing_year));
+			m6_interim = existing_year_count*(1 + m6_growth * (interim_year - existing_year));
+			m6_design = existing_year_count*(1 + m6_growth * (design_year - existing_year));	
+			
+			document.getElementById("m6-ratio").innerHTML = Math.round(m5_6_2045ratio).toLocaleString(); 
+			document.getElementById("m6-diff").innerHTML = Math.round(m5_6_2045diff).toLocaleString();
+			document.getElementById("m6-avg").innerHTML = Math.round(m5_6_2045avg).toLocaleString();
+			document.getElementById("m6-growth").innerHTML = parseFloat(m6_growth*100).toFixed(2)+"%";
+			document.getElementById("m6-opening").innerHTML = Math.round(m6_opening).toLocaleString();
+			document.getElementById("m6-interim").innerHTML = Math.round(m6_interim).toLocaleString();
+			document.getElementById("m6-design").innerHTML = Math.round(m6_design).toLocaleString();
+			
+			//Once updating the existing year, all existing-year-related cells should be updated.
+			var input_exst = document.getElementById("input_ExistingYear");
+				input_exst.addEventListener("change", function(e){
+					
+					exst_year = e.target.value;
+					existing_year_count = countYearPair[exst_year].aadt;
+					document.getElementById("exist_yr_count").innerHTML = existing_year_count.toLocaleString();
+					
+					exist_yr_vol = Math.round(Math.max(0,forecast(exst_year, [property.VOL15, property.VOL45], [2015, 2045])));
+					document.getElementById("19vol").innerHTML = exist_yr_vol.toLocaleString();
+					
+					//method 4 - NCHRP Report 255 Ratio & Difference Smoothing Method Based on 2015 Data
+					m4_opening = existing_year_count *(1 + m4_growth * (opening_year - existing_year));
+					m4_interim = existing_year_count *(1 + m4_growth * (interim_year - existing_year));
+					m4_design = existing_year_count *(1 + m4_growth * (design_year - existing_year));
+					
+					document.getElementById("m4-ratio").innerHTML = Math.round(m4_2045ratio).toLocaleString(); 
+					document.getElementById("m4-diff").innerHTML = Math.round(m4_2045diff).toLocaleString();
+					document.getElementById("m4-avg").innerHTML = Math.round(m4_2045avg).toLocaleString();
+					document.getElementById("m4-growth").innerHTML = parseFloat((m4_growth*100).toFixed(2))+"%";
+					document.getElementById("m4-opening").innerHTML = Math.round(m4_opening).toLocaleString();
+					document.getElementById("m4-interim").innerHTML = Math.round(m4_interim).toLocaleString();
+					document.getElementById("m4-design").innerHTML = Math.round(m4_design).toLocaleString();
+		
+					//NCHRP Report 765 Based on 2019 Data
+					m5_6_2045ratio = existing_year_count *(property.VOL45/exist_yr_vol);
+					m5_6_2045diff = existing_year_count +(property.VOL45 - exist_yr_vol);
+					m5_6_2045avg = m5_6_2045ratio/2 + m5_6_2045diff/2;
+					
+					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on 2019 Data (if model is underestimating in the Base Year)
+					m5a_growth = (m5_6_2045diff/existing_year_count-1)/(2045-2019);
+					m5a_opening = existing_year_count*(1 + m5a_growth * (opening_year - existing_year));
+					m5a_interim = existing_year_count*(1 + m5a_growth * (interim_year - existing_year));
+					m5a_design = existing_year_count*(1 + m5a_growth * (design_year - existing_year));
+					
+					//document.getElementById("m5a-ratio").innerHTML = m5a_2045ratio.toLocaleString(); 
+					document.getElementById("m5a-diff").innerHTML = Math.round(m5_6_2045diff).toLocaleString();
+					//document.getElementById("m5a-avg").innerHTML = m5a_2045avg.toLocaleString();
+					document.getElementById("m5a-growth").innerHTML = parseFloat(m5a_growth*100).toFixed(2)+"%";
+					document.getElementById("m5a-opening").innerHTML = Math.round(m5a_opening).toLocaleString();
+					document.getElementById("m5a-interim").innerHTML = Math.round(m5a_interim).toLocaleString();
+					document.getElementById("m5a-design").innerHTML = Math.round(m5a_design).toLocaleString();
+					
+					//method 5b - NCHRP Report 765 Ratio-Smoothing Method Based on 2019 Data (if model is overestimating in the Base Year)
+					m5b_growth = (m5_6_2045ratio/existing_year_count-1)/(2045-2019);
+					m5b_opening = existing_year_count*(1 + m5b_growth * (opening_year - existing_year));
+					m5b_interim = existing_year_count*(1 + m5b_growth * (interim_year - existing_year));
+					m5b_design = existing_year_count*(1 + m5b_growth * (design_year - existing_year));			
+					
+					document.getElementById("m5b-ratio").innerHTML = Math.round(m5_6_2045ratio).toLocaleString(); 
+					//document.getElementById("m5b-diff").innerHTML = m5_6_2045diff.toLocaleString();
+					//document.getElementById("m5b-avg").innerHTML = m5b_2045avg.toLocaleString();
+					document.getElementById("m5b-growth").innerHTML = parseFloat(m5b_growth*100).toFixed(2)+"%";
+					document.getElementById("m5b-opening").innerHTML = Math.round(m5b_opening).toLocaleString();
+					document.getElementById("m5b-interim").innerHTML = Math.round(m5b_interim).toLocaleString();
+					document.getElementById("m5b-design").innerHTML = Math.round(m5b_design).toLocaleString();
+					
+					//method 6 - NCHRP Report 765 Ratio & Difference Smoothing Method Based on 2019 Data
+					m6_growth = (m5_6_2045avg/existing_year_count - 1)/(2045-2019);
+					m6_opening = existing_year_count*(1 + m6_growth * (opening_year - existing_year));
+					m6_interim = existing_year_count*(1 + m6_growth * (interim_year - existing_year));
+					m6_design = existing_year_count*(1 + m6_growth * (design_year - existing_year));	
+					
+					document.getElementById("m6-ratio").innerHTML = Math.round(m5_6_2045ratio).toLocaleString(); 
+					document.getElementById("m6-diff").innerHTML = Math.round(m5_6_2045diff).toLocaleString();
+					document.getElementById("m6-avg").innerHTML = Math.round(m5_6_2045avg).toLocaleString();
+					document.getElementById("m6-growth").innerHTML = parseFloat(m6_growth*100).toFixed(2)+"%";
+					document.getElementById("m6-opening").innerHTML = Math.round(m6_opening).toLocaleString();
+					document.getElementById("m6-interim").innerHTML = Math.round(m6_interim).toLocaleString();
+					document.getElementById("m6-design").innerHTML = Math.round(m6_design).toLocaleString();
+
+				});			
+		}
+
+		
+		//on each feature function		
+		function onEachFeature(feature, layer) {
+		    layer.on({
+			    mouseover: highlightFeature10,
+				mouseout: resetHighlight10,
+			    click: whenClicked});
+				
+			var popupContent = "<p style='line-height: 1.5em'> <i><b>Cosite #:</b></i> " + feature.properties.COSITE + '<br>' 
+					+'<i><b>Description:</b></i>&nbsp; '+ feature.properties.COMM + '<br>' 
+					+'<i><b>2020 AADT:</b></i> '+ feature.properties.Y2020 + '<br>'
+					+'<i><b>2020 K Factor:</b></i>&nbsp;'+ feature.properties.Y2020_K + '<br>'
+					+'<i><b>2020 D Factor:</b></i>&nbsp;'+ feature.properties.Y2020_D + '<br>'
+					+'<i><b>2020 T Factor:</b></i>&nbsp;'+ feature.properties.Y2020_T + "</p>" ;
+
+			if (feature.properties && feature.properties.popupContent) {
+				popupContent += feature.properties.popupContent;
+			}
+
+			layer.bindPopup(popupContent);
+		}
+
+
+		//export target #table_id into a csv
+		function download_csv(table_id) {
+			
+			var csv = [',,Based on Selected AADTs,,Based on the Last 5-Year AADTs,,Based on the Last 10-Year AADTs,,Based on TBRPM Volume', ',,AADT,Annual Growth,AADT,Annual Growth,AADT,Annual Growth,AADT,Annual Growth'];
+			var rows = document.querySelectorAll('table#' + table_id + ' tr');
+			
+			for (var i = 2; i < rows.length; i++) {
+				var row = [];
+				cols = rows[i].querySelectorAll('td, th');
+				
+				for (var j = 0; j < cols.length; j++) {
+					// Clean innertext to remove multiple spaces and jumpline (break csv)
+					//var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ');
+					// Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
+					//data = data.replace(/"/g, '""');
+					
+					if (cols[j].children.length > 0) { //assuming your structure is always the same and the table only contains inputs as child elements inside a td
+						row.push(cols[j].firstChild.value);
+					} else {
+						if (i > 2 & j > 1) {
+							row.push('"' + cols[j].innerText + '"' + ',');
+						} else {
+							row.push('"' + cols[j].innerText + '"');
+						}
+					}
+
+				}
+				csv.push(row.join(","));
+			}
+			var csv_string = csv.join("\n");
+			// Download it
+			var cosite = document.getElementById("chartsta").innerHTML;
+			var filename = cosite + '_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
+			var link = document.createElement('a');
+			link.style.display = 'none';
+			link.setAttribute('target', '_blank');
+			link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+			link.setAttribute('download', filename);
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		}
+		
+		
+		var station = L.geoJson( geo, {
+			style: function (feature) {
+				return feature.properties && feature.properties.style;
+			},
+
+			onEachFeature: onEachFeature,
+
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, {
+					radius: 4,
+					fillColor: "#ff7800",
+					color: "#000",
+					weight: 1,
+					opacity: 1,
+					fillOpacity: 0.8
+				});
+			}
+		}).addTo(map);
+
+
+	    // search control
+		var searchControl = new L.Control.Search({
+			layer: station, 
+			propertyName: 'COSITE', 
+			autoCollapse:true,
+			moveToLocation: function(latlng, title, map) {
+				//map.fitBounds( latlng.layer.getBounds() );
+					var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+					map.setView(latlng, zoom); // access the zoom
+					}});
+	
+		searchControl.on('search:locationfound', function(e) {
+		
+			var searchProperty = e.layer.feature.properties;
+			
+			dataRefresh(searchProperty); //update data in the entire panel
+						
+			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+			if(e.layer._popup)
+				e.layer.openPopup();
+		}).on('search:collapsed', function(e) {
+			station.eachLayer(function(layer) {	//restore feature color
+				station.resetStyle(layer);
+			});	
+		});
+		
+		map.addControl(searchControl);  //inizialize search control
+
+	</script>
+
+</body>
+</html>
