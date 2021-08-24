@@ -7,9 +7,11 @@
 	box-shadow: 0 0 15px rgba(0,0,0,0.2);
 	border-radius: 5px;
 }
+
 .info h4 {
 	margin: 0 0 5px;
 	color: #777;
+	font-size: 18px;
 }
 
 .legend {
@@ -36,15 +38,6 @@
 	text-align: left;
    }
 
-
-.navbar .nav > li > a {
-    padding: 10px 10px;
-}
-
-.cosite{
-	float: left;
-}
-
 h3, h4, h5 { 
 	font-weight: bold;
 }
@@ -53,17 +46,27 @@ h5 {
 	font-size: 15px;
 }
 
+.cosite{
+	float: left;
+	padding: 12px 0;
+}
+
+.table{
+	margin-bottom: 0;
+}
+
 th.aadt_table{
 	text-align: center;
-	color: orange;
+	color: #EF6950;
 }
 
-th.proj_table{
+th.proj_table, th.head-nchrp{
 	text-align: center;
+	font-size: 15px;
 }
 
-th.growth{
-	background-color: rgba(220,220,220,0.3); 
+th.growth, td.nchrp-common-data{
+	background-color: rgba(220,220,220,0.2); 
 }
 
 th.aadt, th.growth{
@@ -86,18 +89,19 @@ td.analysisYear {
 	font-size: 13px;
 }
 
-th.est_sel, td.sel_year{
+th.est_sel, td.sel_year, .kfac, td.m4, th.m4{
 	color: #1D6F42;
 }
-th.est_five, td.five_year{
+th.est_five, td.five_year, td.m5a, th.m5a{
 	color: orange;
 }
-th.est_ten, td.ten_year{
+th.est_ten, td.ten_year, .dfac, td.m5b, th.m5b{
 	color: #EF6950;
 }
-th.est_tbrpm, td.tbrpm{
+th.est_tbrpm, td.tbrpm, .tfac, td.m6, th.m6{
 	color: #008CC4;
 }
+
 
 td.aadt, td.growth, td.five_year, td.ten_year, td.sel_year, td.tbrpm{
 	text-align: right;
@@ -114,44 +118,79 @@ td.est_growth{
 	background-color: rgba(220,220,220,0.3);
 }
 
-#projection_table{
+#nchrp_procedure {
+	text-align: center;
 	font-weight: bold;
 }
 
-#navigator {
-	height: 55px;
+#nchrp_procedure tr td:nth-child(1){
+	text-align: center;
+	font-weight: bold;
+	font-size: 13px;
 }
 
-#map {
+th.head-nchrp{
+	font-weight: bold;
+	text-align: center;
+}
+
+#kdt{
+	text-align: center;
+	font-weight: bold;
+}
+
+#kdt th{
+	font-size: 13px;
+}
+
+.map {
 	position: absolute;
 	width: 33%;
-	top: 60px;
+	top: 72px;
 	bottom: 0;
+}
+
+.box_cosite{
+	position: absolute;
+	left: 34%;
+	width: 17%;
+	top: 72px;
+	height: 50px;
+	padding: 0px 20px;
 }
 
 #data_table {
 	position: absolute;
 	left: 34%;
 	width: 17%;
-	top: 60px;
+	top: 120px;
 	bottom: 0;
-	padding: 10px 16px;
+	padding: 0 5px;
 }
 
-#cosite{
+#aadt_projection_table, #nchrp_projection_table{
+	font-weight: bold;
+}
+
+#cosite, #chartsta{
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+.container{
 	position: absolute;
 	left: 52%;
 	width: 47%;
-	top: 55px;
-	height: 50px;
-	padding-left: 20px;
+	top: 72px;
+	bottom: 0;
 }
 
-#data_chart {
+.nav-pills{
+	padding: 12px 0;
+}
+
+#nchrp-projection {
 	position: absolute;
-	left: 52%;
-	width: 47%;
-	top: 110px;
-	bottom: 0;
-	padding: 0 20px;
+	top: 56px;
+	padding-right: 15px;
 }
