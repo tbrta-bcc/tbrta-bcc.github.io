@@ -55,8 +55,6 @@
   </nav>
 </header>
 
-
-
 	<!-- Map-->	
 	<div class="map" id="map"></div>
 	
@@ -67,8 +65,6 @@
 	
 	<!-- FTO HISTORICAL AADT Table-->
 	<div id="data_table">
-		<!--h5><i>FTO AADT Table (2000-2020)</i></h5-->
-		<h5 hidden id="tablesta"> </h5>
 		<table class="table" id="aadt_table">
 			<thead>
 			<tr>
@@ -224,12 +220,12 @@
 		</table>
 		<table class="table" id="kdt">
 			<thead>
-			</thead>
 			<tr>
 				<th class="kfac" style="width:33%">2020 K Factor</th>
 				<th class="dfac" style="width:34%">2020 D Factor</th>
 				<th class="tfac" style="width:33%">2020 T Factor</th>
 			</tr>
+			</thead>
 			<tbody>
 			<tr>
 				<td class="kfac" id="k_fac">0</td>
@@ -694,8 +690,6 @@
 			
 			//update the Cosite number
 			document.getElementById("chartsta").innerHTML = property.COSITE;
-			document.getElementById("tablesta").innerHTML = property.COSITE;
-			
 			document.getElementById("k_fac").innerHTML = parseFloat(property.Y2020_K).toFixed(2);
 			document.getElementById("d_fac").innerHTML = parseFloat(property.Y2020_D).toFixed(2);
 			document.getElementById("t_fac").innerHTML = parseFloat(property.Y2020_T).toFixed(2);
@@ -858,26 +852,23 @@
 				document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(input_intrm.value, updatedCounts, updatedYears);
 				document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(input_desg.value, updatedCounts, updatedYears);
 				
-				if (updatedCounts.length>0) { //need to debug
-					input_opn.addEventListener("change", function(e){
-						yr = e.target.value;
-						document.getElementById("opening_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
-						document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(parseInt(yr)+10, updatedCounts, updatedYears);
-						document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(parseInt(yr)+20, updatedCounts, updatedYears);
-					});
-					
-					input_intrm.addEventListener("change", function(e){
-						yr = e.target.value;
-						document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
-					});	
-	
-					input_desg.addEventListener("change", function(e){
-						yr = e.target.value;
-						document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
-					});
-				}
+				input_opn.addEventListener("change", function(e){
+					yr = e.target.value;
+					document.getElementById("opening_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+					document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(parseInt(yr)+10, updatedCounts, updatedYears);
+					document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(parseInt(yr)+20, updatedCounts, updatedYears);
+				});
+				
+				input_intrm.addEventListener("change", function(e){
+					yr = e.target.value;
+					document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+				});	
+
+				input_desg.addEventListener("change", function(e){
+					yr = e.target.value;
+					document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+				});
 			}
-			
 			
 			//update NCHRP Procedure Table
 			document.getElementById("15count").innerHTML = (property.Y2015).toLocaleString();
@@ -1028,7 +1019,6 @@
 					document.getElementById("m6-opening").innerHTML = Math.round(m6_opening).toLocaleString();
 					document.getElementById("m6-interim").innerHTML = Math.round(m6_interim).toLocaleString();
 					document.getElementById("m6-design").innerHTML = Math.round(m6_design).toLocaleString();
-
 				});			
 		}
 
