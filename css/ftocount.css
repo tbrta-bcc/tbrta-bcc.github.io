@@ -46,6 +46,14 @@ h5 {
 	font-size: 15px;
 }
 
+header{
+	z-index: 100;
+}
+
+div{
+	z-index: 5;
+}
+
 .cosite{
 	float: left;
 	padding: 12px 0;
