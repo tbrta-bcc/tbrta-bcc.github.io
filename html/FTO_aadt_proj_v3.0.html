@@ -885,7 +885,7 @@
 			var interim_year = parseInt(opening_year) + 10;
 			var design_year = parseInt(opening_year) + 20;
 			
-			//method 4 - NCHRP Report 255 Ratio & Difference Smoothing Method Based on 2015 Data
+			//method 4 - NCHRP Report 255 Ratio & Difference Smoothing Method Based on Base Year Data
 			m4_2045ratio = property.Y2015*(property.VOL45/property.VOL15);
 			m4_2045diff = property.Y2015+(property.VOL45-property.VOL15);
 			m4_2045avg = m4_2045ratio/2 + m4_2045diff/2;
@@ -907,8 +907,8 @@
 			m5_6_2045diff = existing_year_count +(property.VOL45 - exist_yr_vol);
 			m5_6_2045avg = m5_6_2045ratio/2 + m5_6_2045diff/2;
 			
-			//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on 2019 Data (if model is underestimating in the Base Year)
-			m5a_growth = (m5_6_2045diff/existing_year_count-1)/(2045-2019);
+			//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
+			m5a_growth = (m5_6_2045diff/existing_year_count-1)/(2045 - existing_year);
 			m5a_opening = existing_year_count*(1 + m5a_growth * (opening_year - existing_year));
 			m5a_interim = existing_year_count*(1 + m5a_growth * (interim_year - existing_year));
 			m5a_design = existing_year_count*(1 + m5a_growth * (design_year - existing_year));
@@ -921,8 +921,8 @@
 			document.getElementById("m5a-interim").innerHTML = Math.round(m5a_interim).toLocaleString();
 			document.getElementById("m5a-design").innerHTML = Math.round(m5a_design).toLocaleString();
 			
-			//method 5b - NCHRP Report 765 Ratio-Smoothing Method Based on 2019 Data (if model is overestimating in the Base Year)
-			m5b_growth = (m5_6_2045ratio/existing_year_count-1)/(2045-2019);
+			//method 5b - NCHRP Report 765 Ratio-Smoothing Method Based on Existing Year Data (if model is overestimating in the Base Year)
+			m5b_growth = (m5_6_2045ratio/existing_year_count-1)/(2045 - existing_year);
 			m5b_opening = existing_year_count*(1 + m5b_growth * (opening_year - existing_year));
 			m5b_interim = existing_year_count*(1 + m5b_growth * (interim_year - existing_year));
 			m5b_design = existing_year_count*(1 + m5b_growth * (design_year - existing_year));			
@@ -935,8 +935,8 @@
 			document.getElementById("m5b-interim").innerHTML = Math.round(m5b_interim).toLocaleString();
 			document.getElementById("m5b-design").innerHTML = Math.round(m5b_design).toLocaleString();
 			
-			//method 6 - NCHRP Report 765 Ratio & Difference Smoothing Method Based on 2019 Data
-			m6_growth = (m5_6_2045avg/existing_year_count - 1)/(2045-2019);
+			//method 6 - NCHRP Report 765 Ratio & Difference Smoothing Method Based on Existing Year Data
+			m6_growth = (m5_6_2045avg/existing_year_count - 1)/(2045 - existing_year);
 			m6_opening = existing_year_count*(1 + m6_growth * (opening_year - existing_year));
 			m6_interim = existing_year_count*(1 + m6_growth * (interim_year - existing_year));
 			m6_design = existing_year_count*(1 + m6_growth * (design_year - existing_year));	
@@ -978,8 +978,8 @@
 					m5_6_2045diff = existing_year_count +(property.VOL45 - exist_yr_vol);
 					m5_6_2045avg = m5_6_2045ratio/2 + m5_6_2045diff/2;
 					
-					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on 2019 Data (if model is underestimating in the Base Year)
-					m5a_growth = (m5_6_2045diff/existing_year_count-1)/(2045-2019);
+					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
+					m5a_growth = (m5_6_2045diff/existing_year_count-1)/(2045 - existing_year);
 					m5a_opening = existing_year_count*(1 + m5a_growth * (opening_year - existing_year));
 					m5a_interim = existing_year_count*(1 + m5a_growth * (interim_year - existing_year));
 					m5a_design = existing_year_count*(1 + m5a_growth * (design_year - existing_year));
@@ -992,8 +992,8 @@
 					document.getElementById("m5a-interim").innerHTML = Math.round(m5a_interim).toLocaleString();
 					document.getElementById("m5a-design").innerHTML = Math.round(m5a_design).toLocaleString();
 					
-					//method 5b - NCHRP Report 765 Ratio-Smoothing Method Based on 2019 Data (if model is overestimating in the Base Year)
-					m5b_growth = (m5_6_2045ratio/existing_year_count-1)/(2045-2019);
+					//method 5b - NCHRP Report 765 Ratio-Smoothing Method Based on Existing Year Data (if model is overestimating in the Base Year)
+					m5b_growth = (m5_6_2045ratio/existing_year_count-1)/(2045 - existing_year);
 					m5b_opening = existing_year_count*(1 + m5b_growth * (opening_year - existing_year));
 					m5b_interim = existing_year_count*(1 + m5b_growth * (interim_year - existing_year));
 					m5b_design = existing_year_count*(1 + m5b_growth * (design_year - existing_year));			
@@ -1006,8 +1006,8 @@
 					document.getElementById("m5b-interim").innerHTML = Math.round(m5b_interim).toLocaleString();
 					document.getElementById("m5b-design").innerHTML = Math.round(m5b_design).toLocaleString();
 					
-					//method 6 - NCHRP Report 765 Ratio & Difference Smoothing Method Based on 2019 Data
-					m6_growth = (m5_6_2045avg/existing_year_count - 1)/(2045-2019);
+					//method 6 - NCHRP Report 765 Ratio & Difference Smoothing Method Based on Existing Year Data
+					m6_growth = (m5_6_2045avg/existing_year_count - 1)/(2045 - existing_year);
 					m6_opening = existing_year_count*(1 + m6_growth * (opening_year - existing_year));
 					m6_interim = existing_year_count*(1 + m6_growth * (interim_year - existing_year));
 					m6_design = existing_year_count*(1 + m6_growth * (design_year - existing_year));	
