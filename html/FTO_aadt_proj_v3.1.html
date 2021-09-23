@@ -285,8 +285,12 @@
 	<div class="tab-content" id="pills-tabContent">
 		
 		<div class="tab-pane fade show active" id="historical-chart" role="tabpanel" aria-labelledby="pills-home-tab">
-			<div id="fto_aadt_chart">
-				<h5 style="padding-top: 10px;"><i>FTO Historical AADT Chart (2000-2020)</i></h5>
+			<div id="historical_aadt">
+				<div><h5 style="padding: 10px 0;"><i>FTO Historical AADT Chart (2000-2020)</i></h5></div>
+				<div style="padding-bottom: 10px;" id="historical_aadt_chart" class="btn-group" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn-outline-primary btn-sm" onclick="download_csv_1('aadt_table');">Export</button>
+					<button type="button" class="btn btn-outline-primary btn-sm" onclick="selectElementContents(document.getElementById('aadt_table'));">Copy</button>
+				</div>
 				<canvas id="myChart" height="120"></canvas>
 			</div>
 		</div>
@@ -361,13 +365,13 @@
 						</th>
 						<th class="head-nchrp m4" style="width: 32%; vertical-align: middle;">
 						NCHRP 255 <i>(Based on <u>Base Year</u>)</i></th>
-						<th class="head-nchrp" colspan="3" style="background-color: rgba(220,220,220,0.2);">NCHRP 765 <i>(Based on <u>Existing Year</u>)</i></th>
+						<th class="head-nchrp" colspan="3" style="background-color: rgba(220,220,220,0.4);">NCHRP 765 <i>(Based on <u>Existing Year</u>)</i></th>
 					</tr>
 					<tr>
 						<th class="head-nchrp m4" >Ratio & Difference</th>
-						<th class="head-nchrp m5a" style="width: 16%; background-color: rgba(220,220,220,0.2);">Difference</th>
-						<th class="head-nchrp m5b" style="width: 16%; background-color: rgba(220,220,220,0.2);">Ratio</th>
-						<th class="head-nchrp m6" style="width: 20%; background-color: rgba(220,220,220,0.2);">Ratio & Difference</th>
+						<th class="head-nchrp m5a" style="width: 16%;">Difference</th>
+						<th class="head-nchrp m5b" style="width: 16%;">Ratio</th>
+						<th class="head-nchrp m6" style="width: 20%;">Ratio & Difference</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -1199,10 +1203,10 @@
 
 		//export target #table_id into a csv
 		function download_csv_1(table_id) {
-			var csv = [',Based on Selected AADTs, Based on the Last 5-Year AADTs, Based on the Last 10-Year AADTs, Based on TBRPM Volume'];
+			var csv = [];
 			var rows = document.querySelectorAll('table#' + table_id + ' tr');	
 			
-			for (var i = 1; i < rows.length; i++) {
+			for (var i = 0; i < rows.length; i++) {
 				var row = [];
 				cols = rows[i].querySelectorAll('td, th');
 				for (var j = 0; j < cols.length; j++) {
