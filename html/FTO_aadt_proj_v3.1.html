@@ -715,12 +715,6 @@
 		
 		function whenClicked(e) {
 			var clickProperty = e.target.feature.properties;
-			
-			document.getElementById("growth_selectedyr").innerHTML = "";
-			document.getElementById("opening_aadt_selectedyr").innerHTML = "";
-			document.getElementById("interim_aadt_selectedyr").innerHTML = "";
-			document.getElementById("design_aadt_selectedyr").innerHTML = "";			
-
 			dataRefresh(clickProperty); //update data in the entire panel
 		}
 		
@@ -836,6 +830,11 @@
 			var yr_1 = input_OpeningYear.value;
 			var yr_2 = input_InterimYear.value;
 			var yr_3 = input_DesignYear.value;
+			
+			document.getElementById("growth_selectedyr").innerHTML = "";
+			document.getElementById("opening_aadt_selectedyr").innerHTML = "";
+			document.getElementById("interim_aadt_selectedyr").innerHTML = "";
+			document.getElementById("design_aadt_selectedyr").innerHTML = "";			
 			
 			//------------  aadt projection table -------------
 			document.getElementById("growth_5yr").innerHTML = parseFloat(((trendLine(aadt_5, year_5)[21]/trendLine(aadt_5, year_5)[20]-1)*100).toFixed(2))+"%";			
