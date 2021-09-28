@@ -439,6 +439,17 @@
 			labels: year1,
 			datasets: [
 				{
+					label: null,
+					borderColor: "#EF6950",
+					borderWidth: 0,
+					//borderDash: [5,5],
+					pointBackgroundColor: "#EF6950",
+					pointRadius: 6,
+					pointBorderWidth: 2,
+					//tension: 0.3,
+					data: null
+				},			
+				{
 					label: 'AADT',
 					fill: true,
 					borderColor: "#FDB45C",
@@ -447,8 +458,8 @@
 					pointRadius: 4,
 					pointBorderWidth: 1,
 					tension: 0.3,
-					data: Array(21).fill(0)
-				}																
+					data: null
+				}
 			]
 		};
 		var ctx = document.getElementById("myChart").getContext("2d");
@@ -465,7 +476,7 @@
 					legend: {
 						display: false,
 					}
-				}
+				}		
 			}
 		});
 	
@@ -484,7 +495,7 @@
 					tension: 0.3,
 					data: null
 				},	
-				{	
+				{
 					label: 'Based on 5-Year AADTs',
 					borderColor: "orange",
 					borderWidth: 1,
@@ -493,7 +504,7 @@
 					pointRadius: 3,
 					pointBorderWidth: 1,
 					tension: 0.3,
-					data: Array(51).fill(0)
+					data: null
 				},
 				{
 					label: 'Based on 10-Year AADTs',
@@ -505,7 +516,7 @@
 					pointBorderWidth: 1,
 					//backgroundColor: "rgba(220,220,220,0.2)",
 					tension: 0.3,
-					data: Array(51).fill(0)
+					data: null
 				},
 				{
 					label: 'Based on TBRPM Volume',
@@ -516,7 +527,7 @@
 					pointRadius: 3,
 					pointBorderWidth: 1,
 					tension: 0.3,
-					data: Array(51).fill(0)
+					data: null
 				}
 			]
 		};
@@ -709,7 +720,7 @@
 			document.getElementById("opening_aadt_selectedyr").innerHTML = "";
 			document.getElementById("interim_aadt_selectedyr").innerHTML = "";
 			document.getElementById("design_aadt_selectedyr").innerHTML = "";			
-			
+
 			dataRefresh(clickProperty); //update data in the entire panel
 		}
 		
@@ -752,7 +763,8 @@
 			}
 			
 			//update the chart
-			myLineChart.data.datasets[0].data = historicalCount;
+			myLineChart.data.datasets[0].data = null;
+			myLineChart.data.datasets[1].data = historicalCount;
 			myLineChart.update();
 			
 			//update the Cosite number
@@ -1113,12 +1125,9 @@
 					myLineChart3.update();
 					
 				});
-					
-			checkbox(countYearPair);
-		}
 
 
-		function checkbox(dict) {
+			//checkbox function
 			var selections = [];
 			var checkboxElems = document.querySelectorAll("input[type='checkbox']");
 			checkboxElems.forEach(el => el.checked = false);
@@ -1126,7 +1135,6 @@
 			for (var i = 0; i < checkboxElems.length; i++) {
 				checkboxElems[i].addEventListener("change", displayCheck);
 			}
-			
 			function displayCheck(e){
 				if (e.target.checked) {
 					selections[e.target.id] = {
@@ -1140,9 +1148,20 @@
 				var updatedCounts = [];
 				var updatedYears = [];
 				for (var key in selections) {
-					updatedCounts.push(dict[selections[key].year].aadt);
+					updatedCounts.push(countYearPair[selections[key].year].aadt);
 					updatedYears.push(parseInt(selections[key].year, 10));
 				}
+				
+				highLightCounts = Array(21).fill(null);
+				for (var i = 0; i < updatedYears.length; i++) {
+					for (var j = 0; j < year1.length; j++) {
+						if (updatedYears[i] === parseInt(year1[j])) {
+							highLightCounts[j] = updatedCounts[i];
+						}
+					}
+				}
+				myLineChart.data.datasets[0].data = highLightCounts;
+				myLineChart.update();
 				
 				var selected_year_est = trendLine(updatedCounts, updatedYears);
 				myLineChart2.data.datasets[0].data = selected_year_est.slice(0,51);
@@ -1155,7 +1174,7 @@
 				document.getElementById("opening_aadt_selectedyr").innerHTML = analysisYearAADT(input_OpeningYear.value, updatedCounts, updatedYears);
 				document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(input_InterimYear.value, updatedCounts, updatedYears);
 				document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(input_DesignYear.value, updatedCounts, updatedYears);
-
+				
 				var input_opn = document.getElementById("input_OpeningYear");
 				input_opn.addEventListener("change", function(e){
 					yr = e.target.value;
@@ -1177,7 +1196,6 @@
 				});
 			}
 		}
-
 		
 		//on each feature function		
 		function onEachFeature(feature, layer) {
@@ -1254,7 +1272,7 @@
 			document.body.appendChild(link);
 			link.click();
 			document.body.removeChild(link);
-		}		
+		}
 		
 		
 		function selectElementContents(el) {
