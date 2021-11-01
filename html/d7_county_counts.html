@@ -748,8 +748,12 @@
 
 			var historicalCount = [];
 			for(var key in countYearPair){
-				if(countYearPair[key].aadt !== null && countYearPair[key].aadt !==0){
-				historicalCount.push(countYearPair[key].aadt);
+				if(countYearPair[key].aadt !== null){
+					if(countYearPair[key].aadt == 0){
+						historicalCount.push(null);
+					} else{
+					historicalCount.push(countYearPair[key].aadt);
+					}
 				}
 			}
 			
