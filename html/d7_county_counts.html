@@ -748,22 +748,30 @@
 
 			var historicalCount = [];
 			for(var key in countYearPair){
+				if(countYearPair[key].aadt !== null && countYearPair[key].aadt !==0){
 				historicalCount.push(countYearPair[key].aadt);
+				}
 			}
 			
-			var AADT_flag = [];
-			for(var key in countYearPair){
-				AADT_flag.push(countYearPair[key].flag);
-			}
+			//var AADT_flag = [];
+			//for(var key in countYearPair){
+			//	AADT_flag.push(countYearPair[key].flag);
+			//}
 			
 			//update the chart
 			myLineChart.data.datasets[0].data = null;
 			myLineChart.data.datasets[1].data = historicalCount;
 			myLineChart.update();
 			
+			document.getElementById("2009c").innerHTML = property.Y2009.toLocaleString()
+			document.getElementById("2010c").innerHTML = property.Y2010.toLocaleString()
+			document.getElementById("2011c").innerHTML = property.Y2011.toLocaleString()
+			document.getElementById("2014c").innerHTML = property.Y2014.toLocaleString()
+			document.getElementById("2015c").innerHTML = property.Y2015.toLocaleString()
+			
 			//update the Cosite number
 			document.getElementById("chartsta").innerHTML = property.COSITE;
-			document.getElementById("k_fac").innerHTML = parseFloat(property.Y2020_K).toFixed(2);
+			/*document.getElementById("k_fac").innerHTML = parseFloat(property.Y2020_K).toFixed(2);
 			document.getElementById("d_fac").innerHTML = parseFloat(property.Y2020_D).toFixed(2);
 			document.getElementById("t_fac").innerHTML = parseFloat(property.Y2020_T).toFixed(2);
 
@@ -792,7 +800,7 @@
 				document.getElementById(id_growth[i]).innerHTML = annual_growth[i];
 				document.getElementById(id_flag[i]).innerHTML = AADT_flag[i];
 				//document.getElementById(id_checkbox[i]).checked = false;
-			}
+			}*/
 			
 			var aadt_5 = historicalCount.slice(-5); //the last 5-year aadt (2016-2020)
 			var year_5 = historicalYear.slice(-5); //the last 5 years (2016-2020)
