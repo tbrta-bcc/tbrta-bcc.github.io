@@ -29,10 +29,10 @@
     <link rel="stylesheet" href="../css/l.geosearch.css"/>
 	
 <!-- Main Style -->
-    <link rel="stylesheet" href="../css/ftocount_v3.1.css"/>
+    <link rel="stylesheet" href="../css/ftocount_v3.2.css"/>
 
 <!-- Geojson -->
-	<script type="text/javascript" src="../geojson/Hernando_1.geojson"></script>
+	<script type="text/javascript" src="../geojson/Visualizer.geojson"></script>
 
 </head>
 <body>
@@ -58,11 +58,23 @@
 	</header>
 
 	<!-- Map-->	
-	<div class="map" id="map"></div>
+	<div class="map" id="map">
+	</div>
+	<div class="zhenlu" id="zhenlu">
 	
+	<ul class="legend" id="script_legend">
+
+    <li><span class="fdotCount"></span> FDOT Count</li>
+    <li><span class="countycount"></span> TBRPM County Count</li>
+    <li><span class="additionalcountycount"></span> MPO/TPO Count(addt'l) with TBRPM</li>
+    <li><span class="countycountnottbrpm"></span> MPO/TPO Count(addt'l) W/O TBRPM </li>
+</ul>
+
+	</div>							 
 	<div class="box_cosite">
 		<div class="cosite" id="cosite"><i>Cosite Number:</i>&nbsp;</div>
 		<div class="cosite" id="chartsta" style="color: #EF6950;"></div>
+		
 	</div>
 	
 
@@ -1308,7 +1320,7 @@
 			onEachFeature: onEachFeature,
 
 			pointToLayer: function (feature, latlng) {
-				if(feature.properties.COMM == "County Count"){
+				if(feature.properties.COMM == "TBRPM County Count"){
 				    return L.circleMarker(latlng, {
 					radius: 4,
 					fillColor: "#40B7F2",
@@ -1318,7 +1330,7 @@
 					fillOpacity: 0.8
 				});
 				}
-				else if(feature.properties.COMM == "County Count Addition"){
+				else if(feature.properties.COMM == "MPO\/TPO Count(addt'l) with TBRPM"){
 				    return L.circleMarker(latlng, {
 					radius: 4,
 					fillColor: "#3CF76F",
@@ -1327,7 +1339,7 @@
 					opacity: 1,
 					fillOpacity: 0.8
 				});
-				}	else if(feature.properties.COMM == "County Count Addition_1"){
+				}	else if(feature.properties.COMM == "MPO\/TPO Count(addt'l) W\/O TBRPM"){
 				    return L.circleMarker(latlng, {
 					radius: 4,
 					fillColor: "#808080",
