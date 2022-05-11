@@ -18,6 +18,7 @@
 <!-- SEARCH CONTROL -->
 	<link rel="stylesheet" href="../src/leaflet-search.css"/>
 
+
 <!-- Chart.js -->	
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.min.js"></script>
 	
@@ -31,7 +32,7 @@
     <link rel="stylesheet" href="../css/ftocount_v4.0.css"/>
 
 <!-- Geojson -->
-	<script type="text/javascript" src="../geojson/10Y-Trend_wo2020_05102022.geojson"></script>
+	<script type="text/javascript" src="../geojson/fdot_count_05102022.geojson"></script>
 
 </head>
 <body>
@@ -59,22 +60,23 @@
 	<!-- Map-->	
 	<div class="map" id="map">
 	</div>
+
 	<div class="legendmap" id="legendmap">
-	
 		<ul class="legend" id="script_legend">
-	
-		<li><span class="fdotCount"></span> FDOT Count</li>
-		<li><span class="countycount"></span> TBRPM County Count</li>
-		<li><span class="additionalcountycount"></span> MPO/TPO Count(addt'l) with TBRPM</li>
-		<li><span class="countycountnottbrpm"></span> MPO/TPO Count(addt'l) W/O TBRPM </li>
-	</ul>
-	
-		</div>	
+			<li><span class="fdotCount" href=""></span>FDOT Count</li>
+			<li><span class="countycount" href=""></span> TBRPM County Count</li>
+			<li><span class="additionalcountycount" href=""></span> MPO/TPO Count(addt'l) with TBRPM</li>
+			<li><span class="countycountnottbrpm" href=""></span> MPO/TPO Count(addt'l) W/O TBRPM</li>
+		</ul>
+	</div>	
+
+
 	<div class="box_cosite">
 		<div class="cosite" id="cosite"><i>Cosite Number:</i>&nbsp;</div>
 		<div class="cosite" id="chartsta" style="color: #EF6950;"></div>
 	</div>
-	
+
+
 	<!-- FTO HISTORICAL AADT Table-->
 	<div id="historical-aadt-table">
 		<table class="table" id="aadt_table">
@@ -254,12 +256,12 @@
     
 	<ul class="nav nav-pills" id="pills-tab" role="tablist">
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" type="button" aria-expanded="false" style="color: black;">Count Source</a>
+			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" type="button" aria-expanded="false"><b>Count Source: </b><u>FDOT Count</u></a>
 			<ul class="dropdown-menu">
-			  <li><a class="dropdown-item" href="v4.0_fdot_count.html">FDOT Count</a></li>
-			  <li><a class="dropdown-item" href="v4.0_tbrpm_county_count.html">TBRPM County Count</a></li>
-			  <li><a class="dropdown-item" href="v4.0_mpo_with_tbrpm.html">MPO/TPO Count(addt'l) with TBRPM</a></li>
-			  <li><a class="dropdown-item" href="v4.0_mpo_wo_tbrpm.html">MPO/TPO Count(addt'l) W/O TBRPM</a></li>
+				<li><a class="dropdown-item" href="FTO_aadt_proj_v4.0 - Copy.html">All Count Sources</a></li>
+				<li><a class="dropdown-item" href="v4.0_tbrpm_county_count.html">TBRPM County Count</a></li>
+				<li><a class="dropdown-item" href="v4.0_mpo_with_tbrpm.html">MPO/TPO Count(addt'l) with TBRPM</a></li>
+				<li><a class="dropdown-item" href="v4.0_mpo_wo_tbrpm.html">MPO/TPO Count(addt'l) W/O TBRPM</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -273,8 +275,9 @@
 		<li class="nav-item" role="presentation">
 			<button class="nav-link" id="pills-nchrp-tab" data-bs-toggle="pill" data-bs-target="#nchrp-projection" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" style="font-weight: bold">NCHRP Procedure</button>
 		</li>
+		
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" type="button" aria-expanded="false" style="padding-left: 10em;"><u>Top 10 Growth Rate</u></a>
+			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" type="button" aria-expanded="false" style="color: black; padding-left: 10em;">Top 10 Growth Rate</a>
 			<ul class="dropdown-menu">
 			  <li><a class="dropdown-item" href="5Y-Trend.html">Based on 5-Year Trend</a></li>
 			  <li><a class="dropdown-item" href="5Y-Trend-wo2020.html">Based on 5-Year Trend (w/o 2020)</a></li>
@@ -283,13 +286,13 @@
 			</ul>
 		</li>
     </ul>
-
-	<h6 style="text-align: right; color: #EF6950;"><i>Top 10 Growth Rate Based on 10-Year Trend without 2020 (2011 to 2020)</i></h6>
+	
 
 	<table class="table" id="analysis-year">
 		<thead>
 		<tr>
 			<th class="analysis-year" style="width:20%">Base Year</th>
+			<th class="analysis-year" style="width:20%;">Base Year AADT</th>
 			<th class="analysis-year" style="width:20%">Opening Year</th>
 			<th class="analysis-year" style="width:20%">Interim Year</th>
 			<th class="analysis-year" style="width:20%">Design Year</th>
@@ -299,6 +302,9 @@
 		<tr>
 			<td class="analysis-year">
 				<input type="number" id="input_ExistingYear" step="1" min="2000" max="2020" value="2019" onchange="saveValue(this);">
+			</td>
+			<td class="manual-aadt">
+				<input type="number" id="input_AADT" step="100" min="0" max="9999999" onchange="saveValue(this);">
 			</td>
 			<td class="analysis-year">
 				<input type="number" id="input_OpeningYear" step="1" min="2000" max="9999" value="2025" onchange="saveValue(this);">
@@ -314,7 +320,6 @@
 	</table>
 	
 	
-
 	<div class="tab-content" id="pills-tabContent">
 		
 		<div class="tab-pane fade show active" id="historical-chart" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -382,7 +387,6 @@
 		</div>
 
 		<div class="tab-pane fade" id="nchrp-projection" role="tabpanel" aria-labelledby="pills-profile-tab">
-			
 			<div id="nchrp_aadt_projection">
 				<h5 style="padding-top: 10px;"><i>NCHRP AADT Projection</i></h5>
 				<div id="canvas-container-3"><canvas id="nchrpChart"></canvas></div>
@@ -397,6 +401,7 @@
 								<button type="button" class="btn btn-outline-primary btn-sm" onclick="selectElementContents(document.getElementById('nchrp_procedure_table'));">Copy</button>
 							</div>
 						</th>
+						
 						<th class="head-nchrp" colspan="3" style="background-color: rgba(220,220,220,0.4); vertical-align: middle;">NCHRP 765 <i>(Based on <u>Base Year</u>)</i></th>
 					</tr>
 					<tr>
@@ -447,11 +452,12 @@
 	<script type="text/javascript">
 	
 		var map = L.map('map').setView([28.23, -82.465], 9);
-		
+
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
+		
 		var year1 = [];
 		var year2 = [];
 		for (var i = 0; i < 51; i++){
@@ -583,7 +589,7 @@
 		var nchrpChartData = {
 			labels: ['','','','','',''],
 			datasets: [
-
+					
 				{	
 					label: 'NCHRP 765 Difference',
 					borderColor: "orange",
@@ -735,6 +741,7 @@
 			var clickProperty = e.target.feature.properties;
 			dataRefresh(clickProperty); //update data in the entire panel
 		}
+
 		
 		function dataRefresh(property){ //update data in the entire panel
 			var countYearPair = {}; // create a dictionary to store year, and aadt with flag and growth.
@@ -759,6 +766,8 @@
 			countYearPair["2018"] = {aadt: property.Y2018, flag: property.Y2018_FLG, growth: 0};
 			countYearPair["2019"] = {aadt: property.Y2019, flag: property.Y2019_FLG, growth: 0};
 			countYearPair["2020"] = {aadt: property.Y2020, flag: property.Y2020_FLG, growth: 0};
+
+			
 		
 			historicalYear = Object.keys(countYearPair).map(function(item){
 				return parseInt(item, 10);
@@ -848,11 +857,14 @@
 			var yr_1 = input_OpeningYear.value;
 			var yr_2 = input_InterimYear.value;
 			var yr_3 = input_DesignYear.value;
+
+			// Update input aadt - NEW
+			input_AADT.value = countYearPair[yr_0].aadt;
 			
 			document.getElementById("growth_selectedyr").innerHTML = "";
 			document.getElementById("opening_aadt_selectedyr").innerHTML = "";
 			document.getElementById("interim_aadt_selectedyr").innerHTML = "";
-			document.getElementById("design_aadt_selectedyr").innerHTML = "";			
+			document.getElementById("design_aadt_selectedyr").innerHTML = "";	
 			
 			//------------  aadt projection table -------------
 			document.getElementById("growth_5yr").innerHTML = parseFloat(((trendLine(aadt_5, year_5)[21]/trendLine(aadt_5, year_5)[20]-1)*100).toFixed(2))+"%";			
@@ -875,15 +887,16 @@
 			document.getElementById("chart2-interim").innerHTML = 'Interim Year ' + yr_2;
 			document.getElementById("chart2-design").innerHTML = 'Design Year ' + yr_3;
 
+			
 			//------------  nchrp procedure table -------------
+
 			document.getElementById("chart3-opening").innerHTML = 'Opening Year ' + yr_1;
 			document.getElementById("chart3-interim").innerHTML = 'Interim Year ' + yr_2;
 			document.getElementById("chart3-design").innerHTML = 'Design Year ' + yr_3;
 
 			yr0_vol = Math.round(Math.max(0,forecast(yr_0, [property.VOL15, property.VOL45], [2015, 2045])));
-			yr0_count = countYearPair[yr_0].aadt;
-
-			
+			yr0_count = countYearPair[yr_0].aadt; 
+						
 			//NCHRP Report 765 Based on 2019 Data
 			m5_6_2045ratio = yr0_count*(property.VOL45/yr0_vol);
 			m5_6_2045diff = yr0_count+(property.VOL45-yr0_vol);
@@ -927,12 +940,12 @@
 			myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
 			myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 			myLineChart3.update();
+
 			
 			
 			//When the opening year is updated, table cells related to opening year, interim year and design year will be all updated
 			var input_opening = document.getElementById("input_OpeningYear");
 			input_opening.addEventListener("change", function(e) { 
-				
 				var yr_1 = e.target.value;
 				yr_2 = parseInt(yr_1) + 10; //update interim year
 				yr_3 = parseInt(yr_1) + 20; //update design year
@@ -1003,7 +1016,6 @@
 
 				document.getElementById("chart3-interim").innerHTML = 'Interim Year ' + yr_2;
 
-				
 				m5a_interim = Math.round(yr0_count*(1+m5a_growth*(yr_2-yr_0)));
 				document.getElementById("m5a-interim").innerHTML = Math.round(m5a_interim).toLocaleString();
 
@@ -1029,7 +1041,6 @@
 				
 				document.getElementById("chart3-design").innerHTML = 'Design Year ' + yr_3;
 
-				
 				m5a_design = Math.round(yr0_count*(1+m5a_growth*(yr_3-yr_0)));
 				document.getElementById("m5a-design").innerHTML = Math.round(m5a_design).toLocaleString();
 
@@ -1053,6 +1064,7 @@
 					
 					var yr_0 = e.target.value;
 					yr0_count = countYearPair[yr_0].aadt;
+					input_AADT.value = yr0_count;
 					yr0_vol = Math.round(Math.max(0,forecast(yr_0, [property.VOL15, property.VOL45], [2015, 2045])));
 					
 					var yr_1 = input_OpeningYear.value;
@@ -1106,7 +1118,70 @@
 					
 				});
 
+			
+			// Once the AADT input is updated, all AADT-related cells (in nchrp table) will be updated. 
+			var input_count = document.getElementById("input_AADT");
+				input_count.addEventListener("change", function(e){
+					
+					var yr0_count = Number(e.target.value);
+					var yr_0 = input_ExistingYear.value;
+					
+					yr0_vol = Math.round(Math.max(0,forecast(yr_0, [property.VOL15, property.VOL45], [2015, 2045])));
+					
+					var yr_1 = input_OpeningYear.value;
+					var yr_2 = input_InterimYear.value;
+					var yr_3 = input_DesignYear.value;
 
+					
+					//NCHRP Report 765 Based on 2019 Data
+					m5_6_2045ratio = yr0_count*(property.VOL45/yr0_vol);
+					m5_6_2045diff = yr0_count+(property.VOL45-yr0_vol);
+					m5_6_2045avg = m5_6_2045ratio/2+m5_6_2045diff/2;
+					
+					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
+					m5a_growth = (m5_6_2045diff/yr0_count-1)/(2045-yr_0);
+					m5a_opening = Math.round(yr0_count*(1+m5a_growth*(yr_1-yr_0)));
+					m5a_interim = Math.round(yr0_count*(1+m5a_growth*(yr_2-yr_0)));
+					m5a_design = Math.round(yr0_count*(1+m5a_growth*(yr_3-yr_0)));
+					
+					document.getElementById("m5a-growth").innerHTML = parseFloat(m5a_growth*100).toFixed(2)+"%";
+					document.getElementById("m5a-opening").innerHTML = m5a_opening.toLocaleString();
+					document.getElementById("m5a-interim").innerHTML = m5a_interim.toLocaleString();
+					document.getElementById("m5a-design").innerHTML = m5a_design.toLocaleString();
+					
+					//method 5b - NCHRP Report 765 Ratio-Smoothing Method Based on Existing Year Data (if model is overestimating in the Base Year)
+					m5b_growth = (m5_6_2045ratio/yr0_count-1)/(2045-yr_0);
+					m5b_opening = Math.round(yr0_count*(1+m5b_growth*(yr_1-yr_0)));
+					m5b_interim = Math.round(yr0_count*(1+m5b_growth*(yr_2-yr_0)));
+					m5b_design = Math.round(yr0_count*(1+m5b_growth*(yr_3-yr_0)));
+					
+					document.getElementById("m5b-growth").innerHTML = parseFloat(m5b_growth*100).toFixed(2)+"%";
+					document.getElementById("m5b-opening").innerHTML = m5b_opening.toLocaleString();
+					document.getElementById("m5b-interim").innerHTML = m5b_interim.toLocaleString();
+					document.getElementById("m5b-design").innerHTML = m5b_design.toLocaleString();
+					
+					//method 6 - NCHRP Report 765 Ratio & Difference Smoothing Method Based on Existing Year Data
+					m6_growth = (m5_6_2045avg/yr0_count - 1)/(2045-yr_0);
+					m6_opening = Math.round(yr0_count*(1+m6_growth*(yr_1-yr_0)));
+					m6_interim = Math.round(yr0_count*(1+m6_growth*(yr_2-yr_0)));
+					m6_design = Math.round(yr0_count*(1+m6_growth*(yr_3-yr_0)));
+					
+					document.getElementById("m6-growth").innerHTML = parseFloat(m6_growth*100).toFixed(2)+"%";
+					document.getElementById("m6-opening").innerHTML = m6_opening.toLocaleString();
+					document.getElementById("m6-interim").innerHTML = m6_interim.toLocaleString();
+					document.getElementById("m6-design").innerHTML = m6_design.toLocaleString();
+		
+					myLineChart3.data.labels = ['', yr_0, input_OpeningYear.value, input_InterimYear.value, input_DesignYear.value, ''];
+					myLineChart3.data.datasets[0].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
+					myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
+					myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
+					myLineChart3.update();
+					
+				});
+			
+
+
+			
 			//checkbox function
 			var selections = [];
 			var checkboxElems = document.querySelectorAll("input[type='checkbox']");
@@ -1277,9 +1352,8 @@
 				range.execCommand("Copy");
 			}
 		}		
-		
-		
-		var station = L.geoJson( geo, {
+
+		var station = L.geoJson(geo, {
 			style: function (feature) {
 				return feature.properties && feature.properties.style;
 			},
@@ -1318,8 +1392,7 @@
 				}
 				
 				else{
-			
-				return L.circleMarker(latlng, {
+					return L.circleMarker(latlng, {
 					radius: 4,
 					fillColor: "#F7A53C",
 					color: "#000",
@@ -1327,14 +1400,13 @@
 					opacity: 1,
 					fillOpacity: 0.8
 				});
-
+				
 				}
-			
 			}
 		}).addTo(map);
 
 
-	    // search control
+		// search control
 		var searchControl = new L.Control.Search({
 			layer: station, 
 			propertyName: 'COSITE', 
@@ -1361,8 +1433,9 @@
 		});
 		
 		map.addControl(searchControl);  //inizialize search control
-	
+
 	</script>
 
 </body>
 </html>
+

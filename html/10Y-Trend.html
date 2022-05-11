@@ -28,10 +28,10 @@
     <link rel="stylesheet" href="../css/l.geosearch.css"/>
 	
 <!-- Main Style -->
-    <link rel="stylesheet" href="../css/ftocount_v3.1.1.css"/>
+    <link rel="stylesheet" href="../css/ftocount_v4.0.css"/>
 
 <!-- Geojson -->
-	<script type="text/javascript" src="../geojson/Top10_10Y_04292022.geojson"></script>
+	<script type="text/javascript" src="../geojson/10Y-Trend_05102022.geojson"></script>
 
 </head>
 <body>
@@ -44,7 +44,7 @@
 		<div class="collapse navbar-collapse" id="bdNavbar">
 		<ul class="navbar-nav flex-row flex-wrap bd-navbar-nav pt-2 py-md-0">
 			<li class="nav-item col-6 col-md-auto">
-			<a class="nav-link p-3 active" aria-current="true" href="FTO_aadt_proj_v3.1.1.html"><b>TBRTA Count Visualizer</b></a>
+			<a class="nav-link p-3 active" aria-current="true" href="FTO_aadt_proj_v4.0 - Copy.html"><b>TBRTA Count Visualizer</b></a>
 			</li>
 		</ul>
 		<ul class="navbar-nav flex-row flex-wrap ms-md-auto">
@@ -57,8 +57,19 @@
 	</header>
 
 	<!-- Map-->	
-	<div class="map" id="map"></div>
+	<div class="map" id="map">
+	</div>
+	<div class="legendmap" id="legendmap">
 	
+		<ul class="legend" id="script_legend">
+	
+		<li><span class="fdotCount"></span> FDOT Count</li>
+		<li><span class="countycount"></span> TBRPM County Count</li>
+		<li><span class="additionalcountycount"></span> MPO/TPO Count(addt'l) with TBRPM</li>
+		<li><span class="countycountnottbrpm"></span> MPO/TPO Count(addt'l) W/O TBRPM </li>
+	</ul>
+	
+		</div>	
 	<div class="box_cosite">
 		<div class="cosite" id="cosite"><i>Cosite Number:</i>&nbsp;</div>
 		<div class="cosite" id="chartsta" style="color: #EF6950;"></div>
@@ -242,6 +253,17 @@
 	<div class="container">
     
 	<ul class="nav nav-pills" id="pills-tab" role="tablist">
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" type="button" aria-expanded="false" style="color: black;">Count Source</a>
+			<ul class="dropdown-menu">
+			  <li><a class="dropdown-item" href="v4.0_fdot_count.html">FDOT Count</a></li>
+			  <li><a class="dropdown-item" href="v4.0_tbrpm_county_count.html">TBRPM County Count</a></li>
+			  <li><a class="dropdown-item" href="v4.0_mpo_with_tbrpm.html">MPO/TPO Count(addt'l) with TBRPM</a></li>
+			  <li><a class="dropdown-item" href="v4.0_mpo_wo_tbrpm.html">MPO/TPO Count(addt'l) W/O TBRPM</a></li>
+			</ul>
+		</li>
+	</ul>
+	<ul class="nav nav-pills" id="pills-tab" role="tablist">
 		<li class="nav-item" role="presentation">
 			<button class="nav-link active" id="pills-historical-tab" data-bs-toggle="pill" data-bs-target="#historical-chart" type="button" role="tab" aria-controls="pills-home" aria-selected="true" style="font-weight: bold">Historical AADT</button>
 		</li>
@@ -251,7 +273,6 @@
 		<li class="nav-item" role="presentation">
 			<button class="nav-link" id="pills-nchrp-tab" data-bs-toggle="pill" data-bs-target="#nchrp-projection" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" style="font-weight: bold">NCHRP Procedure</button>
 		</li>
-		<!-- <button class="btn float-right" disabled>&emsp;</button> -->
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" type="button" aria-expanded="false" style="padding-left: 10em;"><u>Top 10 Growth Rate</u></a>
 			<ul class="dropdown-menu">
@@ -263,19 +284,21 @@
 		</li>
     </ul>
 
+	<h6 style="text-align: right; color: #EF6950;"><i>Top 10 Growth Rate Based on 10-Year Trend (2011 to 2020)</i></h6>
+
 	<table class="table" id="analysis-year">
 		<thead>
 		<tr>
-			<th class="analysis-year" style="width:25%">Existing Year</th>
-			<th class="analysis-year" style="width:25%">Opening Year</th>
-			<th class="analysis-year" style="width:25%">Interim Year</th>
-			<th class="analysis-year" style="width:25%">Design Year</th>
+			<th class="analysis-year" style="width:20%">Base Year</th>
+			<th class="analysis-year" style="width:20%">Opening Year</th>
+			<th class="analysis-year" style="width:20%">Interim Year</th>
+			<th class="analysis-year" style="width:20%">Design Year</th>
 		</tr>
 		</thead>
 		<tbody>
 		<tr>
 			<td class="analysis-year">
-				<input type="number" id="input_ExistingYear" step="1" min="2000" max="2021" value="2019" onchange="saveValue(this);">
+				<input type="number" id="input_ExistingYear" step="1" min="2000" max="2020" value="2019" onchange="saveValue(this);">
 			</td>
 			<td class="analysis-year">
 				<input type="number" id="input_OpeningYear" step="1" min="2000" max="9999" value="2025" onchange="saveValue(this);">
@@ -290,7 +313,6 @@
 		</tbody>
 	</table>
 	
-	<head><i>Top 10 Growth Rate Based on 10-Year Trend (2011 to 2020)</i></head>
 	
 	
 	<div class="tab-content" id="pills-tabContent">
@@ -375,15 +397,12 @@
 								<button type="button" class="btn btn-outline-primary btn-sm" onclick="selectElementContents(document.getElementById('nchrp_procedure_table'));">Copy</button>
 							</div>
 						</th>
-						<th class="head-nchrp m4" style="width: 30%; vertical-align: middle;">
-						NCHRP 255 <br> <i>(Based on <u>Model Base Year</u>)</i></th>
-						<th class="head-nchrp" colspan="3" style="background-color: rgba(220,220,220,0.4); vertical-align: middle;">NCHRP 765 <i>(Based on <u>Existing Year</u>)</i></th>
+						<th class="head-nchrp" colspan="3" style="background-color: rgba(220,220,220,0.4); vertical-align: middle;">NCHRP 765 <i>(Based on <u>Base Year</u>)</i></th>
 					</tr>
 					<tr>
-						<th class="head-nchrp m4" >Ratio & Difference</th>
-						<th class="head-nchrp m5a" style="width: 16%;">Difference</th>
-						<th class="head-nchrp m5b" style="width: 16%;">Ratio</th>
-						<th class="head-nchrp m6" style="width: 20%;">Ratio & Difference</th>
+						<th class="head-nchrp m5a" style="width: 25%;">Difference</th>
+						<th class="head-nchrp m5b" style="width: 25%;">Ratio</th>
+						<th class="head-nchrp m6" style="width: 30%;">Ratio & Difference</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -568,16 +587,7 @@
 		var nchrpChartData = {
 			labels: ['','','','','',''],
 			datasets: [
-				{
-					label: 'NCHRP 255',
-					borderColor: "#1D6F42",
-					borderWidth: 2,
-					borderDash: [5,2],
-					pointBackgroundColor: "#1D6F42",
-					pointRadius: 3,
-					pointBorderWidth: 1,
-					data: null
-				},	
+
 				{	
 					label: 'NCHRP 765 Difference',
 					borderColor: "orange",
@@ -870,27 +880,13 @@
 			document.getElementById("chart2-design").innerHTML = 'Design Year ' + yr_3;
 
 			//------------  nchrp procedure table -------------
-			document.getElementById("chart3-opening").innerHTML = 'Opening Year ' + yr_1
+			document.getElementById("chart3-opening").innerHTML = 'Opening Year ' + yr_1;
 			document.getElementById("chart3-interim").innerHTML = 'Interim Year ' + yr_2;
 			document.getElementById("chart3-design").innerHTML = 'Design Year ' + yr_3;
 
 			yr0_vol = Math.round(Math.max(0,forecast(yr_0, [property.VOL15, property.VOL45], [2015, 2045])));
 			yr0_count = countYearPair[yr_0].aadt;
 
-			//method 4 - NCHRP Report 255 Ratio & Difference Smoothing Method Based on 2015 Data
-			m4_2045ratio = property.Y2015*(property.VOL45/property.VOL15);
-			m4_2045diff = property.Y2015+(property.VOL45-property.VOL15);
-			m4_2045avg = m4_2045ratio/2+m4_2045diff/2;
-			
-			m4_growth = (m4_2045avg/property.Y2015-1)/(2045-2015);
-			m4_opening = Math.round(yr0_count*(1+m4_growth*(yr_1-yr_0)));
-			m4_interim = Math.round(yr0_count*(1+m4_growth*(yr_2-yr_0)));
-			m4_design = Math.round(yr0_count*(1+m4_growth*(yr_3-yr_0)));
-			
-			document.getElementById("m4-growth").innerHTML = parseFloat((m4_growth*100).toFixed(2))+"%";
-			document.getElementById("m4-opening").innerHTML = m4_opening.toLocaleString();
-			document.getElementById("m4-interim").innerHTML = m4_interim.toLocaleString();
-			document.getElementById("m4-design").innerHTML = m4_design.toLocaleString();
 			
 			//NCHRP Report 765 Based on 2019 Data
 			m5_6_2045ratio = yr0_count*(property.VOL45/yr0_vol);
@@ -931,10 +927,9 @@
 			document.getElementById("m6-design").innerHTML = m6_design.toLocaleString();
 
 			myLineChart3.data.labels = ['', input_ExistingYear.value, input_OpeningYear.value, input_InterimYear.value, input_DesignYear.value, ''];
-			myLineChart3.data.datasets[0].data = [null, yr0_count, m4_opening, m4_interim, m4_design, null];
-			myLineChart3.data.datasets[1].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
-			myLineChart3.data.datasets[2].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
-			myLineChart3.data.datasets[3].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
+			myLineChart3.data.datasets[0].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
+			myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
+			myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 			myLineChart3.update();
 			
 			
@@ -969,13 +964,6 @@
 				document.getElementById("chart3-interim").innerHTML = 'Interim Year ' + yr_2;
 				document.getElementById("chart3-design").innerHTML = 'Design Year ' + yr_3;
 	
-				//method 4 - NCHRP Report 255 Ratio & Difference Smoothing Method Based on 2015 Data
-				m4_opening = Math.round(yr0_count*(1+m4_growth*(yr_1-yr_0)));
-				m4_interim = Math.round(yr0_count*(1+m4_growth*(yr_2-yr_0)));
-				m4_design = Math.round(yr0_count*(1+m4_growth*(yr_3-yr_0)));
-				document.getElementById("m4-opening").innerHTML = Math.round(m4_opening).toLocaleString();
-				document.getElementById("m4-interim").innerHTML = Math.round(m4_interim).toLocaleString();
-				document.getElementById("m4-design").innerHTML = Math.round(m4_design).toLocaleString();
 				
 				//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
 				m5a_opening = Math.round(yr0_count*(1+m5a_growth*(yr_1-yr_0)));
@@ -1002,10 +990,9 @@
 				document.getElementById("m6-design").innerHTML = Math.round(m6_design).toLocaleString();
 				
 				myLineChart3.data.labels = ['', input_ExistingYear.value, input_OpeningYear.value, input_InterimYear.value, input_DesignYear.value, ''];
-				myLineChart3.data.datasets[0].data = [null, yr0_count, m4_opening, m4_interim, m4_design, null];
-				myLineChart3.data.datasets[1].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
-				myLineChart3.data.datasets[2].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
-				myLineChart3.data.datasets[3].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
+				myLineChart3.data.datasets[0].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
+				myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
+				myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 				myLineChart3.update();
 				
 			});
@@ -1020,9 +1007,7 @@
 
 				document.getElementById("chart3-interim").innerHTML = 'Interim Year ' + yr_2;
 
-				m4_interim = Math.round(yr0_count*(1+m4_growth*(yr_2-yr_0)));
-				document.getElementById("m4-interim").innerHTML = Math.round(m4_interim).toLocaleString();
-
+				
 				m5a_interim = Math.round(yr0_count*(1+m5a_growth*(yr_2-yr_0)));
 				document.getElementById("m5a-interim").innerHTML = Math.round(m5a_interim).toLocaleString();
 
@@ -1033,10 +1018,9 @@
 				document.getElementById("m6-interim").innerHTML = Math.round(m6_interim).toLocaleString();
 				
 				myLineChart3.data.labels = ['', input_ExistingYear.value, input_OpeningYear.value, input_InterimYear.value, input_DesignYear.value, ''];
-				myLineChart3.data.datasets[0].data = [null, yr0_count, m4_opening, m4_interim, m4_design, null];
-				myLineChart3.data.datasets[1].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
-				myLineChart3.data.datasets[2].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
-				myLineChart3.data.datasets[3].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
+				myLineChart3.data.datasets[0].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
+				myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
+				myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 				myLineChart3.update();
 			});
 
@@ -1049,9 +1033,7 @@
 				
 				document.getElementById("chart3-design").innerHTML = 'Design Year ' + yr_3;
 
-				m4_design = Math.round(yr0_count*(1+m4_growth*(yr_3-yr_0)));
-				document.getElementById("m4-design").innerHTML = Math.round(m4_design).toLocaleString();
-
+				
 				m5a_design = Math.round(yr0_count*(1+m5a_growth*(yr_3-yr_0)));
 				document.getElementById("m5a-design").innerHTML = Math.round(m5a_design).toLocaleString();
 
@@ -1062,10 +1044,9 @@
 				document.getElementById("m6-design").innerHTML = Math.round(m6_design).toLocaleString();
 				
 				myLineChart3.data.labels = ['', input_ExistingYear.value, input_OpeningYear.value, input_InterimYear.value, yr_3, ''];
-				myLineChart3.data.datasets[0].data = [null, yr0_count, m4_opening, m4_interim, m4_design, null];
-				myLineChart3.data.datasets[1].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
-				myLineChart3.data.datasets[2].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
-				myLineChart3.data.datasets[3].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
+				myLineChart3.data.datasets[0].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
+				myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
+				myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 				myLineChart3.update();
 			});
 
@@ -1082,13 +1063,6 @@
 					var yr_2 = input_InterimYear.value;
 					var yr_3 = input_DesignYear.value;
 
-					//method 4 - NCHRP Report 255 Ratio & Difference Smoothing Method Based on 2015 Data
-					m4_opening = Math.round(yr0_count*(1+m4_growth*(yr_1-yr_0)));
-					m4_interim = Math.round(yr0_count*(1+m4_growth*(yr_2-yr_0)));
-					m4_design = Math.round(yr0_count*(1+m4_growth*(yr_3-yr_0)));
-					document.getElementById("m4-opening").innerHTML = m4_opening.toLocaleString();
-					document.getElementById("m4-interim").innerHTML = m4_interim.toLocaleString();
-					document.getElementById("m4-design").innerHTML = m4_design.toLocaleString();
 					
 					//NCHRP Report 765 Based on 2019 Data
 					m5_6_2045ratio = yr0_count*(property.VOL45/yr0_vol);
@@ -1129,10 +1103,9 @@
 					document.getElementById("m6-design").innerHTML = m6_design.toLocaleString();
 		
 					myLineChart3.data.labels = ['', yr_0, input_OpeningYear.value, input_InterimYear.value, input_DesignYear.value, ''];
-					myLineChart3.data.datasets[0].data = [null, yr0_count, m4_opening, m4_interim, m4_design, null];
-					myLineChart3.data.datasets[1].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
-					myLineChart3.data.datasets[2].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
-					myLineChart3.data.datasets[3].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
+					myLineChart3.data.datasets[0].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
+					myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
+					myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 					myLineChart3.update();
 					
 				});
@@ -1259,7 +1232,7 @@
 		}
 		
 		function download_csv_2(table_id) {
-			var csv = [',NCHRP 255 (Based on Base Year),,NCHRP 765 (Based on Existing Year),', ',Ratio & Difference, Difference, Ratio, Ratio & Difference'];
+			var csv = [',NCHRP 765 (Based on Base Year),', ', Difference, Ratio, Ratio & Difference'];
 			var rows = document.querySelectorAll('table#' + table_id + ' tr');	
 			
 			for (var i = 2; i < rows.length; i++) {
@@ -1318,15 +1291,48 @@
 			onEachFeature: onEachFeature,
 
 			pointToLayer: function (feature, latlng) {
-			
-				return L.circleMarker(latlng, {
+				if(feature.properties.COMM == "TBRPM County Count"){
+				    return L.circleMarker(latlng, {
 					radius: 4,
-					fillColor: "#ff7800",
+					fillColor: "#40B7F2",
 					color: "#000",
 					weight: 1,
 					opacity: 1,
 					fillOpacity: 0.8
 				});
+				}
+				else if(feature.properties.COMM == "MPO\/TPO Count(addt'l) with TBRPM"){
+				    return L.circleMarker(latlng, {
+					radius: 4,
+					fillColor: "#3CF76F",
+					color: "#000",
+					weight: 1,
+					opacity: 1,
+					fillOpacity: 0.8
+				});
+				}	else if(feature.properties.COMM == "MPO\/TPO Count(addt'l) W\/O TBRPM"){
+				    return L.circleMarker(latlng, {
+					radius: 4,
+					fillColor: "#808080",
+					color: "#000",
+					weight: 1,
+					opacity: 1,
+					fillOpacity: 0.8
+				});
+				}
+				
+				else{
+			
+				return L.circleMarker(latlng, {
+					radius: 4,
+					fillColor: "#F7A53C",
+					color: "#000",
+					weight: 1,
+					opacity: 1,
+					fillOpacity: 0.8
+				});
+
+				}
 			
 			}
 		}).addTo(map);
