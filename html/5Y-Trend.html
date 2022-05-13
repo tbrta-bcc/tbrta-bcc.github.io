@@ -854,6 +854,9 @@
 			var yr_2 = input_InterimYear.value;
 			var yr_3 = input_DesignYear.value;
 			
+			// Update input aadt - NEW
+			input_AADT.value = countYearPair[yr_0].aadt;
+			
 			document.getElementById("growth_selectedyr").innerHTML = "";
 			document.getElementById("opening_aadt_selectedyr").innerHTML = "";
 			document.getElementById("interim_aadt_selectedyr").innerHTML = "";
