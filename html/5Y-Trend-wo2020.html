@@ -396,7 +396,7 @@
 					<tr>
 						<th rowspan="2" class="head-nchrp" style="vertical-align: middle;">
 							<div class="btn-group" role="group" aria-label="Basic example">
-								<button type="button" class="btn btn-outline-primary btn-sm" onclick="download_csv_2('nchrp_procedure_table');">Export</button>
+								<button type="button" class="btn btn-outline-primary btn-sm" onclick="download_csv_3('nchrp_procedure_table');">Export</button>
 								<button type="button" class="btn btn-outline-primary btn-sm" onclick="selectElementContents(document.getElementById('nchrp_procedure_table'));">Copy</button>
 							</div>
 						</th>
@@ -1295,6 +1295,33 @@
 		}
 		
 		function download_csv_2(table_id) {
+			var csv = [',Based on Selected AADTs, Based on the Last 5-Year AADTs, Based on the Last 10-Year AADTs, Based on TBRPM Volume'];
+			var rows = document.querySelectorAll('table#' + table_id + ' tr');	
+			
+			for (var i = 1; i < rows.length; i++) {
+				var row = [];
+				cols = rows[i].querySelectorAll('td, th');
+				for (var j = 0; j < cols.length; j++) {
+					row.push('"' + cols[j].innerText + '"');
+				}
+				csv.push(row.join(","));
+			}
+			var csv_string = csv.join("\n");
+			
+			// Download it
+			var cosite = document.getElementById("chartsta").innerHTML;
+			var filename = cosite + '_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
+			var link = document.createElement('a');
+			link.style.display = 'none';
+			link.setAttribute('target', '_blank');
+			link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+			link.setAttribute('download', filename);
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		}
+
+		function download_csv_3(table_id) {
 			var csv = [',NCHRP 765 (Based on Base Year),', ', Difference, Ratio, Ratio & Difference'];
 			var rows = document.querySelectorAll('table#' + table_id + ' tr');	
 			
