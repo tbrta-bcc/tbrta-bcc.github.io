@@ -1332,7 +1332,7 @@
 			var csv = [',NCHRP 765 (Based on Base Year),', ', Difference, Ratio, Ratio & Difference'];
 			var rows = document.querySelectorAll('table#' + table_id + ' tr');	
 			
-			for (var i = 1; i < rows.length; i++) {
+			for (var i = 2; i < rows.length; i++) {
 				var row = [];
 				cols = rows[i].querySelectorAll('td, th');
 				for (var j = 0; j < cols.length; j++) {
