@@ -722,20 +722,13 @@
 			}
 		}
 		
+
 		function RoundAADT(d){
-			return //d > 99999 ? 1000 * Math.round(d/1000) :
-				d > 9999 ? 500 * Math.round(d/500) :
+			return d > 9999 ? 500 * Math.round(d/500) :
 				d > 999 ? 100 * Math.round(d/100) :
 				d > 99 ? 50 * Math.round(d/50):
 				10 * Math.round(d/10);
 		}
-
-		// function RoundAADT(d){
-		// 	return d > 9999 ? 500 * Math.round(d/500) :
-		// 		d > 999 ? 100 * Math.round(d/100) :
-		// 		d > 99 ? 50 * Math.round(d/50):
-		// 		10 * Math.round(d/10);
-		// }
 		
 		function saveValue(e){
             var id = e.id;  // get the sender's id to save it . 
