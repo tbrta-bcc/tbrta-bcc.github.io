@@ -1299,10 +1299,10 @@
 		}
 		
 		function download_csv_2(table_id) {
-			var csv = [',NCHRP 765 (Based on Base Year),', ', Difference, Ratio, Ratio & Difference'];
+			var csv = [',Based on Selected AADTs, Based on the Last 5-Year AADTs, Based on the Last 10-Year AADTs, Based on TBRPM Volume'];
 			var rows = document.querySelectorAll('table#' + table_id + ' tr');	
 			
-			for (var i = 2; i < rows.length; i++) {
+			for (var i = 1; i < rows.length; i++) {
 				var row = [];
 				cols = rows[i].querySelectorAll('td, th');
 				for (var j = 0; j < cols.length; j++) {
