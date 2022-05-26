@@ -1059,6 +1059,7 @@
 					
 					var yr_0 = e.target.value;
 					yr0_count = countYearPair[yr_0].aadt;
+					input_AADT.value = yr0_count;
 					yr0_vol = Math.round(Math.max(0,forecast(yr_0, [property.VOL15, property.VOL45], [2015, 2045])));
 					
 					var yr_1 = input_OpeningYear.value;
