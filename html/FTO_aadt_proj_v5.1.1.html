@@ -295,12 +295,12 @@
 		<thead>
 		<tr>
 			<th class="analysis-year" style="width:12%">Base Year</th>
-			<th class="analysis-year" style="width:12%">Base Year AADT</th>
+			<th class="analysis-year" style="width:12%; color:red;">Base Year AADT</th>
 			<th class="analysis-year" style="width:12%">Opening Year</th>
 			<th class="analysis-year" style="width:12%">Interim Year</th>
 			<th class="analysis-year" style="width:12%">Design Year</th>
-			<th class="analysis-year" style="width:20%">Base Year Model Volume</th>
-			<th class="analysis-year" style="width:20%">Future Year Model Volume</th>
+			<th class="analysis-year" style="width:20%; color:red;">Base Year Model Volume</th>
+			<th class="analysis-year" style="width:20%; color:red;">Future Year Model Volume</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -309,7 +309,7 @@
 				<input type="number" id="input_ExistingYear" step="1" min="2000" max="2021" value="2019" onchange="saveValue(this);">
 			</td>
 			<td class="manual-aadt">
-				<input type="number" id="input_AADT" step="100" min="0" max="9999999" onchange="saveValue(this);">
+				<input type="number" style="border:1px solid; border-color:red;" id="input_AADT" step="100" min="0" max="9999999" onchange="saveValue(this);">
 			</td>
 			<td class="analysis-year">
 				<input type="number" id="input_OpeningYear" step="1" min="2000" max="9999" value="2025" onchange="saveValue(this);">
@@ -321,10 +321,10 @@
 				<input type="number" id="input_DesignYear" step="1" min="2000" max="9999" value="2045" onchange="saveValue(this);">
 			</td>
 			<td class="analysis-year">
-				<input type="number" id="input_BaseVolume" step="1000" min="0" max="9999999" onchange="saveValue(this);">
+				<input type="number" style="border:1px solid; border-color:red;" id="input_BaseVolume" step="1000" min="0" max="9999999" onchange="saveValue(this);">
 			</td>			
 			<td class="analysis-year">
-				<input type="number" id="input_FutureVolume" step="1000" min="0" max="9999999" onchange="saveValue(this);">
+				<input type="number" style="border:1px solid; border-color:red;" id="input_FutureVolume" step="1000" min="0" max="9999999" onchange="saveValue(this);">
 			</td>
 		</tr>
 		</tbody>
