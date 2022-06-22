@@ -1012,6 +1012,10 @@
 				var yr_1 = e.target.value;
 				yr_2 = parseInt(yr_1) + 10; //update interim year
 				yr_3 = parseInt(yr_1) + 20; //update design year
+				
+				basevol = Number(input_BaseVolume.value);
+				futurevol = Number(input_FutureVolume.value);
+
 				document.getElementById("input_InterimYear").value = yr_2;
 				document.getElementById("input_DesignYear").value = yr_3;
 				
@@ -1021,15 +1025,15 @@
 
 				document.getElementById("opening_aadt_5yr").innerHTML = analysisYearAADT(yr_1, aadt_5, year_5);
 				document.getElementById("opening_aadt_10yr").innerHTML = analysisYearAADT(yr_1, aadt_10, year_10);
-				document.getElementById("opening_aadt_tbrpm").innerHTML = analysisYearAADT(yr_1, [property.VOL15, property.VOL45], [2015, 2045]);
+				document.getElementById("opening_aadt_tbrpm").innerHTML = analysisYearAADT(yr_1, [basevol, futurevol], [2015, 2045]);
 								
 				document.getElementById("interim_aadt_5yr").innerHTML = analysisYearAADT(yr_2, aadt_5, year_5);
 				document.getElementById("interim_aadt_10yr").innerHTML = analysisYearAADT(yr_2, aadt_10, year_10);
-				document.getElementById("interim_aadt_tbrpm").innerHTML = analysisYearAADT(yr_2, [property.VOL15, property.VOL45], [2015, 2045]);
+				document.getElementById("interim_aadt_tbrpm").innerHTML = analysisYearAADT(yr_2, [basevol, futurevol], [2015, 2045]);
 				
 				document.getElementById("design_aadt_5yr").innerHTML = analysisYearAADT(yr_3, aadt_5, year_5);
 				document.getElementById("design_aadt_10yr").innerHTML = analysisYearAADT(yr_3, aadt_10, year_10);
-				document.getElementById("design_aadt_tbrpm").innerHTML = analysisYearAADT(yr_3, [property.VOL15, property.VOL45], [2015, 2045]);
+				document.getElementById("design_aadt_tbrpm").innerHTML = analysisYearAADT(yr_3, [basevol, futurevol], [2015, 2045]);
 				
 				//No need to update annual growth since existing year isn't updated.
 				document.getElementById("chart3-opening").innerHTML = 'Opening Year ' + yr_1
@@ -1100,13 +1104,16 @@
 			input_interim.addEventListener("change", function(e){ //update interim year and corresponding aadt				
 				yr_2 = e.target.value;
 				
+				basevol = Number(input_BaseVolume.value);
+				futurevol = Number(input_FutureVolume.value);
+
 				document.getElementById("input_InterimYear").value = yr_2;
 				
 				document.getElementById("chart2-interim").innerHTML = 'Interim Year ' + yr_2;
 
 				document.getElementById("interim_aadt_5yr").innerHTML = analysisYearAADT(yr_2, aadt_5, year_5);
 				document.getElementById("interim_aadt_10yr").innerHTML = analysisYearAADT(yr_2, aadt_10, year_10);
-				document.getElementById("interim_aadt_tbrpm").innerHTML = analysisYearAADT(yr_2, [property.VOL15, property.VOL45], [2015, 2045]);
+				document.getElementById("interim_aadt_tbrpm").innerHTML = analysisYearAADT(yr_2, [basevol, futurevol], [2015, 2045]);
 
 				document.getElementById("chart3-interim").innerHTML = 'Interim Year ' + yr_2;
 
@@ -1139,13 +1146,16 @@
 			input_design.addEventListener("change", function(e){ //update design year and corresponding aadt
 				yr_3 = e.target.value;
 				
+				basevol = Number(input_BaseVolume.value);
+				futurevol = Number(input_FutureVolume.value);
+
 				document.getElementById("input_DesignYear").value = yr_3;
 				
 				document.getElementById("chart2-design").innerHTML = 'Design Year ' + yr_3;
 
 				document.getElementById("design_aadt_5yr").innerHTML = analysisYearAADT(yr_3, aadt_5, year_5);
 				document.getElementById("design_aadt_10yr").innerHTML = analysisYearAADT(yr_3, aadt_10, year_10);
-				document.getElementById("design_aadt_tbrpm").innerHTML = analysisYearAADT(yr_3, [property.VOL15, property.VOL45], [2015, 2045]);
+				document.getElementById("design_aadt_tbrpm").innerHTML = analysisYearAADT(yr_3, [basevol, futurevol], [2015, 2045]);
 				
 				document.getElementById("chart3-design").innerHTML = 'Design Year ' + yr_3;
 
@@ -1182,7 +1192,9 @@
 					var yr_0 = e.target.value;
 					yr0_count = countYearPair[yr_0].aadt;
 					input_AADT.value = yr0_count;
-					yr0_vol = Math.round(Math.max(0,forecast(yr_0, [property.VOL15, property.VOL45], [2015, 2045])));
+					basevol = Number(input_BaseVolume.value);
+					futurevol = Number(input_FutureVolume.value);
+					yr0_vol = Math.round(Math.max(0,forecast(yr_0, [basevol, futurevol], [2015, 2045])));
 					
 					var yr_1 = input_OpeningYear.value;
 					var yr_2 = input_InterimYear.value;
@@ -1190,8 +1202,8 @@
 
 					
 					//NCHRP Report 765 Based on 2019 Data
-					m5_6_2045ratio = yr0_count*(property.VOL45/yr0_vol);
-					m5_6_2045diff = yr0_count+(property.VOL45-yr0_vol);
+					m5_6_2045ratio = yr0_count*(futurevol/yr0_vol);
+					m5_6_2045diff = yr0_count+(futurevol-yr0_vol);
 					m5_6_2045avg = m5_6_2045ratio/2+m5_6_2045diff/2;
 					
 					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
