@@ -1275,8 +1275,11 @@
 					
 					var yr0_count = Number(e.target.value);
 					var yr_0 = input_ExistingYear.value;
+					basevol = Number(input_BaseVolume.value);
+					futurevol = Number(input_FutureVolume.value);
 					
-					yr0_vol = Math.round(Math.max(0,forecast(yr_0, [property.VOL15, property.VOL45], [2015, 2045])));
+					
+					yr0_vol = Math.round(Math.max(0,forecast(yr_0, [basevol, futurevol], [2015, 2045])));
 					
 					var yr_1 = input_OpeningYear.value;
 					var yr_2 = input_InterimYear.value;
@@ -1284,8 +1287,8 @@
 
 					
 					//NCHRP Report 765 Based on 2019 Data
-					m5_6_2045ratio = yr0_count*(property.VOL45/yr0_vol);
-					m5_6_2045diff = yr0_count+(property.VOL45-yr0_vol);
+					m5_6_2045ratio = yr0_count*(futurevol/yr0_vol);
+					m5_6_2045diff = yr0_count+(futurevol-yr0_vol);
 					m5_6_2045avg = m5_6_2045ratio/2+m5_6_2045diff/2;
 					
 					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
@@ -1450,7 +1453,7 @@
 					document.getElementById("m6-r-interim").innerHTML = m6_r_interim.toLocaleString();
 					document.getElementById("m6-r-design").innerHTML = m6_r_design.toLocaleString();
 
-					document.getElementById("growth_tbrpm").innerHTML = parseFloat(((basevol/futurevol-1)/30*100).toFixed(2))+"%";
+					document.getElementById("growth_tbrpm").innerHTML = parseFloat(((futurevol/basevol-1)/30*100).toFixed(2))+"%";
 					document.getElementById("opening_aadt_tbrpm").innerHTML = analysisYearAADT(yr_1, [basevol, futurevol], [2015, 2045]);
 					document.getElementById("interim_aadt_tbrpm").innerHTML = analysisYearAADT(yr_2, [basevol, futurevol], [2015, 2045]);
 					document.getElementById("design_aadt_tbrpm").innerHTML = analysisYearAADT(yr_3, [basevol, futurevol], [2015, 2045]);
@@ -1460,6 +1463,9 @@
 					myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
 					myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 					myLineChart3.update();
+
+					myLineChart2.data.datasets[3].data = trendLine([basevol, futurevol], [2015, 2045]).slice(0,51);
+					myLineChart2.update();
 					
 				});
 			
@@ -1551,7 +1557,7 @@
 					document.getElementById("m6-r-interim").innerHTML = m6_r_interim.toLocaleString();
 					document.getElementById("m6-r-design").innerHTML = m6_r_design.toLocaleString();
 
-					document.getElementById("growth_tbrpm").innerHTML = parseFloat(((basevol/futurevol-1)/30*100).toFixed(2))+"%";
+					document.getElementById("growth_tbrpm").innerHTML = parseFloat(((futurevol/basevol-1)/30*100).toFixed(2))+"%";
 					document.getElementById("opening_aadt_tbrpm").innerHTML = analysisYearAADT(yr_1, [basevol, futurevol], [2015, 2045]);
 					document.getElementById("interim_aadt_tbrpm").innerHTML = analysisYearAADT(yr_2, [basevol, futurevol], [2015, 2045]);
 					document.getElementById("design_aadt_tbrpm").innerHTML = analysisYearAADT(yr_3, [basevol, futurevol], [2015, 2045]);
@@ -1561,6 +1567,9 @@
 					myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
 					myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 					myLineChart3.update();
+
+					myLineChart2.data.datasets[3].data = trendLine([basevol, futurevol], [2015, 2045]).slice(0,51);
+					myLineChart2.update();
 					
 				});
 
