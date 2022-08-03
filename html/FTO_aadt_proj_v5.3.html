@@ -1182,7 +1182,7 @@
 				m6_r_interim = RoundAADT(m6_interim);
 				m6_r_design = RoundAADT(m6_design);
 				
-				if (basevol == property.VOL15){
+				if (basevol == property.VOL15 & futurevol == property.VOL45){
 					document.getElementById("m5a-opening").innerHTML = Math.round(m5a_opening).toLocaleString();
 					document.getElementById("m5a-interim").innerHTML = Math.round(m5a_interim).toLocaleString();
 					document.getElementById("m5a-design").innerHTML = Math.round(m5a_design).toLocaleString();
@@ -1201,6 +1201,15 @@
 					document.getElementById("m6-r-opening").innerHTML = m6_r_opening.toLocaleString();
 					document.getElementById("m6-r-interim").innerHTML = m6_r_interim.toLocaleString();
 					document.getElementById("m6-r-design").innerHTML = m6_r_design.toLocaleString();
+					//18 KIP Input Table
+					document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
+					document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
+					document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
+					document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
+					document.getElementById("count-1").innerHTML = Number(input_AADT.value).toLocaleString();
+					document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
+					document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
+					document.getElementById("count-4").innerHTML = m6_design.toLocaleString();
 				}
 				else{
 					document.getElementById("m5a-opening").innerHTML = "*"+Math.round(m5a_opening).toLocaleString();
@@ -1221,6 +1230,15 @@
 					document.getElementById("m6-r-opening").innerHTML = "*"+m6_r_opening.toLocaleString();
 					document.getElementById("m6-r-interim").innerHTML = "*"+m6_r_interim.toLocaleString();
 					document.getElementById("m6-r-design").innerHTML = "*"+m6_r_design.toLocaleString();
+					//18 KIP Input Table
+					document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
+					document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
+					document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
+					document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
+					document.getElementById("count-1").innerHTML = "*"+Number(input_AADT.value).toLocaleString();
+					document.getElementById("count-2").innerHTML = "*"+m6_opening.toLocaleString();
+					document.getElementById("count-3").innerHTML = "*"+m6_interim.toLocaleString();
+					document.getElementById("count-4").innerHTML = "*"+m6_design.toLocaleString();
 				}
 				
 				myLineChart3.data.labels = ['', input_ExistingYear.value, input_OpeningYear.value, input_InterimYear.value, input_DesignYear.value, ''];
@@ -1229,15 +1247,7 @@
 				myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 				myLineChart3.update();
 
-				//18 KIP Input Table
-				document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
-				document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
-				document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
-				document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
-				document.getElementById("count-1").innerHTML = Number(input_AADT.value).toLocaleString();
-				document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
-				document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
-				document.getElementById("count-4").innerHTML = m6_design.toLocaleString();
+				
 				
 			});
 			
@@ -1268,13 +1278,22 @@
 				m6_interim = Math.round(yr0_count*(1 + m6_growth*(yr_2-yr_0)));
 				m6_r_interim = RoundAADT(m6_interim);
 				
-				if (basevol == property.VOL15){
+				if (basevol == property.VOL15 & futurevol == property.VOL45){
 					document.getElementById("m5a-interim").innerHTML = Math.round(m5a_interim).toLocaleString();
 					document.getElementById("m5a-r-interim").innerHTML = m5a_r_interim.toLocaleString();
 					document.getElementById("m5b-interim").innerHTML = Math.round(m5b_interim).toLocaleString();
 					document.getElementById("m5b-r-interim").innerHTML = m5b_r_interim.toLocaleString();
 					document.getElementById("m6-interim").innerHTML = Math.round(m6_interim).toLocaleString();
 					document.getElementById("m6-r-interim").innerHTML = m6_r_interim.toLocaleString();
+					//18 KIP Input Table
+					document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
+					document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
+					document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
+					document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
+					document.getElementById("count-1").innerHTML = Number(input_AADT.value).toLocaleString();
+					document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
+					document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
+					document.getElementById("count-4").innerHTML = m6_design.toLocaleString();
 				}
 				else{
 					document.getElementById("m5a-interim").innerHTML = "*"+Math.round(m5a_interim).toLocaleString();
@@ -1283,6 +1302,15 @@
 					document.getElementById("m5b-r-interim").innerHTML = "*"+m5b_r_interim.toLocaleString();
 					document.getElementById("m6-interim").innerHTML = "*"+Math.round(m6_interim).toLocaleString();
 					document.getElementById("m6-r-interim").innerHTML = "*"+m6_r_interim.toLocaleString();
+					//18 KIP Input Table
+					document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
+					document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
+					document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
+					document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
+					document.getElementById("count-1").innerHTML = "*"+Number(input_AADT.value).toLocaleString();
+					document.getElementById("count-2").innerHTML = "*"+m6_opening.toLocaleString();
+					document.getElementById("count-3").innerHTML = "*"+m6_interim.toLocaleString();
+					document.getElementById("count-4").innerHTML = "*"+m6_design.toLocaleString();
 				}
 				
 				myLineChart3.data.labels = ['', input_ExistingYear.value, input_OpeningYear.value, input_InterimYear.value, input_DesignYear.value, ''];
@@ -1291,16 +1319,7 @@
 				myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 				myLineChart3.update();
 
-				//18 KIP Input Table
-				document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
-				document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
-				document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
-				document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
-				document.getElementById("count-1").innerHTML = Number(input_AADT.value).toLocaleString();
-				document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
-				document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
-				document.getElementById("count-4").innerHTML = m6_design.toLocaleString();
-
+				
 			});
 
 			var input_design = document.getElementById("input_DesignYear");
@@ -1329,13 +1348,22 @@
 				m6_design = Math.round(yr0_count*(1 + m6_growth*(yr_3-yr_0)));
 				m6_r_design = RoundAADT(m6_design);
 
-				if (basevol == property.VOL15){
+				if (basevol == property.VOL15 & futurevol == property.VOL45){
 					document.getElementById("m5a-design").innerHTML = Math.round(m5a_design).toLocaleString();
 					document.getElementById("m5a-r-design").innerHTML = m5a_r_design.toLocaleString();
 					document.getElementById("m5b-design").innerHTML = Math.round(m5b_design).toLocaleString();
 					document.getElementById("m5b-r-design").innerHTML = m5b_r_design.toLocaleString();
 					document.getElementById("m6-design").innerHTML = Math.round(m6_design).toLocaleString();
 					document.getElementById("m6-r-design").innerHTML = m6_r_design.toLocaleString();
+					//18 KIP Input Table
+					document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
+					document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
+					document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
+					document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
+					document.getElementById("count-1").innerHTML = Number(input_AADT.value).toLocaleString();
+					document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
+					document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
+					document.getElementById("count-4").innerHTML = m6_design.toLocaleString();
 				}
 				else{
 					document.getElementById("m5a-design").innerHTML = "*"+Math.round(m5a_design).toLocaleString();
@@ -1344,6 +1372,15 @@
 					document.getElementById("m5b-r-design").innerHTML = "*"+m5b_r_design.toLocaleString();
 					document.getElementById("m6-design").innerHTML = "*"+Math.round(m6_design).toLocaleString();
 					document.getElementById("m6-r-design").innerHTML = "*"+m6_r_design.toLocaleString();
+					//18 KIP Input Table
+					document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
+					document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
+					document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
+					document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
+					document.getElementById("count-1").innerHTML = "*"+Number(input_AADT.value).toLocaleString();
+					document.getElementById("count-2").innerHTML = "*"+m6_opening.toLocaleString();
+					document.getElementById("count-3").innerHTML = "*"+m6_interim.toLocaleString();
+					document.getElementById("count-4").innerHTML = "*"+m6_design.toLocaleString();
 				}
 				
 				myLineChart3.data.labels = ['', input_ExistingYear.value, input_OpeningYear.value, input_InterimYear.value, yr_3, ''];
@@ -1352,15 +1389,7 @@
 				myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 				myLineChart3.update();
 
-				//18 KIP Input Table
-				document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
-				document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
-				document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
-				document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
-				document.getElementById("count-1").innerHTML = Number(input_AADT.value).toLocaleString();
-				document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
-				document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
-				document.getElementById("count-4").innerHTML = m6_design.toLocaleString();
+				
 
 			});
 
@@ -1421,7 +1450,7 @@
 					m6_r_interim = RoundAADT(m6_interim);
 					m6_r_design = RoundAADT(m6_design);
 
-					if (basevol == property.VOL15){
+					if (basevol == property.VOL15 & futurevol == property.VOL45){
 						document.getElementById("m5a-growth").innerHTML = parseFloat(m5a_growth*100).toFixed(2)+"%";
 						document.getElementById("m5a-opening").innerHTML = m5a_opening.toLocaleString();
 						document.getElementById("m5a-interim").innerHTML = m5a_interim.toLocaleString();
@@ -1446,6 +1475,15 @@
 						document.getElementById("m6-r-opening").innerHTML = m6_r_opening.toLocaleString();
 						document.getElementById("m6-r-interim").innerHTML = m6_r_interim.toLocaleString();
 						document.getElementById("m6-r-design").innerHTML = m6_r_design.toLocaleString();
+						//18 KIP Input Table
+						document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
+						document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
+						document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
+						document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
+						document.getElementById("count-1").innerHTML = Number(input_AADT.value).toLocaleString();
+						document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
+						document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
+						document.getElementById("count-4").innerHTML = m6_design.toLocaleString();
 					}
 					else{
 						document.getElementById("m5a-growth").innerHTML = "*"+parseFloat(m5a_growth*100).toFixed(2)+"%";
@@ -1472,6 +1510,15 @@
 						document.getElementById("m6-r-opening").innerHTML = "*"+m6_r_opening.toLocaleString();
 						document.getElementById("m6-r-interim").innerHTML = "*"+m6_r_interim.toLocaleString();
 						document.getElementById("m6-r-design").innerHTML = "*"+m6_r_design.toLocaleString();
+						//18 KIP Input Table
+						document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
+						document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
+						document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
+						document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
+						document.getElementById("count-1").innerHTML = "*"+Number(input_AADT.value).toLocaleString();
+						document.getElementById("count-2").innerHTML = "*"+m6_opening.toLocaleString();
+						document.getElementById("count-3").innerHTML = "*"+m6_interim.toLocaleString();
+						document.getElementById("count-4").innerHTML = "*"+m6_design.toLocaleString();
 					}
 		
 					myLineChart3.data.labels = ['', yr_0, input_OpeningYear.value, input_InterimYear.value, input_DesignYear.value, ''];
@@ -1480,15 +1527,7 @@
 					myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 					myLineChart3.update();
 
-					//18 KIP Input Table
-					document.getElementById("year-1").innerHTML = input_ExistingYear.value.toLocaleString();
-					document.getElementById("year-2").innerHTML = input_OpeningYear.value.toLocaleString();
-					document.getElementById("year-3").innerHTML = input_InterimYear.value.toLocaleString();
-					document.getElementById("year-4").innerHTML = input_DesignYear.value.toLocaleString();
-					document.getElementById("count-1").innerHTML = Number(input_AADT.value).toLocaleString();
-					document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
-					document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
-					document.getElementById("count-4").innerHTML = m6_design.toLocaleString();					
+										
 					
 				});
 
