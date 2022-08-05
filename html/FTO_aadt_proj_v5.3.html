@@ -472,40 +472,70 @@
 
 		<div class="tab-pane fade" id="input-18kip" role="tabpanel" aria-labelledby="pills-profile-tab">
 			<div id="nchrp_aadt_projection">
-			<table class="table" id="18kip_table" style="width: 50%;margin-left:auto;margin-right:auto;margin-top: 50px;">
+			<table class="table" id="18kip_table" style="width: 80%;margin-left:auto;margin-right:auto;margin-top: 50px;">
 				<thead>
 					<tr>	
-						<th class="head-18kip" colspan="3" style="background-color: rgba(220,220,220,0.4); vertical-align: middle;"><i>ESAL Analysis Input</i></th>
+						<th class="head-18kip" colspan="4" style="background-color: rgba(220,220,220,0.4); vertical-align: middle;"><i>ESAL Analysis Input</i></th>
 					</tr>
 					<tr>
-						<th class="head-18kip yr" style="width: 40%;"></th>
-						<th class="head-18kip yr" style="width: 30%;">Year</th>
-						<th class="head-18kip tc" style="width: 30%;">Traffic Count (AADT)</th>
+						<th class="head-18kip yr" style="width: 20%;"></th>
+						<th class="head-18kip yr" style="width: 20%;">Year</th>
+						<th class="head-18kip tc" style="width: 30%;">Traffic Count (AADT) based on Selected AADTs</th>
+						<th class="head-18kip tc" style="width: 30%;">Traffic Count (AADT) based on NCRPH 765 Ratio & Difference</th>
 					</tr>
 				</thead>
 				<tbody>
 				<tr>
 					<td><b>Existing Year</b></td>
 					<td class="year-1" id="year-1"></td>
+					<td class="count-s-1" id="count-s-1"></td>
 					<td class="count-1" id="count-1"></td>
 				</tr>
 				<tr>
 					<td><b>Opening Year</b></td>
 					<td class="year-2" id="year-2"></td>
+					<td class="count-s-2" id="count-s-2"></td>
 					<td class="count-2" id="count-2"></td>
 				</tr>
 				<tr>
 					<td><b>Mid-Year</b></td>
 					<td class="year-3" id="year-3"></td>
+					<td class="count-s-3" id="count-s-3"></td>
 					<td class="count-3" id="count-3"></td>
 				</tr>
 				<tr>
 					<td><b>Design Year</b></td>
 					<td class="year-4" id="year-4"></td>
+					<td class="count-s-4" id="count-s-4"></td>
 					<td class="count-4" id="count-4"></td>
 				</tr>				
 				</tbody>
-			</table>	
+			</table>
+			
+			<table class="table2" id="info_table" style="width:35%;margin-left:100px;margin-top:50px;">
+				<tbody>
+				<tr>
+					<td style="font-size: 12;"><b>Base Year Model Number of Lanes (per direction)</b></td>
+					<td class="basenumlanes" id="basenumlanes" style="font-size: 12;"></td>
+				</tr>
+				<tr>
+					<td style="font-size: 12;"><b>Future Year Model Number of Lanes (per direction)</b></td>
+					<td style="font-size: 12;" class="futurenumlanes" id="futurenumlanes"></td>
+				</tr>
+				<tr>
+					<td style="font-size: 12;"><b>Base Year Model Facility Type</b></td>
+					<td style="font-size: 12;" class="basefacltype" id="basefacltype"></td>
+				</tr>
+				<tr>
+					<td style="font-size: 12;"><b>Future Year Model Facility Type</b></td>
+					<td style="font-size: 12;" class="futurefacltype" id="futurefacltype"></td>
+				</tr>
+				<tr>
+					<td style="font-size: 12;"><b>2021 Daily Truck</b></td>
+					<td style="font-size: 12;" class="daily-truck-21" id="daily-truck-21"></td>
+				</tr>
+			</tbody>
+			</table>
 			<p style="font-size: 80%; text-align: center;"><i><br><br><br>Note: * The original base AADT or adopted model volumes have been revised by the user. Please use the output with caution.</i></p>
 		</div>
 
@@ -1116,7 +1146,11 @@
 			document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
 			document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
 			document.getElementById("count-4").innerHTML = m6_design.toLocaleString();
-
+			document.getElementById("basenumlanes").innerHTML = "test"; //needupdate
+			document.getElementById("futurenumlanes").innerHTML = "test" //needupdate
+			document.getElementById("basefacltype").innerHTML = "test"; //needupdate lookup description 
+			document.getElementById("futurefacltype").innerHTML = "test"; //needupdate lookup description
+			document.getElementById("daily-truck-21").innerHTML = parseFloat(property.Y2021_T).toFixed(2);
 			
 			//When the opening year is updated, table cells related to opening year, interim year and design year will be all updated
 			var input_opening = document.getElementById("input_OpeningYear");
@@ -1319,7 +1353,6 @@
 				myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 				myLineChart3.update();
 
-				
 			});
 
 			var input_design = document.getElementById("input_DesignYear");
@@ -1390,7 +1423,6 @@
 				myLineChart3.update();
 
 				
-
 			});
 
 
@@ -1408,7 +1440,7 @@
 					var yr_1 = input_OpeningYear.value;
 					var yr_2 = input_InterimYear.value;
 					var yr_3 = input_DesignYear.value;
-					
+		
 					//NCHRP Report 765 Based on 2019 Data
 					m5_6_2045ratio = yr0_count*(futurevol/yr0_vol);
 					m5_6_2045diff = yr0_count+(futurevol-yr0_vol);
@@ -1526,9 +1558,6 @@
 					myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
 					myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 					myLineChart3.update();
-
-										
-					
 				});
 
 			
@@ -1913,6 +1942,16 @@
 				document.getElementById("opening_aadt_selectedyr").innerHTML = analysisYearAADT(input_OpeningYear.value, updatedCounts, updatedYears);
 				document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(input_InterimYear.value, updatedCounts, updatedYears);
 				document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(input_DesignYear.value, updatedCounts, updatedYears);
+				document.getElementById("count-s-1").innerHTML = analysisYearAADT(input_ExistingYear.value, updatedCounts, updatedYears);
+				document.getElementById("count-s-2").innerHTML = analysisYearAADT(input_OpeningYear.value, updatedCounts, updatedYears);
+				document.getElementById("count-s-3").innerHTML = analysisYearAADT(input_InterimYear.value, updatedCounts, updatedYears);
+				document.getElementById("count-s-4").innerHTML = analysisYearAADT(input_DesignYear.value, updatedCounts, updatedYears);
+
+				var input_existing = document.getElementById("input_ExistingYear");
+				input_existing.addEventListener("change", function(e){
+					yr = e.target.value;
+					document.getElementById("count-s-1").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+				});
 				
 				var input_opn = document.getElementById("input_OpeningYear");
 				input_opn.addEventListener("change", function(e){
@@ -1920,18 +1959,23 @@
 					document.getElementById("opening_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
 					document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(parseInt(yr)+10, updatedCounts, updatedYears);
 					document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(parseInt(yr)+20, updatedCounts, updatedYears);
+					document.getElementById("count-s-2").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+					document.getElementById("count-s-3").innerHTML = analysisYearAADT(parseInt(yr)+10, updatedCounts, updatedYears);
+					document.getElementById("count-s-4").innerHTML = analysisYearAADT(parseInt(yr)+20, updatedCounts, updatedYears);
 				});
 				
 				var input_intrm = document.getElementById("input_InterimYear");
 				input_intrm.addEventListener("change", function(e){
 					yr = e.target.value;
 					document.getElementById("interim_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+					document.getElementById("count-s-3").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
 				});
 				
 				var input_desg = document.getElementById("input_DesignYear");
 				input_desg.addEventListener("change", function(e){
 					yr = e.target.value;
 					document.getElementById("design_aadt_selectedyr").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
+					document.getElementById("count-s-4").innerHTML = analysisYearAADT(yr, updatedCounts, updatedYears);
 				});
 			}
 		}
