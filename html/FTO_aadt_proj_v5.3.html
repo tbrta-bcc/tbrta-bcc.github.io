@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TBRTA Count Visualizer</title>
+	<title>Project Traffic Visualizer</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="../css/ftocount_v5.3.css"/>
 
 <!-- Geojson -->
-	<script type="text/javascript" src="../geojson/Visualizer_07282022.geojson"></script>
+	<script type="text/javascript" src="../geojson/Visualizer_08262022.geojson"></script>
 
 </head>
 <body>
@@ -44,7 +44,7 @@
 		<div class="collapse navbar-collapse" id="bdNavbar">
 			<ul class="navbar-nav flex-row flex-wrap bd-navbar-nav pt-2 py-md-0">
 				<li class="nav-item col-6 col-md-auto">
-					<a class="nav-link p-3 active" aria-current="true" href="FTO_aadt_proj_v5.3.html"><b>TBRTA Count Visualizer</b></a>
+					<a class="nav-link p-3 active" aria-current="true" href="FTO_aadt_proj_v5.3.html"><b>Project Traffic Visualizer</b></a>
 				</li>
 			</ul>
 			<ul class="navbar-nav flex-row flex-wrap ms-md-auto">
@@ -273,13 +273,13 @@
 			<button class="nav-link active" id="pills-historical-tab" data-bs-toggle="pill" data-bs-target="#historical-chart" type="button" role="tab" aria-controls="pills-home" aria-selected="true" style="font-weight: bold">Historical AADT</button>
 		</li>
 		<li class="nav-item" role="presentation">
-			<button class="nav-link" id="pills-nchrp-tab" data-bs-toggle="pill" data-bs-target="#historical-data-projection" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" style="font-weight: bold">AADT Projection</button>
+			<button class="nav-link" id="pills-aadt-tab" data-bs-toggle="pill" data-bs-target="#historical-data-projection" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" style="font-weight: bold">AADT Projection</button>
 		</li>
 		<li class="nav-item" role="presentation">
 			<button class="nav-link" id="pills-nchrp-tab" data-bs-toggle="pill" data-bs-target="#nchrp-projection" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" style="font-weight: bold">NCHRP Procedure</button>
 		</li>
 		<li class="nav-item" role="presentation">
-			<button class="nav-link" id="pills-nchrp-tab" data-bs-toggle="pill" data-bs-target="#input-18kip" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" style="font-weight: bold; color: #EF6950; background-color: white;">ESAL Analysis Input</button>
+			<button class="nav-link" id="pills-esal-tab" data-bs-toggle="pill" data-bs-target="#input-18kip" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" style="font-weight: bold; color: #f74a2c; background-color: white;">ESAL Analysis Input</button>
 		</li>
 		<!--
 		<li class="nav-item dropdown">
@@ -512,27 +512,27 @@
 				</tbody>
 			</table>
 			
-			<table class="table2" id="info_table" style="width:35%;margin-left:100px;margin-top:50px;">
+			<table class="table2" id="info_table" style="width:60%;margin-left:100px;margin-top:50px;">
 				<tbody>
 				<tr>
-					<td style="font-size: 12;"><b>Base Year Model Number of Lanes (per direction)</b></td>
-					<td class="basenumlanes" id="basenumlanes" style="font-size: 12;"></td>
+					<td style="font-size: 12; text-align: left;"><b>Base Year Model Number of Lanes (per direction)</b></td>
+					<td class="basenumlanes" id="basenumlanes" style="font-size: 12; text-align: left;"></td>
 				</tr>
 				<tr>
-					<td style="font-size: 12;"><b>Future Year Model Number of Lanes (per direction)</b></td>
-					<td style="font-size: 12;" class="futurenumlanes" id="futurenumlanes"></td>
+					<td style="font-size: 12; text-align: left;"><b>Future Year Model Number of Lanes (per direction)</b></td>
+					<td style="font-size: 12; text-align: left;" class="futurenumlanes" id="futurenumlanes"></td>
 				</tr>
 				<tr>
-					<td style="font-size: 12;"><b>Base Year Model Facility Type</b></td>
-					<td style="font-size: 12;" class="basefacltype" id="basefacltype"></td>
+					<td style="font-size: 12; text-align: left;"><b>Base Year Model Facility Type</b></td>
+					<td style="font-size: 12; text-align: left;" class="basefacltype" id="basefacltype"></td>
 				</tr>
 				<tr>
-					<td style="font-size: 12;"><b>Future Year Model Facility Type</b></td>
-					<td style="font-size: 12;" class="futurefacltype" id="futurefacltype"></td>
+					<td style="font-size: 12; text-align: left;"><b>Future Year Model Facility Type</b></td>
+					<td style="font-size: 12; text-align: left;" class="futurefacltype" id="futurefacltype"></td>
 				</tr>
 				<tr>
-					<td style="font-size: 12;"><b>2021 Daily Truck</b></td>
-					<td style="font-size: 12;" class="daily-truck-21" id="daily-truck-21"></td>
+					<td style="font-size: 12; text-align: left;"><b>2021 Daily Truck</b></td>
+					<td style="font-size: 12; text-align: left;" class="daily-truck-21" id="daily-truck-21"></td>
 				</tr>
 			</tbody>
 			</table>
@@ -996,18 +996,18 @@
 			myLineChart2.data.datasets[2].data = trendLine(aadt_10, year_10).slice(0,51);
 			myLineChart2.data.datasets[3].data = trendLine([property.VOL15, property.VOL45], [2015, 2045]).slice(0,51);
 			myLineChart2.data.datasets[0].data = null;
-			myLineChart2.data.datasets[4].data = [property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,
-			 										property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,
-			 										property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,
-			 										property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,
-			 										property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,property.VOL15,
-			 										property.VOL15];
-			myLineChart2.data.datasets[5].data = [property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,
-			 										property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,
-			 										property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,
-			 										property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,
-			 										property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,property.VOL45,
-			 										property.VOL45];
+			myLineChart2.data.datasets[4].data = [property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,
+			 										property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,
+			 										property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,
+			 										property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,
+			 										property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,property.CAP15,
+			 										property.CAP15]; 
+			myLineChart2.data.datasets[5].data = [property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,
+			 										property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,
+			 										property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,
+			 										property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,
+			 										property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,property.CAP45,
+			 										property.CAP45]; 
 			myLineChart2.update();
 			
 			
@@ -1133,8 +1133,8 @@
 			myLineChart3.data.datasets[0].data = [null, yr0_count, m5a_opening, m5a_interim, m5a_design, null];
 			myLineChart3.data.datasets[1].data = [null, yr0_count, m5b_opening, m5b_interim, m5b_design, null];
 			myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
-			myLineChart3.data.datasets[3].data = [null, 5000, 5000, 5000, 5000, null];
-			myLineChart3.data.datasets[4].data = [null, 50000, 50000, 50000, 50000, null];
+			myLineChart3.data.datasets[3].data = [null, property.CAP15, property.CAP15, property.CAP15, property.CAP15, null];
+			myLineChart3.data.datasets[4].data = [null, property.CAP45, property.CAP45, property.CAP45, property.CAP45, null];
 			myLineChart3.update();
 
 			//18 KIP Input Table
@@ -1146,10 +1146,18 @@
 			document.getElementById("count-2").innerHTML = m6_opening.toLocaleString();
 			document.getElementById("count-3").innerHTML = m6_interim.toLocaleString();
 			document.getElementById("count-4").innerHTML = m6_design.toLocaleString();
-			document.getElementById("basenumlanes").innerHTML = "test"; //needupdate
-			document.getElementById("futurenumlanes").innerHTML = "test" //needupdate
-			document.getElementById("basefacltype").innerHTML = "test"; //needupdate lookup description 
-			document.getElementById("futurefacltype").innerHTML = "test"; //needupdate lookup description
+			if (property.LANE15 == 0) {
+				document.getElementById("basenumlanes").innerHTML = "NA";
+			} else {
+				document.getElementById("basenumlanes").innerHTML = property.LANE15;
+			}
+			if (property.LANE45 == 0) {
+				document.getElementById("futurenumlanes").innerHTML = "NA";
+			} else {
+				document.getElementById("futurenumlanes").innerHTML = property.LANE45;
+			}
+			document.getElementById("basefacltype").innerHTML = property.FT15;
+			document.getElementById("futurefacltype").innerHTML = property.FT45;
 			document.getElementById("daily-truck-21").innerHTML = parseFloat(property.Y2021_T).toFixed(2);
 			
 			//When the opening year is updated, table cells related to opening year, interim year and design year will be all updated
@@ -1422,7 +1430,6 @@
 				myLineChart3.data.datasets[2].data = [null, yr0_count, m6_opening, m6_interim, m6_design, null];
 				myLineChart3.update();
 
-				
 			});
 
 
@@ -1989,12 +1996,12 @@
 				
 			var popupContent = "<p style='line-height: 1.5em'> <i><b>Cosite #:</b></i> " + feature.properties.COSITE + '<br>' 
 					+'<i><b>Description:</b></i>&nbsp; '+ feature.properties.DESC_ + '<br>' 
-					+'<i><b>TBRPM:</b></i>&nbsp; '+ feature.properties.TBRPM + '<br>'
 					// +'<i><b>2021 AADT:</b></i> '+ feature.properties.Y2021 + '<br>'
 					+'<i><b>2021 K Factor:</b></i>&nbsp;'+ feature.properties.Y2021_K + '<br>'
 					+'<i><b>2021 D Factor:</b></i>&nbsp;'+ feature.properties.Y2021_D + '<br>'
 					+'<i><b>2021 T Factor:</b></i>&nbsp;'+ feature.properties.Y2021_T + '<br>'
-					+'<i><b>Source:</b></i>&nbsp; '+ feature.properties.Source_ + "</p>" ;
+					+'<i><b>Source:</b></i>&nbsp; '+ feature.properties.SOURCE  + '<br>'
+					+'<i><b>TBRPM:</b></i>&nbsp; '+ feature.properties.TBRPM + "</p>" ;
 
 			if (feature.properties && feature.properties.popupContent) {
 				popupContent += feature.properties.popupContent;
