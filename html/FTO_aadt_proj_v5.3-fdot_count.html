@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Project Traffic Visualizer</title>
+	<title>ESAL Projection Tool</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="../css/ftocount_v5.3.css"/>
 
 <!-- Geojson -->
-	<script type="text/javascript" src="../geojson/FTO_08262022.geojson"></script>
+	<script type="text/javascript" src="../geojson/fto_09212022.geojson"></script>
 
 </head>
 <body>
@@ -44,7 +44,7 @@
 		<div class="collapse navbar-collapse" id="bdNavbar">
 		<ul class="navbar-nav flex-row flex-wrap bd-navbar-nav pt-2 py-md-0">
 			<li class="nav-item col-6 col-md-auto">
-			<a class="nav-link p-3 active" aria-current="true" href="FTO_aadt_proj_v5.3.html"><b>Project Traffic Visualizer</b></a>
+			<a class="nav-link p-3 active" aria-current="true" href="FTO_aadt_proj_v5.3.html"><b>ESAL Projection Tool</b></a>
 			</li>
 		</ul>
 		<ul class="navbar-nav flex-row flex-wrap ms-md-auto">
@@ -529,6 +529,18 @@
 					<tr>
 						<td style="font-size: 12; text-align: left;"><b>Future Year Model Facility Type</b></td>
 						<td style="font-size: 12; text-align: left;" class="futurefacltype" id="futurefacltype"></td>
+					</tr>
+					<tr>
+						<td style="font-size: 12; text-align: left;"><b>Base Year Model Facility Type Category</b></td>
+						<td style="font-size: 12; text-align: left;" class="baseftcat" id="baseftcat"></td>
+					</tr>
+					<tr>
+						<td style="font-size: 12; text-align: left;"><b>Future Year Model Facility Type Category</b></td>
+						<td style="font-size: 12; text-align: left;" class="futureftcat" id="futureftcat"></td>
+					</tr>
+					<tr>
+						<td style="font-size: 12; text-align: left;"><b>Urban or Rural</b></td>
+						<td style="font-size: 12; text-align: left;" class="urbanorrural" id="urbanorrural"></td>
 					</tr>
 					<tr>
 						<td style="font-size: 12; text-align: left;"><b>2021 Daily Truck</b></td>
@@ -1158,6 +1170,15 @@
 			}
 			document.getElementById("basefacltype").innerHTML = property.FT15;
 			document.getElementById("futurefacltype").innerHTML = property.FT45;
+			document.getElementById("baseftcat").innerHTML = property.FT15_Cat;
+			document.getElementById("futureftcat").innerHTML = property.FT45_Cat;
+			if (property.Urban == 1) {
+				document.getElementById("urbanorrural").innerHTML = "Urban";
+			} 
+			if (property.Urban == 0) {
+				document.getElementById("urbanorrural").innerHTML = "Rural";
+			}
+			
 			document.getElementById("daily-truck-21").innerHTML = parseFloat(property.Y2021_T).toFixed(2);
 			
 			//When the opening year is updated, table cells related to opening year, interim year and design year will be all updated
