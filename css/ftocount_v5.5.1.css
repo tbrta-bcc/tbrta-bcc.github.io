@@ -171,31 +171,28 @@ th.head-nchrp{
 
 .map{
 	position: absolute;
-	width: 60vh;
+	width: 25%;
 	top: 72px;
 	bottom: 0;
 }
 
 .box_cosite{
 	position: absolute;
-	left: 63vh;
-	width: 30vh;
-	top: 7%;
+	left: 26%;
+	width: 17%;
+	top: 65px;
+	height: 50px;
+	padding: 0px 10px;
 }
 
 #historical-aadt-table{
-	position: relative;
-	left: 63vh;
-	width: 32vh;
-	height:70vh;
-	top: 10%;
-	padding: 0.1%;
+	position: absolute;
+	left: 26%;
+	width: 17%;
+	top: 95px;
+	bottom: 0;
+	padding: 0 5px;
 }
-
-#historical-aadt-table tr:nth-child(even) {
-  background-color: #FAFAFA;
-}
-
 
 #cosite, #chartsta{
 	font-weight: bold;
@@ -206,19 +203,28 @@ th.head-nchrp{
 	width: 80%;
     text-align: center;
 	margin: auto;
+	margin-bottom: 10px;
 }
 
 .container{
 	position: absolute;
-	left: 98vh;
-	width: 100vh;
-	height: 98vh;
-	top: 8vh;
+	left: 45%;
+	width: 55%;
+	top: 70px;
 	bottom: 0;
 }
 
 .nav-pills{
-	padding: 1px 0;
+	padding: 2px 0;
+}
+
+
+.container2{
+	margin: auto;
+	padding-top: 150px;
+	justify-content: center;
+	width: 388px;
+	height: 200px;
 }
 
 form{
@@ -228,11 +234,7 @@ form{
     text-align: left;
 }
 
-
-html, body {
-    height:100%;
-    width:100%;
-    margin:0;
-    padding:0;
-	/* overflow: hidden; */
+div.container2{
+    display: block;
+    text-align: center;
 }
