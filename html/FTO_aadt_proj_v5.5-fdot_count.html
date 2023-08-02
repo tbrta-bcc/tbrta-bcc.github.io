@@ -3,7 +3,7 @@
 <head>
 	<title>Traffic Projection Tool</title>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width">
 
 <!--Load jQuery-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="../css/ftocount_v5.5.css"/>
 
 <!-- Geojson -->
-	<script type="text/javascript" src="../geojson/FTO_07212023.geojson"></script>
+	<script type="text/javascript" src="../geojson/FTO_08012023.geojson"></script>
 
 </head>
 <body>
@@ -241,6 +241,13 @@
 				<td class="aadt_flag" id="2022f">0</td>
 				<td class="growth" id='2022g'>0</td>
 			</tr>
+			<tr>
+				<td class="checker"><input type="checkbox" id="check_2023"/></td>
+				<td class="year">2023</td>
+				<td class="aadt" id='2023c'>0</td>
+				<td class="aadt_flag" id="2023f">0</td>
+				<td class="growth" id='2023g'>0</td>
+			</tr>
 			</tbody>
 		</table>
 		
@@ -310,14 +317,14 @@
 				<th class="analysis-year" style="width:12%">Opening Year</th>
 				<th class="analysis-year" style="width:12%">Interim Year</th>
 				<th class="analysis-year" style="width:12%">Design Year</th>
-				<th class="analysis-year" style="width:20%;">Base Year Model Volume</th>
-				<th class="analysis-year" style="width:20%;">Future Year Model Volume</th>
+				<th class="analysis-year" style="width:20%;">Base Year Model Volume (PSWADT)</th>
+				<th class="analysis-year" style="width:20%;">Future Year Model Volume (PSWADT)</th>
 			</tr>
 		</thead>
 		<tbody>
 		<tr>
 			<td class="analysis-year">
-				<input type="number" id="input_ExistingYear" step="1" min="2000" max="2022" value="2022" onchange="saveValue(this);">
+				<input type="number" id="input_ExistingYear" step="1" min="2000" max="2023" value="2022" onchange="saveValue(this);">
 			</td>
 			<td class="manual-aadt">
 				<input type="number" style="border:1px solid; background-color: #FFEB9C; border-radius: 2px; font-weight: bold;" id="input_AADT" step="100" min="0" max="9999999" onchange="saveValue(this);">
@@ -346,7 +353,7 @@
 		
 		<div class="tab-pane fade show active" id="historical-chart" role="tabpanel" aria-labelledby="pills-home-tab">
 			<div id="historical_aadt">
-				<div><h5 style="padding: 10px 0;"><i>FTO Historical AADT Chart (2000-2022)</i></h5></div>
+				<div><h5 style="padding: 10px 0;"><i>FTO Historical AADT Chart (2000-2023)</i></h5></div>
 				<div style="padding-bottom: 10px;" id="historical_aadt_chart" class="btn-group" role="group" aria-label="Basic example">
 					<button type="button" class="btn btn-outline-primary btn-sm" onclick="download_csv_1('aadt_table');">Export</button>
 					<button type="button" class="btn btn-outline-primary btn-sm" onclick="selectElementContents(document.getElementById('aadt_table'));">Copy</button>
@@ -574,15 +581,15 @@
 	
 		var map = L.map('map').setView([28.23, -82.465], 9);
 
-		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		}).addTo(map);
+		L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', 
+			{attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+			}).addTo(map);
 
 		
 		var year1 = [];
 		var year2 = [];
 		for (var i = 0; i < 51; i++){
-			if(i < 23) {
+			if(i < 24) { // modify year
 				year1[i] = 2000 + i + '';
 			} 
 			year2[i] = 2000 + i + '';
@@ -932,6 +939,7 @@
 			countYearPair["2020"] = {aadt: property.Y2020, flag: property.Y2020_FLG, growth: 0};
 			countYearPair["2021"] = {aadt: property.Y2021, flag: property.Y2021_FLG, growth: 0};
 			countYearPair["2022"] = {aadt: property.Y2022, flag: property.Y2022_FLG, growth: 0};
+			countYearPair["2023"] = {aadt: property.Y2023, flag: property.Y2023_FLG, growth: 0};
 
 			
 		
@@ -961,7 +969,7 @@
 			document.getElementById("t_fac").innerHTML = parseFloat(property.Y2022_T).toFixed(2);
 
 			//update Historical AADT table
-			const years = 23; //year 2000 - 2022
+			const years = 24; //year 2000 - 2023 (modify year)
 			var id_aadt = new Array(years);
 			var id_growth = new Array(years);
 			var id_flag = new Array(years);
@@ -987,8 +995,8 @@
 				//document.getElementById(id_checkbox[i]).checked = false;
 			}
 			
-			var aadt_5 = historicalCount.slice(-5); //the last 5-year aadt (2018-2022)
-			var year_5 = historicalYear.slice(-5); //the last 5 years (2018-2022)
+			var aadt_5 = historicalCount.slice(-5); //the last 5-year aadt (2019-2023)
+			var year_5 = historicalYear.slice(-5); //the last 5 years (2019-2023)
 			var i = 0;
 			while (i < aadt_5.length) {
 				if (aadt_5[i] === 0) { // remove years with 0 aadt
@@ -2157,20 +2165,20 @@
 			onEachFeature: onEachFeature,
 
 			pointToLayer: function (feature, latlng) {
-				if(feature.properties.SOURCE == "County"){
+				if(feature.properties.SOURCE == "FDOT"){
 				    return L.circleMarker(latlng, {
 					radius: 4,
-					fillColor: "#40B7F2",
+					fillColor: "#F7A53C",
 					color: "#000",
 					weight: 1,
 					opacity: 1,
 					fillOpacity: 0.8
 				});
-			}
-				if(feature.properties.SOURCE == "ACP"){
+				}
+				if(feature.properties.SOURCE == "County"){
 				    return L.circleMarker(latlng, {
 					radius: 4,
-					fillColor: "#93C572",
+					fillColor: "#40B7F2",
 					color: "#000",
 					weight: 1,
 					opacity: 1,
