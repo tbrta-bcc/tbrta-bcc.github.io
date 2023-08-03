@@ -243,13 +243,6 @@
 				<td class="aadt_flag" id="2022f">0</td>
 				<td class="growth" id='2022g'>0</td>
 			</tr>
-			<tr>
-				<td class="checker"><input type="checkbox" id="check_2023"/></td>
-				<td class="year">2023</td>
-				<td class="aadt" id='2023c'>0</td>
-				<td class="aadt_flag" id="2023f">0</td>
-				<td class="growth" id='2023g'>0</td>
-			</tr>
 			</tbody>
 		</table>
 		
@@ -325,7 +318,7 @@
 		<tbody>
 		<tr>
 			<td class="analysis-year">
-				<input type="number" id="input_ExistingYear" step="1" min="2000" max="2023" value="2022" onchange="saveValue(this);">
+				<input type="number" id="input_ExistingYear" step="1" min="2000" max="2022" value="2022" onchange="saveValue(this);">
 			</td>
 			<td class="manual-aadt">
 				<input type="number" style="border:1px solid; background-color: #FFEB9C; border-radius: 2px; font-weight: bold;" id="input_AADT" step="100" min="0" max="9999999" onchange="saveValue(this);">
@@ -354,7 +347,7 @@
 		
 		<div class="tab-pane fade show active" id="historical-chart" role="tabpanel" aria-labelledby="pills-home-tab">
 			<div id="historical_aadt">
-				<div><h5 style="padding: 10px 0;"><i>FTO Historical AADT Chart (2000-2023)</i></h5></div>
+				<div><h5 style="padding: 10px 0;"><i>FTO Historical AADT Chart (2000-2022)</i></h5></div>
 				<div style="padding-bottom: 10px;" id="historical_aadt_chart" class="btn-group" role="group" aria-label="Basic example">
 					<button type="button" class="btn btn-outline-primary btn-sm" onclick="download_csv_1('aadt_table');">Export</button>
 					<button type="button" class="btn btn-outline-primary btn-sm" onclick="selectElementContents(document.getElementById('aadt_table'));">Copy</button>
@@ -590,7 +583,7 @@
 		var year1 = [];
 		var year2 = [];
 		for (var i = 0; i < 51; i++){
-			if(i < 24) { // modify year
+			if(i < 23) { // modify year
 				year1[i] = 2000 + i + '';
 			} 
 			year2[i] = 2000 + i + '';
@@ -940,8 +933,7 @@
 			countYearPair["2020"] = {aadt: property.Y2020, flag: property.Y2020_FLG, growth: 0};
 			countYearPair["2021"] = {aadt: property.Y2021, flag: property.Y2021_FLG, growth: 0};
 			countYearPair["2022"] = {aadt: property.Y2022, flag: property.Y2022_FLG, growth: 0};
-			countYearPair["2023"] = {aadt: property.Y2023, flag: property.Y2023_FLG, growth: 0};
-
+			
 			
 		
 			historicalYear = Object.keys(countYearPair).map(function(item){
@@ -970,7 +962,7 @@
 			document.getElementById("t_fac").innerHTML = parseFloat(property.Y2022_T).toFixed(2);
 
 			//update Historical AADT table
-			const years = 24; //year 2000 - 2023 (modify year)
+			const years = 23; //year 2000 - 2022 (modify year)
 			var id_aadt = new Array(years);
 			var id_growth = new Array(years);
 			var id_flag = new Array(years);
@@ -996,8 +988,8 @@
 				//document.getElementById(id_checkbox[i]).checked = false;
 			}
 			
-			var aadt_5 = historicalCount.slice(-5); //the last 5-year aadt (2019-2023)
-			var year_5 = historicalYear.slice(-5); //the last 5 years (2019-2023)
+			var aadt_5 = historicalCount.slice(-5); //the last 5-year aadt 
+			var year_5 = historicalYear.slice(-5); //the last 5 years 
 			var i = 0;
 			while (i < aadt_5.length) {
 				if (aadt_5[i] === 0) { // remove years with 0 aadt
