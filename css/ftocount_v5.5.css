@@ -62,6 +62,7 @@ div{
 #aadt_table th{
 	text-align: center;
 	color: #EF6950;
+	padding-bottom: 1%;
 }
 
 th.proj_table, th.head-nchrp{
@@ -184,16 +185,15 @@ th.head-nchrp{
 	position: absolute;
 	left: 26%;
 	width: 17%;
-	top: 65px;
-	height: 50px;
-	padding: 0px 10px;
+	top: 60px;
+	height: 40px;
 }
 
 #historical-aadt-table{
 	position: absolute;
 	left: 26%;
 	width: 17%;
-	top: 95px;
+	top: 98px;
 	bottom: 0;
 	padding: 0 5px;
 	zoom: 92%;
@@ -206,7 +206,7 @@ th.head-nchrp{
 
 #cosite, #chartsta{
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 17px;
 }
 
 #canvas-container-3 {
