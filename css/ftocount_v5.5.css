@@ -175,25 +175,27 @@ th.head-nchrp{
 
 .map{
 	position: absolute;
-	width: 55vh;
+	width: 25%;
 	top: 72px;
 	bottom: 0;
 }
 
-.box_cosite{ /* "Cosite Number:" */
+.box_cosite{
 	position: absolute;
-	left: 57vh;
-	width: 30vh;
-	top: 7%;
+	left: 26%;
+	width: 17%;
+	top: 65px;
+	height: 50px;
+	padding: 0px 10px;
 }
 
-#historical-aadt-table{ /* "Historical AADT Table*/
-	position: relative;
-	left: 63vh;
-	width: 32vh;
-	height:70vh;
-	top: 10%;
-	padding: 0.1%;
+#historical-aadt-table{
+	position: absolute;
+	left: 26%;
+	width: 17%;
+	top: 95px;
+	bottom: 0;
+	padding: 0 5px;
 	zoom: 92%;
 }
 
@@ -215,10 +217,9 @@ th.head-nchrp{
 
 .container{
 	position: absolute;
-	left: 90vh;
-	width: 115vh;
-	height: 95vh;
-	top: 8vh;
+	left: 45%;
+	width: 55%;
+	top: 70px;
 	bottom: 0;
 }
 
