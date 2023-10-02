@@ -547,6 +547,14 @@
 						<td style="font-size: 12; text-align: left;" class="futureftcat" id="futureftcat"></td>
 					</tr>
 					<tr>
+						<td style="font-size: 12; text-align: left;"><b>Base Year Model Area Type</b></td>
+						<td style="font-size: 12; text-align: left;" class="baseareatype" id="baseareatype"></td>
+					</tr>
+					<tr>
+						<td style="font-size: 12; text-align: left;"><b>Future Year Model Area Type</b></td>
+						<td style="font-size: 12; text-align: left;" class="futureareatype" id="futureareatype"></td>
+					</tr>
+					<tr>
 						<td style="font-size: 12; text-align: left;"><b>Urban or Rural</b></td>
 						<td style="font-size: 12; text-align: left;" class="urbanorrural" id="urbanorrural"></td>
 					</tr>
@@ -1038,8 +1046,8 @@
 
 			// Update input - NEW
 			input_AADT.value = countYearPair[yr_0].aadt;
-			input_BaseVolume.value = property.VOL15;
-			input_FutureVolume.value = property.VOL45;
+			input_BaseVolume.value = Math.round(property.VOL15);
+			input_FutureVolume.value = Math.round(property.VOL45);
 			
 			document.getElementById("growth_selectedyr").innerHTML = "";
 			document.getElementById("opening_aadt_selectedyr").innerHTML = "";
