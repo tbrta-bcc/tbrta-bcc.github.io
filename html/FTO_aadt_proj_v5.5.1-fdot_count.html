@@ -1183,10 +1183,12 @@
 			} else {
 				document.getElementById("futurenumlanes").innerHTML = property.LANE45;
 			}
-			document.getElementById("basefacltype").innerHTML = property.FT15;
-			document.getElementById("futurefacltype").innerHTML = property.FT45;
-			document.getElementById("baseftcat").innerHTML = property.FT15_Cat;
-			document.getElementById("futureftcat").innerHTML = property.FT45_Cat;
+			document.getElementById("basefacltype").innerHTML = property.FT_DESC15;
+			document.getElementById("futurefacltype").innerHTML = property.FT_DESC45;
+			document.getElementById("baseftcat").innerHTML = property.FT_CAT15;
+			document.getElementById("futureftcat").innerHTML = property.FT_CAT45;
+			document.getElementById("baseareatype").innerHTML = property.AT_DESC15;
+			document.getElementById("futureareatype").innerHTML = property.AT_DESC45;
 			if (property.Urban == 1) {
 				document.getElementById("urbanorrural").innerHTML = "Urban";
 			} 
