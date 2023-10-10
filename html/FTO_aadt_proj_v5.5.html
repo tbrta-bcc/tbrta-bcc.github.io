@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="../css/ftocount_v5.5.css"/>
 
 <!-- Geojson -->
-	<script type="text/javascript" src="../geojson/Visualizer_08012023.geojson"></script>
+	<script type="text/javascript" src="../geojson/Visualizer_10102023.geojson"></script>
 
 </head>
 <body>
@@ -546,6 +546,14 @@
 				<tr>
 					<td style="font-size: 12; text-align: left;"><b>Future Year Model Facility Type Category</b></td>
 					<td style="font-size: 12; text-align: left;" class="futureftcat" id="futureftcat"></td>
+				</tr>
+				<tr>
+					<td style="font-size: 12; text-align: left;"><b>Base Year Model Area Type</b></td>
+					<td style="font-size: 12; text-align: left;" class="baseareatype" id="baseareatype"></td>
+				</tr>
+				<tr>
+					<td style="font-size: 12; text-align: left;"><b>Future Year Model Area Type</b></td>
+					<td style="font-size: 12; text-align: left;" class="futureareatype" id="futureareatype"></td>
 				</tr>
 				<tr>
 					<td style="font-size: 12; text-align: left;"><b>Urban or Rural</b></td>
@@ -1176,10 +1184,12 @@
 			} else {
 				document.getElementById("futurenumlanes").innerHTML = property.LANE45;
 			}
-			document.getElementById("basefacltype").innerHTML = property.FT15;
-			document.getElementById("futurefacltype").innerHTML = property.FT45;
-			document.getElementById("baseftcat").innerHTML = property.FT15_Cat;
-			document.getElementById("futureftcat").innerHTML = property.FT45_Cat;
+			document.getElementById("basefacltype").innerHTML = property.FT_DESC15;
+			document.getElementById("futurefacltype").innerHTML = property.FT_DESC45;
+			document.getElementById("baseftcat").innerHTML = property.FT_CAT15;
+			document.getElementById("futureftcat").innerHTML = property.FT_CAT45;
+			document.getElementById("baseareatype").innerHTML = property.AT_DESC15;
+			document.getElementById("futureareatype").innerHTML = property.AT_DESC45;
 			if (property.Urban == 1) {
 				document.getElementById("urbanorrural").innerHTML = "Urban";
 			} 
