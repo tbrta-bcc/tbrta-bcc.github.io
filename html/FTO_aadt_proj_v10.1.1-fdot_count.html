@@ -1526,8 +1526,8 @@
 					var yr_3 = input_DesignYear.value;
 		
 					//NCHRP Report 765 Based on 2019 Data
-					m5_6_2045ratio = yr0_count*(property.VOL_FY*property.MOCF/yr0_vol);
-					m5_6_2045diff = yr0_count+(property.VOL_FY*property.MOCF-yr0_vol);
+					m5_6_2045ratio = yr0_count*(futurevol*property.MOCF/yr0_vol);
+					m5_6_2045diff = yr0_count+(futurevol*property.MOCF-yr0_vol);
 					m5_6_2045avg = (m5_6_2045ratio+m5_6_2045diff)/2;
 					
 					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
@@ -1662,8 +1662,8 @@
 					var yr_3 = input_DesignYear.value;
 					
 					//NCHRP Report 765 Based on 2019 Data
-					m5_6_2045ratio = yr0_count*(property.VOL_FY*property.MOCF/yr0_vol);
-					m5_6_2045diff = yr0_count+(property.VOL_FY*property.MOCF-yr0_vol);
+					m5_6_2045ratio = yr0_count*(futurevol*property.MOCF/yr0_vol);
+					m5_6_2045diff = yr0_count+(futurevol*property.MOCF-yr0_vol);
 					m5_6_2045avg = (m5_6_2045ratio+m5_6_2045diff)/2;
 					
 					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
@@ -1768,8 +1768,8 @@
 
 					
 					//NCHRP Report 765 Based on 2019 Data
-					m5_6_2045ratio = yr0_count*(property.VOL_FY*property.MOCF/yr0_vol);
-					m5_6_2045diff = yr0_count+(property.VOL_FY*property.MOCF-yr0_vol);
+					m5_6_2045ratio = yr0_count*(futurevol*property.MOCF/yr0_vol);
+					m5_6_2045diff = yr0_count+(futurevol*property.MOCF-yr0_vol);
 					m5_6_2045avg = (m5_6_2045ratio+m5_6_2045diff)/2;
 					
 					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
@@ -1882,8 +1882,8 @@
 
 					
 					//NCHRP Report 765 Based on 2019 Data
-					m5_6_2045ratio = yr0_count*(property.VOL_FY*property.MOCF/yr0_vol);
-					m5_6_2045diff = yr0_count+(property.VOL_FY*property.MOCF-yr0_vol);
+					m5_6_2045ratio = yr0_count*(futurevol*property.MOCF/yr0_vol);
+					m5_6_2045diff = yr0_count+(futurevol*property.MOCF-yr0_vol);
 					m5_6_2045avg = (m5_6_2045ratio+m5_6_2045diff)/2;
 					
 					//method 5a - NCHRP Report 765 Difference-Smoothing Method Based on Existing Year Data (if model is underestimating in the Base Year)
@@ -2269,5 +2269,6 @@
 
 </body>
 </html>
+
 
 
